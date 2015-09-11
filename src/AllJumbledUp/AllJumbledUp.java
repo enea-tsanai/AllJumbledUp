@@ -12,18 +12,8 @@ public class AllJumbledUp extends Application {
 
     private ObservableList<JumbledWord> JumbledWords = FXCollections.observableArrayList();
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(getClass().getResource("AllJumbledUp.fxml"));
-
-        // Give the controller access to the main app.
-        Controller controller = loader.getController();
-        controller.setMainApp(this);
-
-        primaryStage.setTitle("All Jumbled Up");
-        primaryStage.setScene(new Scene(root, 600, 465));
-        primaryStage.show();
+    public AllJumbledUp() {
+        genJumbledWords();
     }
 
     public void genJumbledWords() {
@@ -38,4 +28,37 @@ public class AllJumbledUp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AllJumbledUp.fxml"));
+        Parent root = loader.load();
+
+        // Give the controller access to the main app.
+        Controller controller = loader.getController();
+        controller.setMainApp(this);
+
+        primaryStage.setTitle("All Jumbled Up");
+        primaryStage.setScene(new Scene(root, 600, 465));
+        primaryStage.show();
+    }
+
+    /**
+     * Initializes the root layout.
+     */
+//    public void initRootLayout() {
+//        try {
+//            // Load root layout from fxml file.
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(AllJumbledUp.class.getResource("AllJumbledUp.fxml"));
+//            Parent rootLayout = loader.load(getClass().getResource("AllJumbledUp.fxml"));
+//
+//            // Show the scene containing the root layout.
+//            Scene scene = new Scene(rootLayout);
+//            primaryStage.setScene(scene);
+//            primaryStage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 }
