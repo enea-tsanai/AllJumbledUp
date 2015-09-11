@@ -20,10 +20,10 @@
                         <Font name="System Bold" size="23.0" />
                     </font>
                 </Label>
-                <TableView id="JumbledWordPairs" prefHeight="200.0" prefWidth="200.0">
+                <TableView id="JumbledWordsA1" prefHeight="200.0" prefWidth="200.0">
                     <columns>
-                        <TableColumn editable="false" prefWidth="284.0" sortable="false" text="C1" />
-                        <TableColumn prefWidth="270.0" resizable="false" sortable="false" text="C2" />
+                        <TableColumn id="JumbledColumA1" editable="false" prefWidth="284.0" sortable="false" text="C1" />
+                        <TableColumn id="GuessColumA1" prefWidth="270.0" resizable="false" sortable="false" text="C2" />
                     </columns>
                 </TableView>
                 <Region prefHeight="74.0" prefWidth="570.0" />
