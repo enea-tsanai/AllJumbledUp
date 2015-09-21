@@ -9,6 +9,7 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
+//TODO: Add comments
 public class Controller {
     @FXML
     private GridPane JumbledWordsA1;
@@ -49,7 +50,7 @@ public class Controller {
             jwLabel.setFont(Font.font("Monospaced", 25));
             jwLabel.setMaxWidth(100);
 
-                /* Input field for user to guess the jumbled word*/
+            /* Input field for user to guess the jumbled word*/
             TextField guessField = new TextField();
             guessField.setId("gjw_" + l);
             guessField.setFont(Font.font("Monospaced", 24));

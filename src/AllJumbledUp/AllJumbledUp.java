@@ -9,17 +9,17 @@ import javafx.stage.Stage;
 import java.util.LinkedList;
 import java.util.List;
 
+//TODO: Add comments
 public class AllJumbledUp extends Application {
 
-//    private ObservableList<JumbledWord> JumbledWords = FXCollections.observableArrayList();
     private List <JumbledWord> JumbledWords = new LinkedList<>();
-
 
     public AllJumbledUp() {
         genJumbledWords();
     }
 
     public void genJumbledWords() {
+        //TODO: Implement Logic
         JumbledWords.add(new JumbledWord("TestA"));
         JumbledWords.add(new JumbledWord("TestB"));
         JumbledWords.add(new JumbledWord("TestC"));
@@ -48,23 +48,4 @@ public class AllJumbledUp extends Application {
         primaryStage.setScene(new Scene(root, 600, 465));
         primaryStage.show();
     }
-
-    /**
-     * Initializes the root layout.
-     */
-//    public void initRootLayout() {
-//        try {
-//            // Load root layout from fxml file.
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(AllJumbledUp.class.getResource("AllJumbledUp.fxml"));
-//            Parent rootLayout = loader.load(getClass().getResource("AllJumbledUp.fxml"));
-//
-//            // Show the scene containing the root layout.
-//            Scene scene = new Scene(rootLayout);
-//            primaryStage.setScene(scene);
-//            primaryStage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
