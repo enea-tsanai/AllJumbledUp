@@ -1,17 +1,20 @@
 package AllJumbledUp;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 
 public class Controller {
     @FXML
-    private TableView<JumbledWord> JumbledWordsA1;
+    private GridPane JumbledWordsA1;
+
     @FXML
-    private TableColumn<JumbledWord, String> JumbledColumnA1;
-    @FXML
-    private TableColumn<JumbledWord, String> GuessColumnA1;
+    private Label storyLabel;
 
     // Reference to the main application.
     private AllJumbledUp allJumbledUp;
@@ -30,90 +33,71 @@ public class Controller {
     @FXML
     private void initialize() {
         System.out.println("Controller Initialized");
-        // Initialize the tables
-        JumbledWordsA1.setEditable(true);
-        JumbledColumnA1.setCellValueFactory(cellData -> cellData.getValue().getJumbledWordProperty());
-        GuessColumnA1.setCellValueFactory(new PropertyValueFactory<>("GuessWord"));
-        GuessColumnA1.setCellFactory(TextFieldTableCell.<JumbledWord>forTableColumn());
-//        GuessColumnA1.setCellValueFactory(cellData -> cellData.getValue().getGuessWordProperty());
+        ColumnConstraints column1 = new ColumnConstraints();
+        column1.setPercentWidth(20);
+        ColumnConstraints column2 = new ColumnConstraints();
+        column2.setPercentWidth(80);
+    }
 
-//
-////        // Custom rendering of the table cell.
-//        GuessColumnA1.setCellFactory(column -> {
-//            return new TableCell<JumbledWord, String>() {
-//                @Override
-//                protected void updateItem(String item, boolean empty) {
-////                    super.updateItem(item, empty);
-//                    this.setEditable(true);
-//                    if (item == null || empty) {
-//                        setText("sdf");
-//                        setStyle("");
-//                    } else if (item.equals("top")) {
-//                        // Format date.
-//                        setText("TEST");
-//                        setTextFill(Color.CHOCOLATE);
-//                        setStyle("-fx-background-color: yellow");
-//                    }
-////                    setText("TEST");
-////                    setTextFill(Color.CHOCOLATE);
-////                    setStyle("-fx-background-color: yellow");
-//                }
-//            };
-//        });
-//
-//
-//
-//
-//        private TableColumn createLastNameColumn() {
-//            Callback<TableColumn, TableCell> editableFactory = new Callback<TableColumn, TableCell>() {
-//                @Override
-//                public TableCell call(TableColumn p) {
-//                    return new EditingCell();
-//                }
-//            };
-//
-//            TableColumn lastNameCol = new TableColumn("Last Name");
-//            lastNameCol.setMinWidth(100);
-//            lastNameCol.setCellValueFactory(new PropertyValueFactory<Person, String>("lastName"));
-//            lastNameCol.setCellFactory(editableFactory);
-//            lastNameCol.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Person, String>>() {
-//                @Override
-//                public void handle(TableColumn.CellEditEvent<Person, String> t) {
-//                    System.out.println("Commiting last name change. Previous: " + t.getOldValue() + "   New: " + t.getNewValue());
-//                    t.getRowValue().setLastName(t.getNewValue());
-//                }
-//            });
-//
-//            return lastNameCol;
-//        }
+    @FXML
+    public void bindData () {
+        int l = 0;
+        for (JumbledWord jw : allJumbledUp.getJumbledWords()) {
+            System.out.println(jw.getJumbledWord());
 
+            Label jwLabel = new Label(jw.getJumbledWord());
+            jwLabel.setFont(Font.font("Monospaced", 25));
+            jwLabel.setMaxWidth(100);
 
+                /* Input field for user to guess the jumbled word*/
+            TextField guessField = new TextField();
+            guessField.setId("gjw_" + l);
+            guessField.setFont(Font.font("Monospaced", 24));
+            guessField.setStyle("-fx-background-color: transparent;");
 
+            /* Background non editable field to highlight special letters*/
+            TextField guessFieldSL = new TextField();
+            //guessFieldSL.setId("");
+            guessFieldSL.setFont(Font.font("Monospaced", 25));
+            //guessFieldSL.setText("\u0A66");
+            guessFieldSL.setText("_");
+            guessFieldSL.setEditable(false);
+            guessFieldSL.setStyle("-fx-text-inner-color: red;");
+            addTextLimiter(guessField, jw.getJumbledWord().length());
+            addTextMatchController(guessField, jw.getWord());
 
+            JumbledWordsA1.add(jwLabel, 0, l);
+            JumbledWordsA1.add(guessFieldSL, 1, l);
+            JumbledWordsA1.add(guessField, 1, l);
 
-        // Listeners
-        GuessColumnA1.setOnEditCommit((TableColumn.CellEditEvent<JumbledWord, String> t) -> {
-            System.out.println("Edited");
+            l++;
+        }
+    }
 
-            if (((JumbledWord) t.getTableView().getItems().get(
-                    t.getTablePosition().getRow())
-                ).getWord().equals(t.getNewValue())) {
-                System.out.println("Found It!!");
+    // Listeners
+    public static void addTextLimiter(final TextField tf, final int maxLength) {
+        tf.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+                if (tf.getText().length() > maxLength) {
+                    String s = tf.getText().substring(0, maxLength);
+                    tf.setText(s);
+                }
             }
         });
+    }
 
-//        emailCol.setOnEditCommit(
-//                (CellEditEvent<Person, String> t) -> {
-//                    ((Person) t.getTableView().getItems().get(
-//                            t.getTablePosition().getRow())
-//                    ).setEmail(t.getNewValue());
-//                });
-
-
-//        GuessColumnA1.setOnEditCancel((TableColumn.CellEditEvent<JumbledWord, String> t) -> {
-//            t.getTableColumn().getCellValueFactory().getProperty();
-//            (t.getTableView().getItems().get(t.getTablePosition().getRow())).(t.getNewValue());
-//        });
+    public static void addTextMatchController(final TextField tf, final String keyW) {
+        tf.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+                if (tf.getText().equals(keyW)) {
+                    tf.setEditable(false);
+                    tf.setStyle("-fx-text-inner-color: green;");
+                    System.out.println(tf.getAlignment().getHpos());
+                }
+            }
+        });
     }
 
     /**
@@ -122,9 +106,8 @@ public class Controller {
      * @param allJumbledUpApp
      */
     public void setMainApp(AllJumbledUp allJumbledUpApp) {
+        System.out.println("Controller started");
         this.allJumbledUp = allJumbledUpApp;
-
-        // Add observable list data to the table
-        JumbledWordsA1.setItems(allJumbledUp.getJumbledWords());
+        bindData();
     }
 }

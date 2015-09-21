@@ -1,16 +1,19 @@
 package AllJumbledUp;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class AllJumbledUp extends Application {
 
-    private ObservableList<JumbledWord> JumbledWords = FXCollections.observableArrayList();
+//    private ObservableList<JumbledWord> JumbledWords = FXCollections.observableArrayList();
+    private List <JumbledWord> JumbledWords = new LinkedList<>();
+
 
     public AllJumbledUp() {
         genJumbledWords();
@@ -19,9 +22,11 @@ public class AllJumbledUp extends Application {
     public void genJumbledWords() {
         JumbledWords.add(new JumbledWord("TestA"));
         JumbledWords.add(new JumbledWord("TestB"));
+        JumbledWords.add(new JumbledWord("TestC"));
+        JumbledWords.add(new JumbledWord("TestD"));
     }
 
-    public ObservableList<JumbledWord> getJumbledWords() {
+    public List<JumbledWord> getJumbledWords() {
         return JumbledWords;
     }
 
@@ -31,6 +36,7 @@ public class AllJumbledUp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        getJumbledWords();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AllJumbledUp.fxml"));
         Parent root = loader.load();
 
