@@ -13,6 +13,8 @@ import javafx.scene.text.Font;
 public class Controller {
     @FXML
     private GridPane JumbledWordsA1;
+    @FXML
+    private GridPane JumbledWordsA2;
 
     @FXML
     private Label storyLabel;
@@ -35,6 +37,7 @@ public class Controller {
     private void initialize() {
         System.out.println("Controller Initialized");
         JumbledWordsA1.getStyleClass().add("grid");
+        JumbledWordsA2.getStyleClass().add("grid");
 //        ColumnConstraints column1 = new ColumnConstraints();
 //        column1.setPercentWidth(50);
 //        ColumnConstraints column2 = new ColumnConstraints();
@@ -44,24 +47,26 @@ public class Controller {
     @FXML
     public void bindData () {
         int l = 0;
+
+        /* Populate Area A1 */
         for (JumbledWord jw : allJumbledUp.getJumbledWords()) {
             System.out.println(jw.getJumbledWord());
 
             /* Jumbled Words labels */
             Label jwLabel = new Label(jw.getJumbledWord());
-            jwLabel.setFont(Font.font("Monospaced", 25));
+            jwLabel.setFont(Font.font("Monospaced", 18));
             jwLabel.setMaxWidth(100);
 
             /* Input field for user to guess the jumbled word*/
             TextField guessField = new TextField();
             guessField.setId("gjw_" + l);
-            guessField.setFont(Font.font("Monospaced", 24));
+            guessField.setFont(Font.font("Monospaced", 17));
             guessField.setStyle("-fx-background-color: transparent;");
 
             /* Background non editable field to highlight special letters*/
             TextField guessFieldSL = new TextField();
             //guessFieldSL.setId("");
-            guessFieldSL.setFont(Font.font("Monospaced", 25));
+            guessFieldSL.setFont(Font.font("Monospaced", 18));
             //guessFieldSL.setText("\u0A66");
             guessFieldSL.setText("_");
             guessFieldSL.setEditable(false);
@@ -75,6 +80,34 @@ public class Controller {
 
             l++;
         }
+
+        /* Populate Area A1 */
+        /* Final Jumbled Word label */
+        Label fjwLabel = new Label("Jumbled Word Final World");
+        fjwLabel.setFont(Font.font("Monospaced", 18));
+        fjwLabel.setMaxWidth(200);
+
+        /* Input field for user to guess the jumbled word*/
+        TextField fguessField = new TextField();
+        fguessField.setId("gjw_" + l);
+        fguessField.setFont(Font.font("Monospaced", 17));
+        fguessField.setStyle("-fx-background-color: transparent;");
+
+        /* Background non editable field to highlight special letters*/
+        TextField fguessFieldSL = new TextField();
+        //guessFieldSL.setId("");
+        fguessFieldSL.setFont(Font.font("Monospaced", 18));
+        //guessFieldSL.setText("\u0A66");
+        fguessFieldSL.setText("_");
+        fguessFieldSL.setEditable(false);
+        fguessFieldSL.setStyle("-fx-text-inner-color: red;");
+
+        JumbledWordsA2.add(fjwLabel, 0, 0);
+        JumbledWordsA2.add(fguessFieldSL, 0, 1);
+        JumbledWordsA2.add(fguessField, 0, 1);
+
+        storyLabel.setText("This is our Story .. Dummy Dummy Dummy Dummy Dummy Dummy");
+
     }
 
     // Listeners
