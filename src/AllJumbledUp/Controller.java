@@ -34,10 +34,11 @@ public class Controller {
     @FXML
     private void initialize() {
         System.out.println("Controller Initialized");
-        ColumnConstraints column1 = new ColumnConstraints();
-        column1.setPercentWidth(20);
-        ColumnConstraints column2 = new ColumnConstraints();
-        column2.setPercentWidth(80);
+        JumbledWordsA1.getStyleClass().add("grid");
+//        ColumnConstraints column1 = new ColumnConstraints();
+//        column1.setPercentWidth(50);
+//        ColumnConstraints column2 = new ColumnConstraints();
+//        column2.setPercentWidth(50);
     }
 
     @FXML
@@ -46,6 +47,7 @@ public class Controller {
         for (JumbledWord jw : allJumbledUp.getJumbledWords()) {
             System.out.println(jw.getJumbledWord());
 
+            /* Jumbled Words labels */
             Label jwLabel = new Label(jw.getJumbledWord());
             jwLabel.setFont(Font.font("Monospaced", 25));
             jwLabel.setMaxWidth(100);

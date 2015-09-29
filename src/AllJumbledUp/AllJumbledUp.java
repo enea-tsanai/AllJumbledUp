@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import jdk.internal.dynalink.DynamicLinker;
 
+import javax.management.DynamicMBean;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,8 +46,13 @@ public class AllJumbledUp extends Application {
         Controller controller = loader.getController();
         controller.setMainApp(this);
 
+        String css = this.getClass().getResource("style.css").toExternalForm();
+        Scene JumbleScene = new Scene(root, 600, 465);
+        JumbleScene.getStylesheets().add(css);
+
+
         primaryStage.setTitle("All Jumbled Up");
-        primaryStage.setScene(new Scene(root, 600, 465));
+        primaryStage.setScene(JumbleScene);
         primaryStage.show();
     }
 }
