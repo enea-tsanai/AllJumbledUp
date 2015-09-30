@@ -25,8 +25,7 @@ public class Controller {
 
     /* Final Jumbled Word label */
     @FXML
-    static
-    Label fjwLabel = new Label("**********");
+    static Label fjwLabel = new Label("**********");
 
 
     /**
