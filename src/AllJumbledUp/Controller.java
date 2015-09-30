@@ -5,7 +5,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
@@ -21,6 +20,14 @@ public class Controller {
 
     // Reference to the main application.
     private AllJumbledUp allJumbledUp;
+    private static int FoundJwords = 0;
+    private static boolean FWrevealed = false;
+
+    /* Final Jumbled Word label */
+    @FXML
+    static
+    Label fjwLabel = new Label("**********");
+
 
     /**
      * The constructor.
@@ -38,10 +45,6 @@ public class Controller {
         System.out.println("Controller Initialized");
         JumbledWordsA1.getStyleClass().add("grid");
         JumbledWordsA2.getStyleClass().add("grid");
-//        ColumnConstraints column1 = new ColumnConstraints();
-//        column1.setPercentWidth(50);
-//        ColumnConstraints column2 = new ColumnConstraints();
-//        column2.setPercentWidth(50);
     }
 
     @FXML
@@ -81,9 +84,8 @@ public class Controller {
             l++;
         }
 
-        /* Populate Area A1 */
-        /* Final Jumbled Word label */
-        Label fjwLabel = new Label("Jumbled Word Final World");
+        /* Populate Area A2 */
+
         fjwLabel.setFont(Font.font("Monospaced", 18));
         fjwLabel.setMaxWidth(200);
 
@@ -106,8 +108,7 @@ public class Controller {
         JumbledWordsA2.add(fguessFieldSL, 0, 1);
         JumbledWordsA2.add(fguessField, 0, 1);
 
-        storyLabel.setText("This is our Story .. Dummy Dummy Dummy Dummy Dummy Dummy");
-
+        storyLabel.setText(AllJumbledUp.getStory());
     }
 
     // Listeners
@@ -119,6 +120,8 @@ public class Controller {
                     String s = tf.getText().substring(0, maxLength);
                     tf.setText(s);
                 }
+                System.out.print("found: " + FoundJwords);
+
             }
         });
     }
@@ -128,9 +131,14 @@ public class Controller {
             @Override
             public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
                 if (tf.getText().equals(keyW)) {
+                    FoundJwords ++;
                     tf.setEditable(false);
                     tf.setStyle("-fx-text-inner-color: green;");
                     System.out.println(tf.getAlignment().getHpos());
+                    if ((FoundJwords == 4) && (!FWrevealed)){
+                        System.out.print("FW Revealed");
+                        fjwLabel.setText(AllJumbledUp.getJW());
+                    }
                 }
             }
         });

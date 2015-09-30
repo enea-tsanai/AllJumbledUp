@@ -5,31 +5,63 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import jdk.internal.dynalink.DynamicLinker;
 
-import javax.management.DynamicMBean;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 //TODO: Add comments
 public class AllJumbledUp extends Application {
 
     private List <JumbledWord> JumbledWords = new LinkedList<>();
+    private List <FwStoryPair> FWDictionary = new ArrayList<>();
 
+    private static String JW, Story;
+
+
+    /* Assign Final Word */
+    public void assignFW() {
+        int index = ThreadLocalRandom.current().nextInt(1, FWDictionary.size());
+        JW = FWDictionary.get(index).getFW();
+        Story = FWDictionary.get(index).getStory();
+        System.out.println("FW: " + JW);
+    }
+
+    /*Constructor */
     public AllJumbledUp() {
+        genFWDictionary();
+        //for (int i = 0; i < 50; i++)
+            assignFW();
         genJumbledWords();
+    }
+
+
+    private void genFWDictionary() {
+        FWDictionary.add(new FwStoryPair("Potato", "this is a story"));
+        FWDictionary.add(new FwStoryPair("Application", "this is a story"));
+        FWDictionary.add(new FwStoryPair("Monkey", "this is a story"));
+        FWDictionary.add(new FwStoryPair("Aeroplane", "this is a story"));
+        FWDictionary.add(new FwStoryPair("Football", "this is a story"));
+        FWDictionary.add(new FwStoryPair("Building", "this is a story"));
     }
 
     public void genJumbledWords() {
         //TODO: Implement Logic
-        JumbledWords.add(new JumbledWord("TestA"));
-        JumbledWords.add(new JumbledWord("TestB"));
-        JumbledWords.add(new JumbledWord("TestC"));
-        JumbledWords.add(new JumbledWord("TestD"));
+        JumbledWords.add(new JumbledWord("a"));
+        JumbledWords.add(new JumbledWord("b"));
+        JumbledWords.add(new JumbledWord("c"));
+        JumbledWords.add(new JumbledWord("d"));
     }
 
     public List<JumbledWord> getJumbledWords() {
         return JumbledWords;
+    }
+
+    public static String getJW() {
+        return JW;
+    }
+
+    public static String getStory() {
+        return Story;
     }
 
     public static void main(String[] args) {
