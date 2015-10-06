@@ -5,18 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 //TODO: Add comments
 public class AllJumbledUp extends Application {
 
-    private List <JumbledWord> JumbledWords = new LinkedList<>();
+    private List <JumbledWord> JumbledWords = new ArrayList<>();
     private List <FwStoryPair> FWDictionary = new ArrayList<>();
-
     private static String JW, Story;
-
 
     /* Assign Final Word */
     public void assignFW() {
@@ -46,10 +43,14 @@ public class AllJumbledUp extends Application {
 
     public void genJumbledWords() {
         //TODO: Implement Logic
-        JumbledWords.add(new JumbledWord("a"));
-        JumbledWords.add(new JumbledWord("b"));
-        JumbledWords.add(new JumbledWord("c"));
-        JumbledWords.add(new JumbledWord("d"));
+        List<Integer> sps = Arrays.asList(1,2);
+        JumbledWords.add(new JumbledWord("abcd", sps));
+        sps = Arrays.asList(0,2);
+        JumbledWords.add(new JumbledWord("efgh", sps));
+        sps = Arrays.asList(3);
+        JumbledWords.add(new JumbledWord("ijkl", sps));
+        sps = Arrays.asList(0);
+        JumbledWords.add(new JumbledWord("mnopq", sps));
     }
 
     public List<JumbledWord> getJumbledWords() {
@@ -70,7 +71,6 @@ public class AllJumbledUp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        getJumbledWords();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AllJumbledUp.fxml"));
         Parent root = loader.load();
 
@@ -81,7 +81,6 @@ public class AllJumbledUp extends Application {
         String css = this.getClass().getResource("style.css").toExternalForm();
         Scene JumbleScene = new Scene(root, 600, 465);
         JumbleScene.getStylesheets().add(css);
-
 
         primaryStage.setTitle("All Jumbled Up");
         primaryStage.setScene(JumbleScene);

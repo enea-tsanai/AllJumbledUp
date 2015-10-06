@@ -10,23 +10,24 @@ import javafx.scene.text.Font;
 
 //TODO: Add comments
 public class Controller {
+
     @FXML
     private GridPane JumbledWordsA1;
+
     @FXML
     private GridPane JumbledWordsA2;
 
     @FXML
     private Label storyLabel;
 
-    // Reference to the main application.
-    private AllJumbledUp allJumbledUp;
-    private static int FoundJwords = 0;
-    private static boolean FWrevealed = false;
-
     /* Final Jumbled Word label */
     @FXML
     static Label fjwLabel = new Label("**********");
 
+    // Reference to the main application.
+    private AllJumbledUp allJumbledUp;
+    private static int FoundJwords = 0;
+    private static boolean FWrevealed = false;
 
     /**
      * The constructor.
@@ -52,7 +53,6 @@ public class Controller {
 
         /* Populate Area A1 */
         for (JumbledWord jw : allJumbledUp.getJumbledWords()) {
-            System.out.println(jw.getJumbledWord());
 
             /* Jumbled Words labels */
             Label jwLabel = new Label(jw.getJumbledWord());
@@ -70,7 +70,7 @@ public class Controller {
             //guessFieldSL.setId("");
             guessFieldSL.setFont(Font.font("Monospaced", 18));
             //guessFieldSL.setText("\u0A66");
-            guessFieldSL.setText("_");
+            guessFieldSL.setText(jw.getMask());
             guessFieldSL.setEditable(false);
             guessFieldSL.setStyle("-fx-text-inner-color: red;");
             addTextLimiter(guessField, jw.getJumbledWord().length());
@@ -119,8 +119,6 @@ public class Controller {
                     String s = tf.getText().substring(0, maxLength);
                     tf.setText(s);
                 }
-                System.out.print("found: " + FoundJwords);
-
             }
         });
     }
@@ -133,9 +131,7 @@ public class Controller {
                     FoundJwords ++;
                     tf.setEditable(false);
                     tf.setStyle("-fx-text-inner-color: green;");
-                    System.out.println(tf.getAlignment().getHpos());
                     if ((FoundJwords == 4) && (!FWrevealed)){
-                        System.out.print("FW Revealed");
                         fjwLabel.setText(AllJumbledUp.getJW());
                     }
                 }
