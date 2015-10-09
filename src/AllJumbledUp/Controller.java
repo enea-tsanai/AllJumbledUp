@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
+import java.util.Set;
+
 //TODO: Add comments
 public class Controller {
 
@@ -74,7 +76,7 @@ public class Controller {
             guessFieldSL.setEditable(false);
             guessFieldSL.setStyle("-fx-text-inner-color: red;");
             addTextLimiter(guessField, jw.getJumbledWord().length());
-            addTextMatchController(guessField, jw.getWord());
+            addTextMatchController(guessField, jw.getWord(), jw.getSPchars());
 
             JumbledWordsA1.add(jwLabel, 0, l);
             JumbledWordsA1.add(guessFieldSL, 1, l);
@@ -111,6 +113,7 @@ public class Controller {
     }
 
     // Listeners
+    /*Limits max input field length*/
     public static void addTextLimiter(final TextField tf, final int maxLength) {
         tf.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -123,17 +126,26 @@ public class Controller {
         });
     }
 
-    public static void addTextMatchController(final TextField tf, final String keyW) {
+    /*Checks if our input is identical to the jumbled world*/
+    public static void addTextMatchController(final TextField tf, final String keyW, final String spchars) {
         tf.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
                 if (tf.getText().equals(keyW)) {
-                    FoundJwords ++;
+
                     tf.setEditable(false);
                     tf.setStyle("-fx-text-inner-color: green;");
-                    if ((FoundJwords == 4) && (!FWrevealed)){
-                        fjwLabel.setText(AllJumbledUp.getJW());
-                    }
+
+                    // Add the special characters of this word above the final jumbled word
+                    if(FoundJwords == 0)
+                        fjwLabel.setText("");
+                    fjwLabel.setText(fjwLabel.getText()+spchars);
+
+                    FoundJwords ++;
+
+//                    if ((FoundJwords == 4) && (!FWrevealed)){
+//                        fjwLabel.setText(AllJumbledUp.getJW());
+//                    }
                 }
             }
         });

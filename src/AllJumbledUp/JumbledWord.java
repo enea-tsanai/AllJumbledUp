@@ -67,4 +67,13 @@ public class JumbledWord {
         return mask.toString();
     }
 
+    /*Returns the special characters as a string*/
+    String getSPchars() {
+        String spchars = "";
+        for(int pos:SpecialPositions_) {
+            spchars += getWord().charAt(pos);
+        }
+        return spchars;
+    }
+
 }
