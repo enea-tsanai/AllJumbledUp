@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -71,19 +73,54 @@ public class AllJumbledUp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("AllJumbledUp.fxml"));
-        Parent root = loader.load();
+        showMainMenuScene(primaryStage);
+        //showMainGameScene(primaryStage);
+    }
+    public void showMainMenuScene(Stage stage) {
+        try {
 
-        // Give the controller access to the main app.
-        Controller controller = loader.getController();
-        controller.setMainApp(this);
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("MainMenu.fxml"));
 
-        String css = this.getClass().getResource("style.css").toExternalForm();
-        Scene JumbleScene = new Scene(root, 600, 465);
-        JumbleScene.getStylesheets().add(css);
+            Parent root = loader.load();
 
-        primaryStage.setTitle("All Jumbled Up");
-        primaryStage.setScene(JumbleScene);
-        primaryStage.show();
+//            Controller controller = loader.getController();
+//            controller.setMainApp(this);
+
+//            String css = this.getClass().getResource("style.css").toExternalForm();
+            Scene JumbleScene = new Scene(root);
+//            JumbleScene.getStylesheets().add(css);
+
+            stage.setTitle("All Jumbled Up - Main Menu");
+            stage.setScene(JumbleScene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void showMainGameScene(Stage primaryStage) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();//(getClass().getResource("AllJumbledUp.fxml"));
+            loader.setLocation(getClass().getResource("AllJumbledUp.fxml"));
+
+            Parent root = loader.load();
+            Controller controller = loader.getController();
+            controller.setMainApp(this);
+
+            String css = this.getClass().getResource("style.css").toExternalForm();
+            Scene JumbleScene = new Scene(root);
+            JumbleScene.getStylesheets().add(css);
+
+            primaryStage.setTitle("All Jumbled Up");
+            primaryStage.setScene(JumbleScene);
+            primaryStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
