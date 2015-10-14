@@ -17,6 +17,8 @@ public class AllJumbledUp extends Application {
     private List <FwStoryPair> FWDictionary = new ArrayList<>();
     private static String JW, Story;
 
+    public Stage stage;
+
     /* Assign Final Word */
     public void assignFW() {
         int index = ThreadLocalRandom.current().nextInt(1, FWDictionary.size());
@@ -73,9 +75,11 @@ public class AllJumbledUp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
         showMainMenuScene(primaryStage);
-        //showMainGameScene(primaryStage);
+        //showMainGameScene();
     }
+
     public void showMainMenuScene(Stage stage) {
         try {
 
@@ -84,8 +88,8 @@ public class AllJumbledUp extends Application {
 
             Parent root = loader.load();
 
-//            Controller controller = loader.getController();
-//            controller.setMainApp(this);
+            MenuController controller = loader.getController();
+            controller.setMainApp(this);
 
 //            String css = this.getClass().getResource("style.css").toExternalForm();
             Scene JumbleScene = new Scene(root);
@@ -93,6 +97,7 @@ public class AllJumbledUp extends Application {
 
             stage.setTitle("All Jumbled Up - Main Menu");
             stage.setScene(JumbleScene);
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException e) {
@@ -101,7 +106,7 @@ public class AllJumbledUp extends Application {
     }
 
 
-    public void showMainGameScene(Stage primaryStage) {
+    public void showMainGameScene() {
         try {
 
             FXMLLoader loader = new FXMLLoader();//(getClass().getResource("AllJumbledUp.fxml"));
@@ -115,9 +120,10 @@ public class AllJumbledUp extends Application {
             Scene JumbleScene = new Scene(root);
             JumbleScene.getStylesheets().add(css);
 
-            primaryStage.setTitle("All Jumbled Up");
-            primaryStage.setScene(JumbleScene);
-            primaryStage.show();
+            stage.setTitle("All Jumbled Up");
+            stage.setScene(JumbleScene);
+            stage.setResizable(false);
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
