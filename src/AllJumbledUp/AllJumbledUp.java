@@ -15,11 +15,14 @@ import java.util.concurrent.ThreadLocalRandom;
 //TODO: Add comments
 public class AllJumbledUp extends Application {
 
+    public enum DifficultyLevel {
+        EASY, MEDIUM, HIGH
+    }
+
     /* Game Settings */
     private static int numOfPlayers = 1;
-    private static int difficultyLevel = 1;
+    private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY ;
     private static boolean sound = false;
-
 
     /* Words Dictionaries */
     private List <JumbledWord> JumbledWords = new ArrayList<>();
@@ -80,7 +83,19 @@ public class AllJumbledUp extends Application {
         return Story;
     }
 
-    public void setDifficultyLevelLevel(int lvl) {
+    public int getNumOfPlayers() {
+        return numOfPlayers;
+    }
+
+    public DifficultyLevel getDifficultyLevel() {
+        return difficultyLevel;
+    }
+
+    public boolean getSound() {
+        return sound;
+    }
+
+    public void setDifficultyLevelLevel(DifficultyLevel lvl) {
         difficultyLevel = lvl;
     }
 

@@ -1,7 +1,5 @@
 package AllJumbledUp;
 
-import com.sun.jnlp.ApiDialog;
-import com.sun.jnlp.ApiDialog.DialogResult;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -13,7 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
 import java.util.Optional;
-import java.util.Set;
 
 //TODO: Add comments
 public class Controller {
@@ -55,7 +52,7 @@ public class Controller {
     }
 
     @FXML
-    public void bindData () {
+    private void bindData () {
         int l = 0;
 
         /* Populate Area A1 */

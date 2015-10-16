@@ -32,8 +32,8 @@
                         <Label text="Players" />
                         <Label text="Level" GridPane.rowIndex="1" />
                         <Label text="Sound" GridPane.rowIndex="2" />
-                        <TextField fx:id="numOfPlayers" GridPane.columnIndex="1" />
-                        <TextField fx:id="difficultyLevel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="numOfPlayers" GridPane.columnIndex="1" />
+                        <ComboBox fx:id="difficultyLevel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <CheckBox fx:id="sound" mnemonicParsing="false" text="CheckBox" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
