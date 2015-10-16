@@ -13,11 +13,27 @@ import java.util.concurrent.ThreadLocalRandom;
 //TODO: Add comments
 public class AllJumbledUp extends Application {
 
+    /* Game Settings */
+    private static int numOfPlayers = 1;
+    private static int difficultyLevel = 1;
+    private static boolean sound = false;
+
+
+    /* Words Dictionaries */
     private List <JumbledWord> JumbledWords = new ArrayList<>();
     private List <FwStoryPair> FWDictionary = new ArrayList<>();
     private static String JW, Story;
 
+    /* Game Stage */
     public Stage stage;
+
+    /*Constructor */
+    public AllJumbledUp() {
+        genFWDictionary();
+        //for (int i = 0; i < 50; i++)
+        assignFW();
+        genJumbledWords();
+    }
 
     /* Assign Final Word */
     public void assignFW() {
@@ -27,15 +43,7 @@ public class AllJumbledUp extends Application {
         System.out.println("FW: " + JW);
     }
 
-    /*Constructor */
-    public AllJumbledUp() {
-        genFWDictionary();
-        //for (int i = 0; i < 50; i++)
-            assignFW();
-        genJumbledWords();
-    }
-
-
+    /* Generates Final words dictionary */
     private void genFWDictionary() {
         FWDictionary.add(new FwStoryPair("Potato", "this is a story"));
         FWDictionary.add(new FwStoryPair("Application", "this is a story"));
@@ -45,6 +53,7 @@ public class AllJumbledUp extends Application {
         FWDictionary.add(new FwStoryPair("Building", "this is a story"));
     }
 
+    /* Generate the game's jumbled words */
     public void genJumbledWords() {
         //TODO: Implement Logic
         List<Integer> sps = Arrays.asList(1,2);
@@ -69,15 +78,28 @@ public class AllJumbledUp extends Application {
         return Story;
     }
 
-    public static void main(String[] args) {
-        launch(args);
+    public void setDifficultyLevelLevel(int lvl) {
+        difficultyLevel = lvl;
     }
+
+    public void setNumOfPlayers(int players) {
+        numOfPlayers = players;
+    }
+
+    public void setSound(boolean isSoundOn) {
+        sound = isSoundOn;
+    }
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         showMainMenuScene(primaryStage);
         //showMainGameScene();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
     public void showMainMenuScene(Stage stage) {

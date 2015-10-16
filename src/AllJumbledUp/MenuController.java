@@ -1,9 +1,9 @@
 package AllJumbledUp;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 
 /**
  * Created by enea on 10/9/15.
@@ -13,15 +13,27 @@ public class MenuController {
     private AllJumbledUp allJumbledUp;
 
     @FXML
-    private void initialize() {
+    private TextField numOfPlayers;
 
+    @FXML
+    private TextField difficultyLevel;
 
-    }
+    @FXML
+    private CheckBox sound;
 
+    @FXML
+    private void initialize() {}
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
         System.out.print("Button clicked!");
+        allJumbledUp.setNumOfPlayers(Integer.parseInt(numOfPlayers.getText()));
+        allJumbledUp.setDifficultyLevelLevel(Integer.parseInt((difficultyLevel.getText())));
+        allJumbledUp.setSound(sound.isSelected());
+
+//        System.out.println(Integer.parseInt(difficultyLevel.getText()));
+//        System.out.println(sound.isSelected());
+
         allJumbledUp.showMainGameScene();
     }
 
