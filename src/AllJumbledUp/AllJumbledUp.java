@@ -130,7 +130,7 @@ public class AllJumbledUp extends Application {
             MenuController controller = loader.getController();
             controller.setMainApp(this);
 
-//            String css = this.getClass().getResource("style.css").toExternalForm();
+//            String css = this.getClass().getResource("AllJumbledUp.css").toExternalForm();
             Scene JumbleScene = new Scene(root);
 //            JumbleScene.getStylesheets().add(css);
 
@@ -155,7 +155,7 @@ public class AllJumbledUp extends Application {
             Controller controller = loader.getController();
             controller.setMainApp(this);
 
-            String css = this.getClass().getResource("style.css").toExternalForm();
+            String css = this.getClass().getResource("AllJumbledUp.css").toExternalForm();
             Scene JumbleScene = new Scene(root);
             JumbleScene.getStylesheets().add(css);
 
