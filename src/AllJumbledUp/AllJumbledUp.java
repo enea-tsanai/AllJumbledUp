@@ -64,11 +64,11 @@ public class AllJumbledUp extends Application {
         List<Integer> sps = Arrays.asList(1,2);
         JumbledWords.add(new JumbledWord("abcd", sps));
         sps = Arrays.asList(0,2);
-        JumbledWords.add(new JumbledWord("efgh", sps));
+        JumbledWords.add(new JumbledWord("efddddddddgh", sps));
         sps = Arrays.asList(3);
         JumbledWords.add(new JumbledWord("ijkl", sps));
         sps = Arrays.asList(0);
-        JumbledWords.add(new JumbledWord("mnopq", sps));
+        JumbledWords.add(new JumbledWord("12345678910123456789", sps));
     }
 
     public List<JumbledWord> getJumbledWords() {
@@ -111,8 +111,8 @@ public class AllJumbledUp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        showMainMenuScene(primaryStage);
-        //showMainGameScene();
+//        showMainMenuScene(primaryStage);
+        showMainGameScene();
     }
 
     public static void main(String[] args) {
@@ -130,9 +130,9 @@ public class AllJumbledUp extends Application {
             MenuController controller = loader.getController();
             controller.setMainApp(this);
 
-//            String css = this.getClass().getResource("AllJumbledUp.css").toExternalForm();
+            String css = this.getClass().getResource("MainMenu.css").toExternalForm();
             Scene JumbleScene = new Scene(root);
-//            JumbleScene.getStylesheets().add(css);
+            JumbleScene.getStylesheets().add(css);
 
             stage.setTitle("All Jumbled Up - Main Menu");
             stage.setScene(JumbleScene);
@@ -164,11 +164,9 @@ public class AllJumbledUp extends Application {
             stage.setResizable(false);
             stage.show();
 
-            JumbleScene.getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
-                public void handle(WindowEvent ev) {
-                    if (!controller.shutdown()) {
-                        ev.consume();
-                    }
+            JumbleScene.getWindow().setOnCloseRequest(ev -> {
+                if (!controller.shutdown()) {
+                    ev.consume();
                 }
             });
 

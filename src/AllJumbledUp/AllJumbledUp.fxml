@@ -16,16 +16,16 @@
                         <Font name="System Bold" size="23.0" />
                     </font>
                 </Label>
-            <GridPane fx:id="JumbledWordsA1" prefHeight="83.0" prefWidth="300.0">
-              <columnConstraints>
-                <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" />
-              </rowConstraints>
-               <VBox.margin>
-                  <Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />
-               </VBox.margin>
+            <GridPane fx:id="JumbledWordsA1" alignment="center">
+              <!--<columnConstraints>-->
+                <!--<ColumnConstraints minWidth="10.0" prefWidth="100.0" />-->
+              <!--</columnConstraints>-->
+              <!--<rowConstraints>-->
+                <!--<RowConstraints minHeight="10.0" prefHeight="30.0" />-->
+              <!--</rowConstraints>-->
+               <!--<VBox.margin>-->
+                  <!--<Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />-->
+               <!--</VBox.margin>-->
             </GridPane>
             <Region prefHeight="51.0" prefWidth="570.0" />
             <HBox prefHeight="198.0" prefWidth="274.0">

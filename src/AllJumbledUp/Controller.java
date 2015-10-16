@@ -3,12 +3,15 @@ package AllJumbledUp;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 import java.util.Optional;
 
@@ -61,13 +64,14 @@ public class Controller {
             /* Jumbled Words labels */
             Label jwLabel = new Label(jw.getJumbledWord());
             jwLabel.setFont(Font.font("Monospaced", 18));
-            jwLabel.setMaxWidth(100);
 
             /* Input field for user to guess the jumbled word*/
             TextField guessField = new TextField();
             guessField.setId("gjw_" + l);
             guessField.setFont(Font.font("Monospaced", 17));
             guessField.setStyle("-fx-background-color: transparent;");
+            guessField.setMaxWidth(jwLabel.getText().length() * 14); //Todo: Check this math
+            guessField.setPrefWidth(jwLabel.getText().length() * 14); //Todo: Check this math
 
             /* Background non editable field to highlight special letters*/
             TextField guessFieldSL = new TextField();
@@ -77,10 +81,14 @@ public class Controller {
             guessFieldSL.setText(jw.getMask());
             guessFieldSL.setEditable(false);
             guessFieldSL.setStyle("-fx-text-inner-color: red;");
+            guessFieldSL.setMaxWidth(jwLabel.getText().length() * 14); //Todo: Check this math
+            guessFieldSL.setPrefWidth(jwLabel.getText().length() * 14); //Todo: Check this math
             addTextLimiter(guessField, jw.getJumbledWord().length());
             addTextMatchController(guessField, jw.getWord(), jw.getSPchars());
 
             JumbledWordsA1.add(jwLabel, 0, l);
+            JumbledWordsA1.setHalignment(jwLabel, HPos.RIGHT);
+
             JumbledWordsA1.add(guessFieldSL, 1, l);
             JumbledWordsA1.add(guessField, 1, l);
 
