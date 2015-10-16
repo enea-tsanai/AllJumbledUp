@@ -1,13 +1,18 @@
 package AllJumbledUp;
 
+import com.sun.jnlp.ApiDialog;
+import com.sun.jnlp.ApiDialog.DialogResult;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 
+import java.util.Optional;
 import java.util.Set;
 
 //TODO: Add comments
@@ -151,6 +156,20 @@ public class Controller {
         });
     }
 
+    /* Confirm Game Exit */
+    public boolean shutdown () {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Game Over");
+        alert.setHeaderText("Exit the Game");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * Is called by the main application to give a reference back to itself.
      *

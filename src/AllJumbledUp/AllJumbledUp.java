@@ -1,10 +1,12 @@
 package AllJumbledUp;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.util.*;
@@ -146,6 +148,14 @@ public class AllJumbledUp extends Application {
             stage.setScene(JumbleScene);
             stage.setResizable(false);
             stage.show();
+
+            JumbleScene.getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
+                public void handle(WindowEvent ev) {
+                    if (!controller.shutdown()) {
+                        ev.consume();
+                    }
+                }
+            });
 
         } catch (IOException e) {
             e.printStackTrace();
