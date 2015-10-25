@@ -112,7 +112,7 @@ public class Controller {
         fguessField.setPadding(new Insets(5, 5, 5, 5));
 
         addTextLimiter(fguessField, AllJumbledUp.getJW().length());
-        addTextMatchController(fguessField, AllJumbledUp.getJW(), null , true);
+        addTextMatchController(fguessField, AllJumbledUp.getJW(), null, true);
 
         JumbledWordsA2.add(fjwLabel, 0, 0);
         JumbledWordsA2.add(fguessFieldSL, 0, 1);
@@ -149,7 +149,7 @@ public class Controller {
         tf.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-                if (tf.getText().equals(keyW)) {
+                if (tf.getText().equalsIgnoreCase(keyW)) {
 
                     tf.setEditable(false);
                     tf.setStyle("-fx-text-fill: green; -fx-background-color: transparent");
