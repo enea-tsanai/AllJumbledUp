@@ -64,11 +64,11 @@ public class AllJumbledUp extends Application {
         List<Integer> sps = Arrays.asList(1,2);
         JumbledWords.add(new JumbledWord("abcd", sps));
         sps = Arrays.asList(0,2);
-        JumbledWords.add(new JumbledWord("efddddddddgh", sps));
+        JumbledWords.add(new JumbledWord("regfg", sps));
         sps = Arrays.asList(3);
-        JumbledWords.add(new JumbledWord("ijkl", sps));
+        JumbledWords.add(new JumbledWord("ijklg", sps));
         sps = Arrays.asList(0);
-        JumbledWords.add(new JumbledWord("12345678910123456789", sps));
+        JumbledWords.add(new JumbledWord("sfsf", sps));
     }
 
     public List<JumbledWord> getJumbledWords() {
@@ -111,15 +111,15 @@ public class AllJumbledUp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-//        showMainMenuScene(primaryStage);
-        showMainGameScene();
+        showMainMenuScene();
+//        showMainGameScene();
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    public void showMainMenuScene(Stage stage) {
+    public void showMainMenuScene() {
         try {
 
             FXMLLoader loader = new FXMLLoader();
@@ -144,6 +144,10 @@ public class AllJumbledUp extends Application {
         }
     }
 
+    /* Ends the Game */
+    public void gameOver() {
+        stage.close();
+    }
 
     public void showMainGameScene() {
         try {

@@ -28,6 +28,8 @@ public class Controller {
     @FXML
     static Label fjwLabel = new Label();
 
+    static TextField fguessField = new TextField();
+
     // Reference to the main application.
     private AllJumbledUp allJumbledUp;
     private static int FoundJwords = 0;
@@ -106,7 +108,7 @@ public class Controller {
         fguessFieldSL.setPadding(new Insets(5, 5, 5, 5));
 
         /* Input field for user to guess the jumbled word*/
-        TextField fguessField = new TextField();
+        fguessField.setEditable(false);
         fguessField.setId("gjw_" + l);
         fguessField.setFont(Font.font("Monospaced", 18));
         fguessField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent");
@@ -133,42 +135,36 @@ public class Controller {
 
     // Listeners
     /*Limits max input field length*/
-    public static void addTextLimiter(final TextField tf, final int maxLength) {
-        tf.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-                if (tf.getText().length() > maxLength) {
-                    String s = tf.getText().substring(0, maxLength);
-                    tf.setText(s);
-                }
+    public void addTextLimiter(final TextField tf, final int maxLength) {
+        tf.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (tf.getText().length() > maxLength) {
+                String s = tf.getText().substring(0, maxLength);
+                tf.setText(s);
             }
         });
     }
 
     /*Checks if our input is identical to the jumbled world*/
-    public static void addTextMatchController(final TextField tf, final String keyW, final String spchars, final boolean isFinalWord) {
-        tf.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-                if (tf.getText().equalsIgnoreCase(keyW)) {
+    public void addTextMatchController(final TextField tf, final String keyW, final String spchars, final boolean isFinalWord) {
+        tf.textProperty().addListener((ov, oldValue, newValue) -> {
+            if (tf.getText().equalsIgnoreCase(keyW)) {
 
-                    tf.setEditable(false);
-                    tf.setStyle("-fx-text-fill: green; -fx-background-color: transparent");
+                tf.setEditable(false);
+                tf.setStyle("-fx-text-fill: green; -fx-background-color: transparent");
 
-                    if (isFinalWord) {
-                        ;
-                    }
-                    else {
-                        // Add the special characters of this word above the final jumbled word
-                        if (FoundJwords == 0)
-                            fjwLabel.setText("");
-                        fjwLabel.setText(fjwLabel.getText() + spchars);
+                if (isFinalWord) {
+                    gameOverDialog();
+                }
+                else {
+                    // Add the special characters of this word above the final jumbled word
+                    if (FoundJwords == 0)
+                        fjwLabel.setText("");
+                    fjwLabel.setText(fjwLabel.getText() + spchars);
 
-                        FoundJwords++;
+                    FoundJwords++;
 
-                        //                    if ((FoundJwords == 4) && (!FWrevealed)){
-                        //                        fjwLabel.setText(AllJumbledUp.getJW());
-                        //                    }
+                    if ((FoundJwords == 4) && (!FWrevealed)){
+                        fguessField.setEditable(true);
                     }
                 }
             }
@@ -189,6 +185,26 @@ public class Controller {
             return false;
         }
     }
+
+    /* Game Over Dialog */
+    public void gameOverDialog () {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Game Over!");
+        alert.setHeaderText("You found the hidden word! Congratulations!");
+
+        ButtonType exit = new ButtonType("Exit Game");
+        ButtonType rePlay = new ButtonType("New Game");
+
+        alert.getButtonTypes().setAll(exit, rePlay);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == rePlay) {
+            allJumbledUp.showMainMenuScene();
+        } else {
+            allJumbledUp.gameOver();
+        }
+    }
+
     /**
      * Is called by the main application to give a reference back to itself.
      *
