@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -64,31 +65,32 @@ public class Controller {
             /* Jumbled Words labels */
             Label jwLabel = new Label(jw.getJumbledWord());
             jwLabel.setFont(Font.font("Monospaced", 18));
+            jwLabel.setStyle("-fx-border-color: blue;");
+            jwLabel.setPadding(new Insets(5, 5, 5, 5));
 
             /* Input field for user to guess the jumbled word*/
             TextField guessField = new TextField();
             guessField.setId("gjw_" + l);
-            guessField.setFont(Font.font("Monospaced", 17));
-            guessField.setStyle("-fx-background-color: transparent;");
-            guessField.setMaxWidth(jwLabel.getText().length() * 14); //Todo: Check this math
-            guessField.setPrefWidth(jwLabel.getText().length() * 14); //Todo: Check this math
+            guessField.setFont(Font.font("Monospaced", 18));
+            guessField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent");
+            guessField.setPadding(new Insets(5, 5, 5, 5));
 
             /* Background non editable field to highlight special letters*/
-            TextField guessFieldSL = new TextField();
-            //guessFieldSL.setId("");
-            guessFieldSL.setFont(Font.font("Monospaced", 18));
-            //guessFieldSL.setText("\u0A66");
+            Label guessFieldSL = new Label();
             guessFieldSL.setText(jw.getMask());
-            guessFieldSL.setEditable(false);
-            guessFieldSL.setStyle("-fx-text-inner-color: red;");
-            guessFieldSL.setMaxWidth(jwLabel.getText().length() * 14); //Todo: Check this math
-            guessFieldSL.setPrefWidth(jwLabel.getText().length() * 14); //Todo: Check this math
+//            guessFieldSL.setStyle("-fx-text-color: red;");
+            guessFieldSL.setFont(Font.font("Monospaced", 18));
+            guessFieldSL.setStyle("-fx-border-color: blue;");
+            guessFieldSL.setPadding(new Insets(5, 5, 5, 5));
+            guessFieldSL.setMaxWidth(jwLabel.getMaxWidth());
+            guessFieldSL.setPrefWidth(jwLabel.getPrefWidth());
+
             addTextLimiter(guessField, jw.getJumbledWord().length());
             addTextMatchController(guessField, jw.getWord(), jw.getSPchars());
 
+            /* Add to Grid Area */
             JumbledWordsA1.add(jwLabel, 0, l);
             JumbledWordsA1.setHalignment(jwLabel, HPos.RIGHT);
-
             JumbledWordsA1.add(guessFieldSL, 1, l);
             JumbledWordsA1.add(guessField, 1, l);
 
@@ -144,7 +146,7 @@ public class Controller {
                 if (tf.getText().equals(keyW)) {
 
                     tf.setEditable(false);
-                    tf.setStyle("-fx-text-inner-color: green;");
+                    tf.setStyle("-fx-text-fill: green; -fx-background-color: transparent");
 
                     // Add the special characters of this word above the final jumbled word
                     if(FoundJwords == 0)
