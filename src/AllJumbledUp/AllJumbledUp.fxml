@@ -30,7 +30,7 @@
             <Region prefHeight="51.0" prefWidth="570.0" />
             <HBox prefHeight="198.0" prefWidth="274.0">
                 <children>
-                    <GridPane fx:id="JumbledWordsA2">
+                    <GridPane fx:id="JumbledWordsA2" vgap="0">
                     </GridPane>
                     <Region prefHeight="148.0" prefWidth="30.0" />
                   <ScrollPane fx:id="StoryPane" prefHeight="200.0" maxWidth="400.0">
@@ -38,10 +38,6 @@
                         <Pane prefHeight="200.0" prefWidth="200.0" />
                      </content>
                   </ScrollPane>
-                    <!--<Label fx:id="storyLabel" alignment="CENTER" prefHeight="166.0" prefWidth="317.0" text="Label" textAlignment="CENTER" />-->
-
-
-
                 </children>
                     <VBox.margin>
                         <Insets />

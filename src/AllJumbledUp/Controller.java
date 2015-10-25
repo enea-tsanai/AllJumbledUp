@@ -26,7 +26,7 @@ public class Controller {
 
     /* Final Jumbled Word label */
     @FXML
-    static Label fjwLabel = new Label("**********");
+    static Label fjwLabel = new Label();
 
     // Reference to the main application.
     private AllJumbledUp allJumbledUp;
@@ -94,8 +94,9 @@ public class Controller {
         }
 
         /* Populate Area A2 */
-
+        fjwLabel.setText(AllJumbledUp.getJW().replaceAll(".", "*"));
         fjwLabel.setFont(Font.font("Monospaced", 18));
+        fjwLabel.setPadding(new Insets(5, 5, 0, 5));
 //        fjwLabel.setMaxWidth(200);
 
         /* Background non editable field to highlight special letters*/
