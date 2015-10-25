@@ -82,7 +82,7 @@ public class Controller {
             guessFieldSL.setPrefWidth(jwLabel.getPrefWidth());
 
             addTextLimiter(guessField, jw.getJumbledWord().length());
-            addTextMatchController(guessField, jw.getWord(), jw.getSPchars());
+            addTextMatchController(guessField, jw.getWord(), jw.getSPchars(), false);
 
             /* Add to Grid Area */
             JumbledWordsA1.add(jwLabel, 0, l);
@@ -96,15 +96,26 @@ public class Controller {
         /* Populate Area A2 */
 
         fjwLabel.setFont(Font.font("Monospaced", 18));
-        fjwLabel.setMaxWidth(200);
+//        fjwLabel.setMaxWidth(200);
+
+        /* Background non editable field to highlight special letters*/
+        Label fguessFieldSL = new Label(AllJumbledUp.getJW().replaceAll(".", "_"));
+        fguessFieldSL.setFont(Font.font("Monospaced", 18));
+        fguessFieldSL.setStyle("-fx-border-color: blue;");
+        fguessFieldSL.setPadding(new Insets(5, 5, 5, 5));
 
         /* Input field for user to guess the jumbled word*/
         TextField fguessField = new TextField();
         fguessField.setId("gjw_" + l);
         fguessField.setFont(Font.font("Monospaced", 18));
         fguessField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent");
+        fguessField.setPadding(new Insets(5, 5, 5, 5));
+
+        addTextLimiter(fguessField, AllJumbledUp.getJW().length());
+        addTextMatchController(fguessField, AllJumbledUp.getJW(), null , true);
 
         JumbledWordsA2.add(fjwLabel, 0, 0);
+        JumbledWordsA2.add(fguessFieldSL, 0, 1);
         JumbledWordsA2.add(fguessField, 0, 1);
 
         /* Story Area */
@@ -134,7 +145,7 @@ public class Controller {
     }
 
     /*Checks if our input is identical to the jumbled world*/
-    public static void addTextMatchController(final TextField tf, final String keyW, final String spchars) {
+    public static void addTextMatchController(final TextField tf, final String keyW, final String spchars, final boolean isFinalWord) {
         tf.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
@@ -143,16 +154,21 @@ public class Controller {
                     tf.setEditable(false);
                     tf.setStyle("-fx-text-fill: green; -fx-background-color: transparent");
 
-                    // Add the special characters of this word above the final jumbled word
-                    if(FoundJwords == 0)
-                        fjwLabel.setText("");
-                    fjwLabel.setText(fjwLabel.getText()+spchars);
+                    if (isFinalWord) {
+                        ;
+                    }
+                    else {
+                        // Add the special characters of this word above the final jumbled word
+                        if (FoundJwords == 0)
+                            fjwLabel.setText("");
+                        fjwLabel.setText(fjwLabel.getText() + spchars);
 
-                    FoundJwords ++;
+                        FoundJwords++;
 
-//                    if ((FoundJwords == 4) && (!FWrevealed)){
-//                        fjwLabel.setText(AllJumbledUp.getJW());
-//                    }
+                        //                    if ((FoundJwords == 4) && (!FWrevealed)){
+                        //                        fjwLabel.setText(AllJumbledUp.getJW());
+                        //                    }
+                    }
                 }
             }
         });
