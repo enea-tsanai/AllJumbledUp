@@ -30,16 +30,18 @@
             <Region prefHeight="51.0" prefWidth="570.0" />
             <HBox prefHeight="198.0" prefWidth="274.0">
                 <children>
-                    <GridPane fx:id="JumbledWordsA2" prefHeight="83.0" prefWidth="300.0">
-                        <columnConstraints>
-                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        </columnConstraints>
-                        <rowConstraints>
-                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        </rowConstraints>
+                    <GridPane fx:id="JumbledWordsA2">
                     </GridPane>
-                    <Region prefHeight="148.0" prefWidth="68.0" />
-                    <Label fx:id="storyLabel" alignment="CENTER" prefHeight="166.0" prefWidth="317.0" text="Label" textAlignment="CENTER" />
+                    <Region prefHeight="148.0" prefWidth="30.0" />
+                  <ScrollPane fx:id="StoryPane" prefHeight="200.0" maxWidth="400.0">
+                     <content>
+                        <Pane prefHeight="200.0" prefWidth="200.0" />
+                     </content>
+                  </ScrollPane>
+                    <!--<Label fx:id="storyLabel" alignment="CENTER" prefHeight="166.0" prefWidth="317.0" text="Label" textAlignment="CENTER" />-->
+
+
+
                 </children>
                     <VBox.margin>
                         <Insets />

@@ -5,15 +5,11 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
-
 import java.util.Optional;
 
 //TODO: Add comments
@@ -26,7 +22,7 @@ public class Controller {
     private GridPane JumbledWordsA2;
 
     @FXML
-    private Label storyLabel;
+    private ScrollPane StoryPane;
 
     /* Final Jumbled Word label */
     @FXML
@@ -105,23 +101,22 @@ public class Controller {
         /* Input field for user to guess the jumbled word*/
         TextField fguessField = new TextField();
         fguessField.setId("gjw_" + l);
-        fguessField.setFont(Font.font("Monospaced", 17));
-        fguessField.setStyle("-fx-background-color: transparent;");
-
-        /* Background non editable field to highlight special letters*/
-        TextField fguessFieldSL = new TextField();
-        //guessFieldSL.setId("");
-        fguessFieldSL.setFont(Font.font("Monospaced", 18));
-        //guessFieldSL.setText("\u0A66");
-        fguessFieldSL.setText("_");
-        fguessFieldSL.setEditable(false);
-        fguessFieldSL.setStyle("-fx-text-inner-color: red;");
+        fguessField.setFont(Font.font("Monospaced", 18));
+        fguessField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent");
 
         JumbledWordsA2.add(fjwLabel, 0, 0);
-        JumbledWordsA2.add(fguessFieldSL, 0, 1);
         JumbledWordsA2.add(fguessField, 0, 1);
 
-        storyLabel.setText(AllJumbledUp.getStory());
+        /* Story Area */
+        Label storyLabel = new Label(AllJumbledUp.getStory());
+        storyLabel.setWrapText(true);
+        storyLabel.setStyle("-fx-font-family: \"Comic Sans MS\"; -fx-font-size: 14; -fx-text-fill: darkred;");
+
+        /* Add to Scroll Pane */
+        StoryPane.setContent(storyLabel);
+        StoryPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        StoryPane.setFitToWidth(true);
+
     }
 
     // Listeners
