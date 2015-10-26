@@ -40,6 +40,12 @@ public class AllJumbledUp extends Application {
         genJumbledWords();
     }
 
+    //TODO: Check everything that needs to go to dev/null!
+    public void restart() {
+        assignFW();
+        genJumbledWords();
+    }
+
     /* Assign Final Word */
     public void assignFW() {
         int index = ThreadLocalRandom.current().nextInt(1, FWDictionary.size());
@@ -60,6 +66,9 @@ public class AllJumbledUp extends Application {
 
     /* Generate the game's jumbled words */
     public void genJumbledWords() {
+        if(!JumbledWords.isEmpty()) {
+            JumbledWords.clear();
+        }
         //TODO: Implement Logic
         List<Integer> sps = Arrays.asList(1,2);
         JumbledWords.add(new JumbledWord("abcd", sps));

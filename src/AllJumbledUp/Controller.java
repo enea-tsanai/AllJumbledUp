@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
+
 import java.util.Optional;
 
 //TODO: Add comments
@@ -83,7 +84,7 @@ public class Controller {
             guessFieldSL.setMaxWidth(jwLabel.getMaxWidth());
             guessFieldSL.setPrefWidth(jwLabel.getPrefWidth());
 
-            addTextLimiter(guessField, jw.getJumbledWord().length());
+            addTextLimiter(guessField, jw.getWord(), jw.getJumbledWord().length());
             addTextMatchController(guessField, jw.getWord(), jw.getSPchars(), false);
 
             /* Add to Grid Area */
@@ -114,7 +115,7 @@ public class Controller {
         fguessField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent");
         fguessField.setPadding(new Insets(5, 5, 5, 5));
 
-        addTextLimiter(fguessField, AllJumbledUp.getJW().length());
+        addTextLimiter(fguessField, AllJumbledUp.getJW(), AllJumbledUp.getJW().length());
         addTextMatchController(fguessField, AllJumbledUp.getJW(), null, true);
 
         JumbledWordsA2.add(fjwLabel, 0, 0);
@@ -134,14 +135,29 @@ public class Controller {
     }
 
     // Listeners
-    /*Limits max input field length*/
-    public void addTextLimiter(final TextField tf, final int maxLength) {
+    /*Limits max input field length and acceptable characters*/
+    public void addTextLimiter(final TextField tf, final String cf, final int maxLength) {
         tf.textProperty().addListener((ov, oldValue, newValue) -> {
-            if (tf.getText().length() > maxLength) {
-                String s = tf.getText().substring(0, maxLength);
-                tf.setText(s);
+            if (newValue.length() > 0) {
+                char charPressed = newValue.charAt(newValue.length() - 1);
+                int occInNewVal = countOccurrencesOf(tf.getText(), charPressed);
+                int occInJumbledW = countOccurrencesOf(cf, charPressed);
+
+                if ((tf.getText().length() > maxLength) || (occInNewVal > occInJumbledW)) {
+                    tf.setText(oldValue);
+                }
             }
         });
+    }
+
+    public int countOccurrencesOf(String a, char b) {
+        int counter = 0;
+        for (int i = 0; i < a.length(); i++) {
+            if (a.charAt(i) == b) {
+                counter++;
+            }
+        }
+        return counter;
     }
 
     /*Checks if our input is identical to the jumbled world*/
