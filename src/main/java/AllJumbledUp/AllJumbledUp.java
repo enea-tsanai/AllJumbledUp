@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+
+
 //TODO: Add comments
 public class AllJumbledUp extends Application {
 
@@ -129,14 +131,14 @@ public class AllJumbledUp extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("MainMenu.fxml"));
+            loader.setLocation(getClass().getResource("/MainMenu.fxml"));
 
             Parent root = loader.load();
 
             MenuController controller = loader.getController();
             controller.setMainApp(this);
 
-            String css = this.getClass().getResource("MainMenu.css").toExternalForm();
+            String css = this.getClass().getResource("/MainMenu.css").toExternalForm();
             Scene JumbleScene = new Scene(root);
             JumbleScene.getStylesheets().add(css);
 
@@ -159,13 +161,13 @@ public class AllJumbledUp extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();//(getClass().getResource("AllJumbledUp.fxml"));
-            loader.setLocation(getClass().getResource("AllJumbledUp.fxml"));
+            loader.setLocation(getClass().getResource("/AllJumbledUp.fxml"));
 
             Parent root = loader.load();
             Controller controller = loader.getController();
             controller.setMainApp(this);
 
-            String css = this.getClass().getResource("AllJumbledUp.css").toExternalForm();
+            String css = this.getClass().getResource("/AllJumbledUp.css").toExternalForm();
             Scene JumbleScene = new Scene(root);
             JumbleScene.getStylesheets().add(css);
 
