@@ -1,0 +1,3 @@
+{"word":"word1", "timesUsed": 2},
+{"word":"word2", "timesUsed": 0},
+{"word":"word3", "timesUsed": 3}

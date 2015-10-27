@@ -10,7 +10,6 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-
 //TODO: Add comments
 public class AllJumbledUp extends Application {
 
@@ -37,6 +36,9 @@ public class AllJumbledUp extends Application {
         //for (int i = 0; i < 50; i++)
         assignFW();
         genJumbledWords();
+
+        DbManager db = new DbManager("AllJumbledUp");
+        System.out.println("DBmanager: " + DbManager.getFinalWordStoryPair());
     }
 
     //TODO: Check everything that needs to go to dev/null!
