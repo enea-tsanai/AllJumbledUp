@@ -26,33 +26,36 @@ public class AllJumbledUp extends Application {
     private List <JumbledWord> JumbledWords = new ArrayList<>();
     private List <FwStoryPair> FWDictionary = new ArrayList<>();
     private static String JW, Story;
+    private DbManager db;
 
     /* Game Stage */
     public Stage stage;
 
     /*Constructor */
     public AllJumbledUp() {
-        genFWDictionary();
-        //for (int i = 0; i < 50; i++)
-        assignFW();
-        genJumbledWords();
+        db = new DbManager("AllJumbledUp");
+        assignFW(db.getFinalWordStoryPair());
 
-        DbManager db = new DbManager("AllJumbledUp");
-        System.out.println("DBmanager: " + DbManager.getFinalWordStoryPair());
+        genFWDictionary();
+        genJumbledWords();
     }
 
     //TODO: Check everything that needs to go to dev/null!
     public void restart() {
-        assignFW();
+        assignFW(db.getFinalWordStoryPair());
         genJumbledWords();
     }
 
     /* Assign Final Word */
-    public void assignFW() {
-        int index = ThreadLocalRandom.current().nextInt(1, FWDictionary.size());
-        JW = FWDictionary.get(index).getFW();
-        Story = FWDictionary.get(index).getStory();
-        System.out.println("FW: " + JW);
+    public void assignFW(ArrayList<String> key_pair) {
+
+        JW = key_pair.get(0);
+        Story = key_pair.get(1);
+
+//        int index = ThreadLocalRandom.current().nextInt(1, FWDictionary.size());
+//        JW = FWDictionary.get(index).getFW();
+//        Story = FWDictionary.get(index).getStory();
+        System.out.println("FW: " + JW + " Riddle: " + Story);
     }
 
     /* Generates Final words dictionary */

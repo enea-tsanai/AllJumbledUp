@@ -1,0 +1,3 @@
+{"key":"KEY1", "riddle": "blablablalabla","timesUsed": 1},
+{"key":"KEY2", "riddle": "sgdfhgfhfg fdgds _____ sfsg","timesUsed": 5},
+{"key":"KEY3", "riddle": "dsr","timesUsed": 3},
