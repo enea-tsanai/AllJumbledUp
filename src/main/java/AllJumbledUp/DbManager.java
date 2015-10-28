@@ -19,6 +19,10 @@ public class DbManager {
 
     private static MongoDatabase db;
 
+    /* Key riddle pair */
+    private static ArrayList<String> KeyRiddle = new ArrayList<String>(2);
+
+
     public  DbManager(String dbName) {
         MongoClient mongoClient = new MongoClient();
         db = mongoClient.getDatabase(dbName);
@@ -87,10 +91,7 @@ public class DbManager {
 
     //TODO: Add some randomness
     /* The Final word and story pair are produced here */
-    public static ArrayList<String> getFinalWordStoryPair() {
-
-        ArrayList<String> key_riddle = new ArrayList<String>(2);
-
+    public static ArrayList<String> generateFinalWordStoryPair() {
         /* Sort by usage */
         FindIterable<Document> iterableKR = db.getCollection("key_riddles").find().sort(new Document("timesUsed", 1));
         String key = iterableKR.first().get("key").toString();
@@ -101,16 +102,48 @@ public class DbManager {
         db.getCollection("key_riddles").updateOne(new Document("key", key),
                 new Document("$set", new Document("timesUsed", Integer.parseInt(timesUsed) + 1)));
 
-        key_riddle.add(0, key);
-        key_riddle.add(1, riddle);
+        KeyRiddle.add(0, key);
+        KeyRiddle.add(1, riddle);
 
-        return key_riddle;
+        return KeyRiddle;
+    }
+
+    /* The Final word and story pair are produced here */
+    public static ArrayList<String> getFinalWordStoryPair() {
+        return KeyRiddle;
+    }
+
+    /* Generate the proper jumbled words */
+    public static ArrayList<String> getJumbledWords () {
+        // the proper words that contain characters of the final word
+        ArrayList<String> jumbled_words = new ArrayList<>();
+        ArrayList<Character> FWchars = new ArrayList<>();
+
+        /* Final word */
+        String FW = KeyRiddle.get(0);
+
+        int numOfCharsPerJword = FW.length() / 4;
+        int numOfoffsetWords = FW.length() % 4;
+
+        /* Iterate character buckets that have numOfCharsPerJword length */
+        for (int word = 0; word < FW.length() - numOfoffsetWords; word++) {
+            /* Clean characters in bucket */
+            FWchars.clear();
+
+            /* Starting index of bucket */
+            int pos = word*numOfCharsPerJword;
+
+            /* Iterate characters in bucket */
+            for (int c = pos; c < pos+numOfCharsPerJword-1; c++ ) {
+                FWchars.add(FW.charAt(c));
+                ;
+            }
+        }
+        return jumbled_words;
     }
 
 
-//    public static ArrayList<String> getJumbledWords () {
-//
-//        return new ArrayList<>([{"dsf"}]);
-//    }
+
+
 
 }

@@ -34,6 +34,7 @@ public class AllJumbledUp extends Application {
     /*Constructor */
     public AllJumbledUp() {
         db = new DbManager("AllJumbledUp");
+        db.generateFinalWordStoryPair();
         assignFW(db.getFinalWordStoryPair());
 
         genFWDictionary();
