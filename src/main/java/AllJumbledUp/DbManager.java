@@ -10,13 +10,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 /**
  * Created by enea on 10/27/15.
  */
 public class DbManager {
+
     private static MongoDatabase db;
 
     public  DbManager(String dbName) {
@@ -27,7 +27,6 @@ public class DbManager {
 
     /* Get Database */
     public static MongoDatabase getDb(String dbName) throws UnknownHostException {
-
         MongoClient mongoClient = new MongoClient();
 
         if (db == null) {
@@ -38,7 +37,6 @@ public class DbManager {
 
     /* Import from file to collection */
     public static void dbImport(String inputFilename, MongoCollection<Document> collection) {
-
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputFilename));
             try {
@@ -54,6 +52,7 @@ public class DbManager {
         }
     }
 
+    //TODO: Remove clear
     /* Init the DB: Import all jumbled words and final words-story pairs */
     public static void initDB() {
 
@@ -86,6 +85,7 @@ public class DbManager {
         });
     }
 
+    //TODO: Add some randomness
     /* The Final word and story pair are produced here */
     public static ArrayList<String> getFinalWordStoryPair() {
 
@@ -108,12 +108,6 @@ public class DbManager {
     }
 
 
-
-
-
-
-
-    //
 //    public static ArrayList<String> getJumbledWords () {
 //
 //        return new ArrayList<>([{"dsf"}]);
