@@ -19,14 +19,14 @@ import java.util.List;
 public class DbManager {
     private static MongoDatabase db;
 
-    public  DbManager (String dbName) {
+    public  DbManager(String dbName) {
         MongoClient mongoClient = new MongoClient();
         db = mongoClient.getDatabase(dbName);
         initDB();
     }
 
     /* Get Database */
-    public static MongoDatabase getDb (String dbName) throws UnknownHostException {
+    public static MongoDatabase getDb(String dbName) throws UnknownHostException {
 
         MongoClient mongoClient = new MongoClient();
 
@@ -36,7 +36,8 @@ public class DbManager {
         return db;
     }
 
-    public static void dbImport (String inputFilename, MongoCollection<Document> collection) {
+    /* Import from file to collection */
+    public static void dbImport(String inputFilename, MongoCollection<Document> collection) {
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(inputFilename));
@@ -54,34 +55,25 @@ public class DbManager {
     }
 
     /* Init the DB: Import all jumbled words and final words-story pairs */
-    public static void initDB () {
+    public static void initDB() {
 
         /* Clear jumbled words*/
         db.getCollection("jumbled_words").deleteMany(new Document());
 //        if (db.getCollection("jumbled_words").count() < 1)
+        /* Import jumbled words */
             dbImport("/Users/enea/Dev/Villanova/AllJumbledUp/src/main/resources/wordlist.txt",
                     db.getCollection("jumbled_words"));
 
         /* Sort by usage */
         FindIterable<Document> iterableJW = db.getCollection("jumbled_words").find().sort(new Document("timesUsed", 1));
-        iterableJW.forEach(new Block<Document>() {
-            @Override
-            public void apply(final Document document) {
-                System.out.println(document);
-            }
-        });
-
         printCollection("jumbled_words");
 
-
-        /* Clear jumbled words*/
+        /* Clear jumbled words */
         db.getCollection("key_riddles").deleteMany(new Document());
+        /* Import keys-riddles */
         dbImport("/Users/enea/Dev/Villanova/AllJumbledUp/src/main/resources/KeyRiddleList.txt",
                 db.getCollection("key_riddles"));
-        getFinalWordStoryPair();
-//        dbImport("", db.getCollection("jumbled_words"));
     }
-
 
     /* Log collection documents */
     public static void printCollection(String collection) {
@@ -94,22 +86,23 @@ public class DbManager {
         });
     }
 
-    public static ArrayList<String> getFinalWordStoryPair () {
+    /* The Final word and story pair are produced here */
+    public static ArrayList<String> getFinalWordStoryPair() {
 
         ArrayList<String> key_riddle = new ArrayList<String>(2);
 
         /* Sort by usage */
         FindIterable<Document> iterableKR = db.getCollection("key_riddles").find().sort(new Document("timesUsed", 1));
+        String key = iterableKR.first().get("key").toString();
+        String riddle = iterableKR.first().get("riddle").toString();
+        String timesUsed = iterableKR.first().get("timesUsed").toString();
 
-        key_riddle.add(0, iterableKR.first().get("key").toString());
-        key_riddle.add(1, iterableKR.first().get("riddle").toString());
+        /* Update timesUsed */
+        db.getCollection("key_riddles").updateOne(new Document("key", key),
+                new Document("$set", new Document("timesUsed", Integer.parseInt(timesUsed) + 1)));
 
-//        iterableKR.forEach(new Block<Document>() {
-//            @Override
-//            public void apply(final Document document) {
-//                System.out.println(document);
-//            }
-//        });
+        key_riddle.add(0, key);
+        key_riddle.add(1, riddle);
 
         return key_riddle;
     }
