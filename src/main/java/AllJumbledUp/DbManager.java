@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import static com.mongodb.client.model.Filters.*;
 
 
 /**
@@ -69,7 +70,7 @@ public class DbManager {
 
         /* Sort by usage */
         FindIterable<Document> iterableJW = db.getCollection("jumbled_words").find().sort(new Document("timesUsed", 1));
-        printCollection("jumbled_words");
+//        printCollection("jumbled_words");
 
         /* Clear jumbled words */
         db.getCollection("key_riddles").deleteMany(new Document());
@@ -81,6 +82,15 @@ public class DbManager {
     /* Log collection documents */
     public static void printCollection(String collection) {
         FindIterable<Document> iterable = db.getCollection(collection).find();
+        iterable.forEach(new Block<Document>() {
+            @Override
+            public void apply(final Document document) {
+                System.out.println(document);
+            }
+        });
+    }
+
+    public static void printCollection(FindIterable<Document> iterable) {
         iterable.forEach(new Block<Document>() {
             @Override
             public void apply(final Document document) {
@@ -121,29 +131,59 @@ public class DbManager {
 
         /* Final word */
         String FW = KeyRiddle.get(0);
+//        String FW = "Building";
 
         int numOfCharsPerJword = FW.length() / 4;
         int numOfoffsetWords = FW.length() % 4;
 
         /* Iterate character buckets that have numOfCharsPerJword length */
-        for (int word = 0; word < FW.length() - numOfoffsetWords; word++) {
+        for (int word = 0; word < 4 - numOfoffsetWords; word++) {
             /* Clean characters in bucket */
             FWchars.clear();
 
             /* Starting index of bucket */
             int pos = word*numOfCharsPerJword;
 
+            /* Initialize query for this bucket*/
+            BasicDBList conditionsList = new BasicDBList();
+            System.out.println("Final word test: " + FW);
+            System.out.println("Pos test: " +pos);
+
+
             /* Iterate characters in bucket */
-            for (int c = pos; c < pos+numOfCharsPerJword-1; c++ ) {
-                FWchars.add(FW.charAt(c));
-                ;
+            for (int c = pos; c < FW.length() && c < pos+numOfCharsPerJword; c++ ) {
+                /* Query regex */
+                String regex = "[" + Character.toString(Character.toUpperCase(FW.charAt(c))) +
+                        Character.toString(Character.toLowerCase(FW.charAt(c))) + "]";
+                /* Populate the conditions list */
+                conditionsList.add(new BasicDBObject("word",
+                        java.util.regex.Pattern.compile(regex)));
             }
+
+            System.out.print(conditionsList.toString());
+            BasicDBObject querry = new BasicDBObject("$and", conditionsList);
+
+            printCollection(db.getCollection("jumbled_words").find(querry));
+
+           // DBObject areaLessThanTest = new BasicDBObject("word", java.util.regex.Pattern.compile("a"));
+
+
+            /* Find the jumble word for this bucket */
+//            printCollection(db.getCollection("jumbled_words").find(and(regex("word", java.util.regex.Pattern.compile("a")),
+//                    (regex("word", java.util.regex.Pattern.compile("b"))),(regex("word",java.util.regex.Pattern.compile("d"))))));
+//            printCollection(db.getCollection("jumbled_words").find(and(
+//                    regex("word", java.util.regex.Pattern.compile("a")),
+//                    regex("word", java.util.regex.Pattern.compile("b")),
+//                    regex("word", java.util.regex.Pattern.compile("d"))
+//            )));
+
+
+//            System.out.println("Jumbled words found: " + db.getCollection("jumbled_words").find(new Document("word", new Document("$regex", "son"))));
+//            System.out.println("Jumbled word picked: " + db.getCollection("jumbled_words").find(new Document("word", new Document("$regex", "son"))));
+
         }
         return jumbled_words;
     }
-
-
-
 
 
 }
