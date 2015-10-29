@@ -146,9 +146,8 @@ public class DbManager {
 
             /* Initialize query for this bucket*/
             BasicDBList conditionsList = new BasicDBList();
-            System.out.println("Final word test: " + FW);
-            System.out.println("Pos test: " +pos);
-
+//            System.out.println("Final word test: " + FW);
+//            System.out.println("Pos test: " +pos);
 
             /* Iterate characters in bucket */
             for (int c = pos; c < FW.length() && c < pos+numOfCharsPerJword; c++ ) {
@@ -161,29 +160,23 @@ public class DbManager {
             }
 
             System.out.print(conditionsList.toString());
-            BasicDBObject querry = new BasicDBObject("$and", conditionsList);
+            BasicDBObject query = new BasicDBObject("$and", conditionsList);
+            /* Get all proper jumbled word sorted by timesUsed */
+            FindIterable<Document> it = db.getCollection("jumbled_words").
+                    find(query).sort(new Document("timesUsed", 1));
 
-            printCollection(db.getCollection("jumbled_words").find(querry));
+            String jumbledWord = it.first().get("word").toString();
+            String timesUsed = it.first().get("timesUsed").toString();
 
-           // DBObject areaLessThanTest = new BasicDBObject("word", java.util.regex.Pattern.compile("a"));
+            /* Update timesUsed */
+            db.getCollection("jumbled_words").updateOne(new Document("word", jumbledWord),
+                    new Document("$set", new Document("timesUsed", Integer.parseInt(timesUsed) + 1)));
 
-
-            /* Find the jumble word for this bucket */
-//            printCollection(db.getCollection("jumbled_words").find(and(regex("word", java.util.regex.Pattern.compile("a")),
-//                    (regex("word", java.util.regex.Pattern.compile("b"))),(regex("word",java.util.regex.Pattern.compile("d"))))));
-//            printCollection(db.getCollection("jumbled_words").find(and(
-//                    regex("word", java.util.regex.Pattern.compile("a")),
-//                    regex("word", java.util.regex.Pattern.compile("b")),
-//                    regex("word", java.util.regex.Pattern.compile("d"))
-//            )));
-
-
-//            System.out.println("Jumbled words found: " + db.getCollection("jumbled_words").find(new Document("word", new Document("$regex", "son"))));
-//            System.out.println("Jumbled word picked: " + db.getCollection("jumbled_words").find(new Document("word", new Document("$regex", "son"))));
+            jumbled_words.add(jumbledWord);
 
         }
+        System.out.print(jumbled_words);
         return jumbled_words;
     }
-
 
 }
