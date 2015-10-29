@@ -3,6 +3,7 @@ import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.connection.Stream;
 import org.bson.Document;
 
 import java.io.BufferedReader;
@@ -10,6 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
+
 import static com.mongodb.client.model.Filters.*;
 
 
@@ -124,10 +127,10 @@ public class DbManager {
     }
 
     /* Generate the proper jumbled words */
-    public static ArrayList<String> getJumbledWords () {
+    public static ArrayList<ArrayList<String>> getJumbledWords () {
         // the proper words that contain characters of the final word
-        ArrayList<String> jumbled_words = new ArrayList<>();
-        ArrayList<Character> FWchars = new ArrayList<>();
+        ArrayList<ArrayList<String>> jumbled_words = new ArrayList<>();
+
 
         /* Final word */
         String FW = KeyRiddle.get(0);
@@ -142,8 +145,7 @@ public class DbManager {
 
         /* Iterate character buckets that have BucketSize length */
         for (int word = 0; word < 4; word++) {
-            /* Clean characters in bucket */
-            FWchars.clear();
+            String specialChars = "";
 
             /* Initialize query for this bucket*/
             BasicDBList conditionsList = new BasicDBList();
@@ -154,6 +156,7 @@ public class DbManager {
 
                 /* Iterate characters in bucket */
                 for (int c = pos; c < FW.length() && c < pos + BucketSize; c++) {
+                    specialChars += FW.charAt(c);
                     /* Query regex */
                     String regex = "[" + Character.toString(Character.toUpperCase(FW.charAt(c))) +
                             Character.toString(Character.toLowerCase(FW.charAt(c))) + "]";
@@ -168,6 +171,7 @@ public class DbManager {
 
                 /* Iterate characters in offset bucket */
                 for (int c = pos; c < FW.length() && c < pos + OffsetBucketSize; c++) {
+                    specialChars += FW.charAt(c);
                     /* Query regex */
                     String regex = "[" + Character.toString(Character.toUpperCase(FW.charAt(c))) +
                             Character.toString(Character.toLowerCase(FW.charAt(c))) + "]";
@@ -186,16 +190,19 @@ public class DbManager {
                     find(query).sort(new Document("timesUsed", 1));
 
             String jumbledWord = it.first().get("word").toString();
+
             String timesUsed = it.first().get("timesUsed").toString();
 
             /* Update timesUsed */
             db.getCollection("jumbled_words").updateOne(new Document("word", jumbledWord),
                     new Document("$set", new Document("timesUsed", Integer.parseInt(timesUsed) + 1)));
 
-            jumbled_words.add(jumbledWord);
-
+            ArrayList<String> inner = new ArrayList<String>();
+            inner.add(jumbledWord);
+            inner.add(specialChars);
+            jumbled_words.add(inner);
         }
-//        System.out.println(jumbled_words);
+        System.out.println(jumbled_words);
         return jumbled_words;
     }
 

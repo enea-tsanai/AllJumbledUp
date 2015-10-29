@@ -7,7 +7,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 //TODO: Add comments
@@ -36,17 +35,13 @@ public class AllJumbledUp extends Application {
         db = new DbManager("AllJumbledUp");
         db.generateFinalWordStoryPair();
         assignFW(db.getFinalWordStoryPair());
-        db.getJumbledWords();
-
-
-        genFWDictionary();
-        genJumbledWords();
+        assignJumbledWords(db.getJumbledWords());
     }
 
     //TODO: Check everything that needs to go to dev/null!
     public void restart() {
         assignFW(db.getFinalWordStoryPair());
-        genJumbledWords();
+        assignJumbledWords(db.getJumbledWords());
     }
 
     /* Assign Final Word */
@@ -54,28 +49,27 @@ public class AllJumbledUp extends Application {
 
         JW = key_pair.get(0);
         Story = key_pair.get(1);
-
-//        int index = ThreadLocalRandom.current().nextInt(1, FWDictionary.size());
-//        JW = FWDictionary.get(index).getFW();
-//        Story = FWDictionary.get(index).getStory();
         System.out.println("FW: " + JW + " Riddle: " + Story);
     }
 
+    //Todo:Remove
     /* Generates Final words dictionary */
     private void genFWDictionary() {
         FWDictionary.add(new FwStoryPair("Potato", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        FWDictionary.add(new FwStoryPair("Application", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        FWDictionary.add(new FwStoryPair("Monkey", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        FWDictionary.add(new FwStoryPair("Aeroplane", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        FWDictionary.add(new FwStoryPair("Football", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
-        FWDictionary.add(new FwStoryPair("Building", "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."));
     }
 
     /* Generate the game's jumbled words */
-    public void genJumbledWords() {
+    public void assignJumbledWords(ArrayList<ArrayList<String>> jumbleWords) {
         if(!JumbledWords.isEmpty()) {
             JumbledWords.clear();
         }
+
+//        for (String jw: jumbleWords) {
+//            List<Integer> sps = Arrays.asList(1,2);
+//            JumbledWords.add(new JumbledWord("abcd", sps));
+//        }
+
+
         //TODO: Implement Logic
         List<Integer> sps = Arrays.asList(1,2);
         JumbledWords.add(new JumbledWord("abcd", sps));
