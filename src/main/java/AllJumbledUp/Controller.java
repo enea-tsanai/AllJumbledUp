@@ -1,5 +1,7 @@
 package AllJumbledUp;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -23,9 +25,9 @@ public class Controller {
 
     /* Final Jumbled Word label */
     @FXML
-    static Label fjwLabel = new Label();
+    static Label fjwLabel;
 
-    static TextField fguessField = new TextField();
+    static TextField fguessField;
 
     // Reference to the main application.
     private AllJumbledUp allJumbledUp;
@@ -45,6 +47,8 @@ public class Controller {
      */
     @FXML
     private void initialize() {
+        FoundJwords = 0;
+        FWrevealed = false;
         System.out.println("Controller Initialized");
         JumbledWordsA1.getStyleClass().add("grid");
         JumbledWordsA2.getStyleClass().add("grid");
@@ -93,6 +97,7 @@ public class Controller {
         }
 
         /* Populate Area A2 */
+        fjwLabel = new Label();
         fjwLabel.setText(AllJumbledUp.getJW().replaceAll(".", "*"));
         fjwLabel.setFont(Font.font("Monospaced", 18));
         fjwLabel.setPadding(new Insets(5, 5, 0, 5));
@@ -105,12 +110,15 @@ public class Controller {
         fguessFieldSL.setPadding(new Insets(5, 5, 5, 5));
 
         /* Input field for user to guess the jumbled word*/
+        fguessField = new TextField();
+        fguessField.clear();
         fguessField.setEditable(false);
         fguessField.setId("gjw_" + l);
         fguessField.setFont(Font.font("Monospaced", 18));
         fguessField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent");
         fguessField.setPadding(new Insets(5, 5, 5, 5));
 
+        System.out.println("TextDelimeter Test| fguessField---> " + fguessField.getText() + " AllJumbledUp.getJW() " + AllJumbledUp.getJW());
         addTextLimiter(fguessField, AllJumbledUp.getJW(), AllJumbledUp.getJW().length());
         addTextMatchController(fguessField, AllJumbledUp.getJW(), null, true);
 

@@ -112,6 +112,8 @@ public class DbManager {
         db.getCollection("key_riddles").updateOne(new Document("key", key),
                 new Document("$set", new Document("timesUsed", Integer.parseInt(timesUsed) + 1)));
 
+        if (!KeyRiddle.isEmpty())
+            KeyRiddle.clear();
         KeyRiddle.add(0, key);
         KeyRiddle.add(1, riddle);
 

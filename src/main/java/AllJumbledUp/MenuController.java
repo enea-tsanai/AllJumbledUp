@@ -44,7 +44,7 @@ public class MenuController {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        System.out.print("Button clicked!");
+        allJumbledUp.startGame();
         allJumbledUp.setNumOfPlayers(Integer.parseInt(numOfPlayers.getSelectionModel().getSelectedItem().toString()));
         allJumbledUp.setDifficultyLevelLevel((AllJumbledUp.DifficultyLevel) difficultyLevel.getSelectionModel().getSelectedItem());
         allJumbledUp.setSound(sound.isSelected());
@@ -52,7 +52,6 @@ public class MenuController {
 //        System.out.println(allJumbledUp.getNumOfPlayers());
 //        System.out.println(allJumbledUp.getDifficultyLevel().toString());
 //        System.out.println(sound.isSelected());
-
         allJumbledUp.showMainGameScene();
     }
 
