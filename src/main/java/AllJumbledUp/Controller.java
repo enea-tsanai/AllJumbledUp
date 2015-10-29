@@ -149,7 +149,7 @@ public class Controller {
     public int countOccurrencesOf(String a, char b) {
         int counter = 0;
         for (int i = 0; i < a.length(); i++) {
-            if (a.charAt(i) == b) {
+            if (Character.toLowerCase(a.charAt(i)) == Character.toLowerCase(b)) {
                 counter++;
             }
         }
