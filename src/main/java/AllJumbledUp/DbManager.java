@@ -3,7 +3,6 @@ import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.connection.Stream;
 import org.bson.Document;
 
 import java.io.BufferedReader;
@@ -11,9 +10,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.List;
-
-import static com.mongodb.client.model.Filters.*;
 
 
 /**
@@ -131,7 +127,6 @@ public class DbManager {
         // the proper words that contain characters of the final word
         ArrayList<ArrayList<String>> jumbled_words = new ArrayList<>();
 
-
         /* Final word */
         String FW = KeyRiddle.get(0);
 //        String FW = "Building";
@@ -198,8 +193,8 @@ public class DbManager {
                     new Document("$set", new Document("timesUsed", Integer.parseInt(timesUsed) + 1)));
 
             ArrayList<String> inner = new ArrayList<String>();
-            inner.add(jumbledWord);
-            inner.add(specialChars);
+            inner.add(jumbledWord.toLowerCase());
+            inner.add(specialChars.toLowerCase());
             jumbled_words.add(inner);
         }
         System.out.println(jumbled_words);

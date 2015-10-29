@@ -46,7 +46,6 @@ public class AllJumbledUp extends Application {
 
     /* Assign Final Word */
     public void assignFW(ArrayList<String> key_pair) {
-
         JW = key_pair.get(0);
         Story = key_pair.get(1);
         System.out.println("FW: " + JW + " Riddle: " + Story);

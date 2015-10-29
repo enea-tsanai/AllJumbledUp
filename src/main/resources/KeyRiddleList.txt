@@ -1,3 +1,25 @@
-{"key":"banana", "riddle": "Monkeys eat ...","timesUsed": 0},
-{"key":"Spaceship", "riddle": "Spaceship","timesUsed": 0},
-{"key":"Building", "riddle": "Building","timesUsed": 0},
+{"key":"Question","riddle":"What am I?","timesUsed": 0}
+{"key":"Housefly","riddle":"What house can fly?","timesUsed": 0}
+{"key":"Candle","riddle":"What's tall when it's young, and short when it's old?","timesUsed": 0}
+{"key":"Mary","riddle":"Mary's father has 5 daughers; Nana, Nene, Nini, and Nono. What is the fifth daughters name?","timesUsed": 0}
+{"key":"Umbrella","riddle":"What goes up when the rain comes down?","timesUsed": 0}
+{"key":"Fire","riddle":"If I drink, I die. If I eat, I'm fine. What am I?","timesUsed": 0}
+{"key":"Short","riddle":"What word becomes shorter when you add two letters to it?","timesUsed": 0}
+{"key":"Mississippi","riddle":"What has four eyes but can't see?","timesUsed": 0}
+{"key":"Secret","riddle":"If I have it, I don't share it. If I share it, I don't have it. What is it?","timesUsed": 0}
+{"key":"White","riddle":"A house has four walls, all facing South. There is a bear outside the house. What color is the bear?","timesUsed": 0}
+{"key":"Silence","riddle":"What is so delicate that saying its name breaks it?","timesUsed": 0}
+{"key":"Needle","riddle":"What has one eye but cannot see?","timesUsed": 0}
+{"key":"Stars","riddle":"What comes out at night and is lost during the day?","timesUsed": 0}
+{"key":"Tomorrow","riddle":"What's always coming but never arrives?","timesUsed": 0}
+{"key":"Piano","riddle":"What has 88 keys but can't open a single door?","timesUsed": 0}
+{"key":"Bottle","riddle":"What has a neck but no head?","timesUsed": 0}
+{"key":"Person","riddle":"What has 4 legs in the morning, two legs in the afternoon, and 3 legs at night?","timesUsed": 0}
+{"key":"Yesterday","riddle":"What is something you will never see again?","timesUsed": 0}
+{"key":"Keyboard","riddle":"I have keys, but no locks. I have space but no room. I can enter but can't go outside. What am I?","timesUsed": 0}
+{"key":"Mouth","riddle":"What do you use to eat a tent?","timesUsed": 0}
+{"key":"Ruler","riddle":"What has a foot but no leg?","timesUsed": 0}
+{"key":"Matchstick","riddle":"Tear one off and scratch my head, what was red is black instead","timesUsed": 0}
+{"key":"Clock","riddle":"If you look at the numbers on my face, you won't find thirteen anyplace","timesUsed": 0}
+{"key":"Mushroom","riddle":"What room can no one enter?","timesUsed": 0}
+{"key":"Quicksand","riddle":"What can drown a man while he stays dry?","timesUsed": 0}

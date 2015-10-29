@@ -2,6 +2,7 @@ package AllJumbledUp;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,8 +41,16 @@ public class JumbledWord {
 
     /* Jumbles the given word */
     public String jumble(String word) {
-        //TODO: Implement logic
-        return word + "";
+        List<Character> characters = new ArrayList<Character>();
+        for(char c:word.toCharArray()){
+            characters.add(c);
+        }
+        StringBuilder jumbledWord = new StringBuilder(word.length());
+        while(characters.size()!=0){
+            int randPicker = (int)(Math.random()*characters.size());
+            jumbledWord.append(characters.remove(randPicker));
+        }
+        return jumbledWord.toString();
     }
 
     public String getWord() {
