@@ -56,26 +56,27 @@ public class DbManager {
         }
     }
 
+    public static void cleanDB() {
+        /* Clear jumbled words*/
+        db.getCollection("jumbled_words").deleteMany(new Document());
+        /* Clear key riddles */
+        db.getCollection("key_riddles").deleteMany(new Document());
+    }
+
     //TODO: Remove clear
     /* Init the DB: Import all jumbled words and final words-story pairs */
     public static void initDB() {
-
-        /* Clear jumbled words*/
-        db.getCollection("jumbled_words").deleteMany(new Document());
-//        if (db.getCollection("jumbled_words").count() < 1)
+        if (db.getCollection("jumbled_words").count() < 1) {
         /* Import jumbled words */
             dbImport("/Users/enea/Dev/Villanova/AllJumbledUp/src/main/resources/wordlist.txt",
                     db.getCollection("jumbled_words"));
+        }
 
-        /* Sort by usage */
-        FindIterable<Document> iterableJW = db.getCollection("jumbled_words").find().sort(new Document("timesUsed", 1));
-//        printCollection("jumbled_words");
-
-        /* Clear jumbled words */
-        db.getCollection("key_riddles").deleteMany(new Document());
+        if (db.getCollection("key_riddles").count() < 1) {
         /* Import keys-riddles */
-        dbImport("/Users/enea/Dev/Villanova/AllJumbledUp/src/main/resources/KeyRiddleList.txt",
-                db.getCollection("key_riddles"));
+            dbImport("/Users/enea/Dev/Villanova/AllJumbledUp/src/main/resources/KeyRiddleList.txt",
+                    db.getCollection("key_riddles"));
+        }
     }
 
     /* Log collection documents */

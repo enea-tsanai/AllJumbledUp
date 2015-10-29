@@ -33,6 +33,7 @@ public class AllJumbledUp extends Application {
     /*Constructor */
     public AllJumbledUp() {
         db = new DbManager("AllJumbledUp");
+//        db.cleanDB();
         db.generateFinalWordStoryPair();
         assignFW(db.getFinalWordStoryPair());
         assignJumbledWords(db.getJumbledWords());
