@@ -59,26 +59,13 @@ public class AllJumbledUp extends Application {
     }
 
     /* Generate the game's jumbled words */
-    public void assignJumbledWords(ArrayList<ArrayList<String>> jumbleWords) {
+    public void assignJumbledWords(ArrayList<ArrayList<String>> jumbleWordPairs) {
         if(!JumbledWords.isEmpty()) {
             JumbledWords.clear();
         }
-
-//        for (String jw: jumbleWords) {
-//            List<Integer> sps = Arrays.asList(1,2);
-//            JumbledWords.add(new JumbledWord("abcd", sps));
-//        }
-
-
-        //TODO: Implement Logic
-        List<Integer> sps = Arrays.asList(1,2);
-        JumbledWords.add(new JumbledWord("abcd", sps));
-        sps = Arrays.asList(0,2);
-        JumbledWords.add(new JumbledWord("regfg", sps));
-        sps = Arrays.asList(3);
-        JumbledWords.add(new JumbledWord("ijklg", sps));
-        sps = Arrays.asList(0);
-        JumbledWords.add(new JumbledWord("sfsf", sps));
+        for (ArrayList<String> jumbleWordPair : jumbleWordPairs) {
+            JumbledWords.add(new JumbledWord(jumbleWordPair.get(0), jumbleWordPair.get(1)));
+        }
     }
 
     public List<JumbledWord> getJumbledWords() {

@@ -1,5 +1,7 @@
 package AllJumbledUp;
 
+import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +32,12 @@ public class JumbledWord {
         this.SpecialPositions_ = listToSet(lsp);
     }
 
+    public JumbledWord(String word, String spchars) {
+        this.Word_ = word;
+        this.JumbledWord_ = jumble(word);
+        this.SpecialPositions_ = spcharsToSps(spchars);
+    }
+
     /* Jumbles the given word */
     public String jumble(String word) {
         //TODO: Implement logic
@@ -56,6 +64,15 @@ public class JumbledWord {
         if(list!=null)
             return new HashSet<Integer>(list);
         return new HashSet<Integer>(); //check this
+    }
+
+    Set<Integer> spcharsToSps(String spchars) {
+        Set<Integer> sps = new HashSet<Integer>();
+        StringCharacterIterator it = new StringCharacterIterator(spchars);
+        for (char ch=it.first(); ch != CharacterIterator.DONE; ch=it.next()) {
+           sps.add(Word_.indexOf(ch));
+        }
+        return sps; //check this
     }
 
     /*Returns the mask of the hidden word*/
