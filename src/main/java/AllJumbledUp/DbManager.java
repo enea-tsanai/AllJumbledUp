@@ -130,51 +130,55 @@ public class DbManager {
         ArrayList<Character> FWchars = new ArrayList<>();
 
         /* Final word */
-//        String FW = KeyRiddle.get(0);
-        String FW = "Building";
+        String FW = KeyRiddle.get(0);
+//        String FW = "Building";
 
         int BucketSize = FW.length() / 4;
         int offsetBuckets = FW.length() % 4;
         int Buckets = 4 - offsetBuckets;
-        int OffsetBucketSize = (FW.length() - BucketSize*Buckets) / offsetBuckets;
+        int OffsetBucketSize = 0;
+        if (offsetBuckets > 0)
+            OffsetBucketSize = (FW.length() - BucketSize*Buckets) / offsetBuckets;
 
         /* Iterate character buckets that have BucketSize length */
-        for (int word = 0; word < 4 - offsetBuckets; word++) {
+        for (int word = 0; word < 4; word++) {
             /* Clean characters in bucket */
             FWchars.clear();
 
-            /* Starting index of bucket */
-            int pos = word*BucketSize;
-
             /* Initialize query for this bucket*/
             BasicDBList conditionsList = new BasicDBList();
-//            System.out.println("Final word test: " + FW);
-//            System.out.println("Pos test: " +pos);
 
-            if (word < 4 - offsetBuckets) {
-            /* Iterate characters in bucket */
+            if (word < Buckets) {
+                /* Starting index of bucket */
+                int pos = word*BucketSize;
+
+                /* Iterate characters in bucket */
                 for (int c = pos; c < FW.length() && c < pos + BucketSize; c++) {
-                /* Query regex */
+                    /* Query regex */
                     String regex = "[" + Character.toString(Character.toUpperCase(FW.charAt(c))) +
                             Character.toString(Character.toLowerCase(FW.charAt(c))) + "]";
-                /* Populate the conditions list */
+                    /* Populate the conditions list */
                     conditionsList.add(new BasicDBObject("word",
                             java.util.regex.Pattern.compile(regex)));
                 }
             }
             else {
+                /* Starting index of bucket */
+                int pos = Buckets * BucketSize + OffsetBucketSize * (word - Buckets);
+
                 /* Iterate characters in offset bucket */
                 for (int c = pos; c < FW.length() && c < pos + OffsetBucketSize; c++) {
-                /* Query regex */
+                    /* Query regex */
                     String regex = "[" + Character.toString(Character.toUpperCase(FW.charAt(c))) +
                             Character.toString(Character.toLowerCase(FW.charAt(c))) + "]";
-                /* Populate the conditions list */
+                    /* Populate the conditions list */
                     conditionsList.add(new BasicDBObject("word",
                             java.util.regex.Pattern.compile(regex)));
                 }
             }
 
-            System.out.print(conditionsList.toString());
+            System.out.println("Bucket: " + conditionsList.toString());
+
             /* The query */
             BasicDBObject query = new BasicDBObject("$and", conditionsList);
             /* Get all proper jumbled word sorted by timesUsed */
@@ -191,8 +195,7 @@ public class DbManager {
             jumbled_words.add(jumbledWord);
 
         }
-
-        System.out.println(jumbled_words);
+//        System.out.println(jumbled_words);
         return jumbled_words;
     }
 
