@@ -68,6 +68,9 @@ public class AllJumbledUp extends Application {
     }
 
     public List<JumbledWord> getJumbledWords() {
+        long seed = System.nanoTime();
+        /* Shuffle list */
+        Collections.shuffle(JumbledWords, new Random(seed));
         return JumbledWords;
     }
 
