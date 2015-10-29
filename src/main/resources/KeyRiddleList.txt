@@ -1,3 +1,3 @@
-{"key":"banana", "riddle": "banana","timesUsed": 0},
+{"key":"banana", "riddle": "Monkeys eat ...","timesUsed": 0},
 {"key":"Spaceship", "riddle": "Spaceship","timesUsed": 0},
 {"key":"Building", "riddle": "Building","timesUsed": 0},
