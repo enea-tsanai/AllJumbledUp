@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -9,39 +10,45 @@
    <center>
         <VBox prefHeight="414.0" prefWidth="570.0" scaleShape="false" BorderPane.alignment="CENTER">
             <children>
-            <Region prefHeight="51.0" prefWidth="570.0" />
-                <Label alignment="TOP_CENTER" prefHeight="29.0" prefWidth="585.0" text="The Jumble Game" textAlignment="CENTER">
+                <Region prefHeight="10.0" prefWidth="610.0" />
+                <Label alignment="TOP_CENTER" prefHeight="29.0" prefWidth="271.0" text="The Jumble Game" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="23.0" />
                     </font>
                 </Label>
-            <GridPane fx:id="JumbledWordsA1" alignment="center">
-              <!--<columnConstraints>-->
-                <!--<ColumnConstraints minWidth="10.0" prefWidth="100.0" />-->
-              <!--</columnConstraints>-->
-              <!--<rowConstraints>-->
-                <!--<RowConstraints minHeight="10.0" prefHeight="30.0" />-->
-              <!--</rowConstraints>-->
-               <!--<VBox.margin>-->
-                  <!--<Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />-->
-               <!--</VBox.margin>-->
-            </GridPane>
-            <Region prefHeight="51.0" prefWidth="570.0" />
-            <HBox prefHeight="198.0" prefWidth="274.0">
-                <children>
-                    <GridPane fx:id="JumbledWordsA2" vgap="0">
-                    </GridPane>
-                    <Region prefHeight="148.0" prefWidth="30.0" />
-                  <ScrollPane fx:id="StoryPane" prefHeight="200.0" maxWidth="400.0">
-                     <content>
-                        <Pane prefHeight="200.0" prefWidth="200.0" />
-                     </content>
-                  </ScrollPane>
-                </children>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-            </HBox>
+                <Label alignment="TOP_CENTER" prefHeight="29.0" prefWidth="271.0" text="Timer" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Label>
+                <Region prefHeight="10.0" prefWidth="610.0" />
+                <GridPane fx:id="JumbledWordsA1" alignment="center">
+                  <!--<columnConstraints>-->
+                    <!--<ColumnConstraints minWidth="10.0" prefWidth="100.0" />-->
+                  <!--</columnConstraints>-->
+                  <!--<rowConstraints>-->
+                    <!--<RowConstraints minHeight="10.0" prefHeight="30.0" />-->
+                  <!--</rowConstraints>-->
+                   <!--<VBox.margin>-->
+                      <!--<Insets bottom="50.0" left="100.0" right="100.0" top="50.0" />-->
+                   <!--</VBox.margin>-->
+                </GridPane>
+                <Region prefHeight="51.0" prefWidth="570.0" />
+                <HBox prefHeight="198.0" prefWidth="274.0">
+                    <children>
+                        <GridPane fx:id="JumbledWordsA2" vgap="0">
+                        </GridPane>
+                        <Region prefHeight="148.0" prefWidth="30.0" />
+                        <ScrollPane fx:id="StoryPane" maxWidth="400.0" prefHeight="200.0">
+                         <content>
+                            <Pane prefHeight="200.0" prefWidth="200.0" />
+                         </content>
+                        </ScrollPane>
+                    </children>
+                        <VBox.margin>
+                            <Insets />
+                        </VBox.margin>
+                </HBox>
             </children>
             <opaqueInsets>
                 <Insets />

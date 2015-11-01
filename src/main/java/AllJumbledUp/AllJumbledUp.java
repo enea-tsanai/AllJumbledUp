@@ -20,6 +20,7 @@ public class AllJumbledUp extends Application {
     private static int numOfPlayers = 1;
     private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY ;
     private static boolean sound = false;
+    private static int timer; //Timer in seconds
 
     /* Words Dictionaries */
     private List <JumbledWord> JumbledWords = new ArrayList<>();
@@ -40,6 +41,7 @@ public class AllJumbledUp extends Application {
         db.generateFinalWordStoryPair();
         assignFW(db.getFinalWordStoryPair());
         assignJumbledWords(db.getJumbledWords());
+        setTimer();
     }
 
     //TODO: Check everything that needs to go to dev/null!
@@ -110,6 +112,21 @@ public class AllJumbledUp extends Application {
         sound = isSoundOn;
     }
 
+    public void setTimer() {
+        switch (difficultyLevel) {
+            case EASY:
+                timer = 300;
+                break;
+            case MEDIUM:
+                timer = 240;
+                break;
+            case HIGH:
+                timer = 120;
+                break;
+            default:
+                timer = 240;
+        }
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
