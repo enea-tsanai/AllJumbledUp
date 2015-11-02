@@ -11,12 +11,12 @@
         <VBox prefHeight="414.0" prefWidth="570.0" scaleShape="false" BorderPane.alignment="CENTER">
             <children>
                 <Region prefHeight="10.0" prefWidth="610.0" />
-                <Label alignment="TOP_CENTER" prefHeight="29.0" prefWidth="271.0" text="The Jumble Game" textAlignment="CENTER">
+                <Label alignment="TOP_CENTER" prefHeight="29.0" prefWidth="640" text="The Jumble Game" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="23.0" />
                     </font>
                 </Label>
-                <Label fx:id="Timer" alignment="TOP_CENTER" prefHeight="29.0" prefWidth="271.0" text="Timer" textAlignment="CENTER">
+                <Label fx:id="Timer" alignment="TOP_RIGHT" prefHeight="29.0" prefWidth="640" text="Timer" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>
