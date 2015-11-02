@@ -1,6 +1,7 @@
 package AllJumbledUp;
 
 import javafx.animation.KeyFrame;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -145,24 +146,28 @@ public class Controller {
         StoryPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         StoryPane.setFitToWidth(true);
 
+
         updateTimer();
+
     }
 
+//    TODO: Check setOnFinished and showandwait bug
     public void updateTimer() {
-        Timeline gameTimer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+        Timeline gameTimer = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            Timer.setText(allJumbledUp.updateTimer());
+        }));
+
+
+
+        gameTimer.setCycleCount(allJumbledUp.getTimer());
+        gameTimer.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Timer.setText(allJumbledUp.updateTimer());
+                Platform.runLater(() -> gameOverDialog());
             }
-        }));
-        gameTimer.setCycleCount(allJumbledUp.getTimer());
+        });
         gameTimer.play();
     }
-
-
-
-
-
 
     // Listeners
     /*Limits max input field length and acceptable characters*/

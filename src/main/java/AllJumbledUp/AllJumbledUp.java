@@ -133,6 +133,7 @@ public class AllJumbledUp extends Application {
         String m = Integer.toString(timer / 60);
         m = (m.length()<2)? "0"+m: m ;
         String s = Integer.toString(timer % 60);
+        s = (s.length()<2)? "0"+s: s ;
         return m+":"+s;
     }
 
