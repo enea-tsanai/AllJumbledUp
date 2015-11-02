@@ -2,8 +2,6 @@ package AllJumbledUp;
 
 import javafx.animation.KeyFrame;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -14,9 +12,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-
 import java.util.Optional;
-import java.util.TimerTask;
 
 //TODO: Add comments
 public class Controller {
@@ -38,6 +34,8 @@ public class Controller {
     private Label Timer;
 
     static TextField fguessField;
+
+    private Timeline gameTimer;
 
     // Reference to the main application.
     private AllJumbledUp allJumbledUp;
@@ -151,19 +149,12 @@ public class Controller {
 
     }
 
-//    TODO: Check setOnFinished and showandwait bug
     public void updateTimer() {
-        Timeline gameTimer = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        gameTimer = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             Timer.setText(allJumbledUp.updateTimer());
         }));
-
         gameTimer.setCycleCount(allJumbledUp.getTimer());
-        gameTimer.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Platform.runLater(() -> gameOverDialog(AllJumbledUp.ExitFlag.TIME_UP));
-            }
-        });
+        gameTimer.setOnFinished(event -> Platform.runLater(() -> gameOverDialog(AllJumbledUp.ExitFlag.TIME_UP)));
         gameTimer.play();
     }
 
@@ -222,6 +213,8 @@ public class Controller {
 
     /* Confirm Game Exit */
     public boolean shutdown () {
+        gameTimer.pause();
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Game Over");
         alert.setHeaderText("Exit the Game");
@@ -231,6 +224,7 @@ public class Controller {
         if (result.get() == ButtonType.OK){
             return true;
         } else {
+            gameTimer.play();
             return false;
         }
     }
