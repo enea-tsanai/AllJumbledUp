@@ -16,9 +16,13 @@ public class AllJumbledUp extends Application {
         EASY, MEDIUM, HIGH
     }
 
+    public static enum ExitFlag {
+        TIME_UP, SOLVED_RIDDLE, EXIT_GAME
+    }
+
     /* Game Settings */
     private static int numOfPlayers = 1;
-    private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY ;
+    private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
     private static boolean sound = false;
     private static int timer; //Timer in seconds
 

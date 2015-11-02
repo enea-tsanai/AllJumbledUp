@@ -157,13 +157,11 @@ public class Controller {
             Timer.setText(allJumbledUp.updateTimer());
         }));
 
-
-
         gameTimer.setCycleCount(allJumbledUp.getTimer());
         gameTimer.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Platform.runLater(() -> gameOverDialog());
+                Platform.runLater(() -> gameOverDialog(AllJumbledUp.ExitFlag.TIME_UP));
             }
         });
         gameTimer.play();
@@ -204,7 +202,7 @@ public class Controller {
                 tf.setStyle("-fx-text-fill: green; -fx-background-color: transparent");
 
                 if (isFinalWord) {
-                    gameOverDialog();
+                    gameOverDialog(AllJumbledUp.ExitFlag.SOLVED_RIDDLE);
                 }
                 else {
                     // Add the special characters of this word above the final jumbled word
@@ -238,10 +236,19 @@ public class Controller {
     }
 
     /* Game Over Dialog */
-    public void gameOverDialog () {
+    public void gameOverDialog (AllJumbledUp.ExitFlag flag) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Game Over!");
-        alert.setHeaderText("You found the hidden word! Congratulations!");
+
+        switch (flag) {
+            case SOLVED_RIDDLE:
+                alert.setHeaderText("You found the hidden word! Congratulations!");
+                break;
+            case TIME_UP:
+                alert.setHeaderText("Time is up!");
+                break;
+            default:
+        }
 
         ButtonType exit = new ButtonType("Exit Game");
         ButtonType rePlay = new ButtonType("New Game");
