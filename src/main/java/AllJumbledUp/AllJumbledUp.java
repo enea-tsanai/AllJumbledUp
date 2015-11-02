@@ -112,10 +112,10 @@ public class AllJumbledUp extends Application {
         sound = isSoundOn;
     }
 
-    public void setTimer() {
+    private void setTimer() {
         switch (difficultyLevel) {
             case EASY:
-                timer = 300;
+                timer = 5;
                 break;
             case MEDIUM:
                 timer = 240;
@@ -126,6 +126,18 @@ public class AllJumbledUp extends Application {
             default:
                 timer = 240;
         }
+    }
+
+    public String updateTimer() {
+        timer --;
+        String m = Integer.toString(timer / 60);
+        m = (m.length()<2)? "0"+m: m ;
+        String s = Integer.toString(timer % 60);
+        return m+":"+s;
+    }
+
+    public int getTimer(){
+        return timer;
     }
 
     @Override

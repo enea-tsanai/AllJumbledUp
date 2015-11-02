@@ -16,7 +16,7 @@
                         <Font name="System Bold" size="23.0" />
                     </font>
                 </Label>
-                <Label alignment="TOP_CENTER" prefHeight="29.0" prefWidth="271.0" text="Timer" textAlignment="CENTER">
+                <Label fx:id="Timer" alignment="TOP_CENTER" prefHeight="29.0" prefWidth="271.0" text="Timer" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="15.0" />
                     </font>

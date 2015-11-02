@@ -1,15 +1,21 @@
 package AllJumbledUp;
 
+import javafx.animation.KeyFrame;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.util.Optional;
+import java.util.TimerTask;
 
 //TODO: Add comments
 public class Controller {
@@ -26,6 +32,9 @@ public class Controller {
     /* Final Jumbled Word label */
     @FXML
     static Label fjwLabel;
+
+    @FXML
+    private Label Timer;
 
     static TextField fguessField;
 
@@ -136,7 +145,24 @@ public class Controller {
         StoryPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         StoryPane.setFitToWidth(true);
 
+        updateTimer();
     }
+
+    public void updateTimer() {
+        Timeline gameTimer = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Timer.setText(allJumbledUp.updateTimer());
+            }
+        }));
+        gameTimer.setCycleCount(allJumbledUp.getTimer());
+        gameTimer.play();
+    }
+
+
+
+
+
 
     // Listeners
     /*Limits max input field length and acceptable characters*/
