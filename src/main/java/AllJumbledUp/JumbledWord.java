@@ -41,7 +41,7 @@ public class JumbledWord {
 
     /* Jumbles the given word */
     public String jumble(String word) {
-        List<Character> characters = new ArrayList<Character>();
+        List<Character> characters = new ArrayList<>();
         for(char c:word.toCharArray()){
             characters.add(c);
         }
@@ -71,12 +71,12 @@ public class JumbledWord {
 
     Set<Integer> listToSet(List<Integer> list) {
         if(list!=null)
-            return new HashSet<Integer>(list);
-        return new HashSet<Integer>(); //check this
+            return new HashSet<>(list);
+        return new HashSet<>(); //check this
     }
 
     Set<Integer> spcharsToSps(String spchars) {
-        Set<Integer> sps = new HashSet<Integer>();
+        Set<Integer> sps = new HashSet<>();
         StringCharacterIterator it = new StringCharacterIterator(spchars);
         for (char ch=it.first(); ch != CharacterIterator.DONE; ch=it.next()) {
            sps.add(Word_.indexOf(ch));
