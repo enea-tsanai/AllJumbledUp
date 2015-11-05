@@ -1,5 +1,8 @@
 package AllJumbledUp;
 
+import facebook4j.Facebook;
+import facebook4j.FacebookFactory;
+import facebook4j.auth.AccessToken;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +22,8 @@ public class AllJumbledUp extends Application {
     public static enum ExitFlag {
         TIME_UP, SOLVED_RIDDLE, EXIT_GAME
     }
+
+    Facebook facebook = new FacebookFactory().getInstance();
 
     /* Game Settings */
     private static int numOfPlayers = 1;
@@ -148,7 +153,8 @@ public class AllJumbledUp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        showMainMenuScene();
+        showFBLoginScene();
+//        showMainMenuScene();
 //        showMainGameScene();
     }
 
@@ -210,6 +216,31 @@ public class AllJumbledUp extends Application {
                     ev.consume();
                 }
             });
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showFBLoginScene() {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/LoginPage.fxml"));
+
+            Parent root = loader.load();
+
+            FacebookLoginPageController controller = loader.getController();
+            controller.setMainApp(this);
+
+//            String css = this.getClass().getResource("/MainMenu.css").toExternalForm();
+            Scene JumbleScene = new Scene(root);
+//            JumbleScene.getStylesheets().add(css);
+
+            stage.setTitle("All Jumbled Up - Facebook Login");
+            stage.setScene(JumbleScene);
+            stage.setResizable(false);
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
