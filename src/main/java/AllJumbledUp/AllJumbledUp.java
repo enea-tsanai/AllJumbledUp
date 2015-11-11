@@ -1,8 +1,6 @@
 package AllJumbledUp;
 
 import facebook4j.Facebook;
-import facebook4j.FacebookFactory;
-import facebook4j.auth.AccessToken;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -227,7 +225,7 @@ public class AllJumbledUp extends Application {
         try {
 
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/LoginPage.fxml"));
+            loader.setLocation(getClass().getResource("/FacebookLoginPage.fxml"));
 
             Parent root = loader.load();
 
