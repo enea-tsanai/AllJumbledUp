@@ -24,6 +24,7 @@ public class AllJumbledUp extends Application {
     }
 
     public static Facebook facebook;
+    public static Session session;
 
     /* Game Settings */
     private static int numOfPlayers = 1;
@@ -44,7 +45,7 @@ public class AllJumbledUp extends Application {
     public AllJumbledUp() {
         db = new DbManager("AllJumbledUp");
 //        db.cleanDB();
-        facebook = new FacebookFactory().getInstance();
+        session = new Session();
     }
 
     public void startGame() {

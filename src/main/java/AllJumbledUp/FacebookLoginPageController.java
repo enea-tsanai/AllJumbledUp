@@ -33,10 +33,15 @@ public class FacebookLoginPageController {
     // Reference to the main application.
     private AllJumbledUp allJumbledUp;
 
+    static boolean isTokenFound = false;
+
     public FacebookLoginPageController() {
     }
 
     public void bind () {
+
+        AllJumbledUp.facebook = new FacebookFactory().getInstance();
+
         final WebView browser = new WebView();
         final WebEngine webEngine = browser.getEngine();
 
@@ -59,16 +64,17 @@ public class FacebookLoginPageController {
 
         // Capture response
         webEngine.setOnStatusChanged(event -> {
-            if (event.getSource() instanceof WebEngine) {
+            if ((event.getSource() instanceof WebEngine) && (!isTokenFound)) {
+
                 WebEngine we = (WebEngine) event.getSource();
                 String location = we.getLocation();
+
+                System.out.println("Location: " + location);
 
                 if (location.split("\\?").length > 1) {
                     String[] params = location.split("\\?")[1].split("&");
 
                     for (String s : params) {
-//                        System.out.println(s);
-//                        System.out.println(s.split("=")[0]);
 
                         // Get response code
                         if (s.split("=")[0].equals("code")) {
@@ -82,24 +88,20 @@ public class FacebookLoginPageController {
                                         "&client_secret=da0045843cca73f13f7832c088f39bb0" +
                                         "&code=" + code.toString());
 
-                                AllJumbledUp.facebook.setOAuthAccessToken(new AccessToken(access_token[0]));
-                                System.out.println("Facebook me:" + AllJumbledUp.facebook.getMe());
+                                if (access_token[0].length() > 0) {
+                                    isTokenFound = true;
+                                    AllJumbledUp.facebook.setOAuthAccessToken(new AccessToken(access_token[0]));
+                                    AllJumbledUp.session = new Session(AllJumbledUp.facebook.getMe().getId(),
+                                            AllJumbledUp.facebook.getMe().getName());
+//                                    System.out.println("Facebook me:" + AllJumbledUp.facebook.getMe());
+                                    System.out.println(AllJumbledUp.session);
+                                }
 
                             } catch (Exception e){
                                 e.printStackTrace();
                             }
                         }
-                        //System.out.println("s: " + s);
                     }
-//                    //Facebook facebook = new FacebookFactory().getInstance();
-////                    facebook.setOAuthAccessToken(new AccessToken(, null));
-////                    facebook.getOAuthAppAccessToken();
-//                    GET https://graph.facebook.com/v2.3/oauth/access_token?
-//                    client_id={app-id}
-//                            &redirect_uri=
-//                            &client_secret={app-secret}
-//                            &code={code-parameter}
-
                 }
             }
         });
