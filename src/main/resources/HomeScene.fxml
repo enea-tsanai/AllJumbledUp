@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+           <children>
+               <ToolBar prefHeight="117.0" prefWidth="654.0">
+                   <items>
+                       <Pane HBox.hgrow="ALWAYS" />
+                       <Label text="All Jumbled Up" />
+                       <Pane HBox.hgrow="ALWAYS" />
+                   </items>
+               </ToolBar>
+           </children>
+       </HBox>
+   </top>
+   <center>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+             <Pane HBox.hgrow="ALWAYS" />
+            <GridPane alignment="center" hgap="20.0" prefWidth="350.0" vgap="20.0" BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" text="Login with Facebook" textAlignment="CENTER" />
+                  <Button alignment="CENTER" mnemonicParsing="false" text="Free Play" textAlignment="CENTER" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+             <Pane HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </center>
+   <bottom>
+       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+           <children>
+               <ToolBar prefHeight="117.0" prefWidth="654.0">
+                   <items>
+                   </items>
+               </ToolBar>
+           </children>
+       </HBox>
+   </bottom>
+</BorderPane>
