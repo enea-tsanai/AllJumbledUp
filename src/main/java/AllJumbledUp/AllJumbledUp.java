@@ -21,8 +21,13 @@ public class AllJumbledUp extends Application {
         TIME_UP, SOLVED_RIDDLE, EXIT_GAME
     }
 
+    public static enum GameMode {
+        FacebookUser, FreePlay
+    }
+
     public static Facebook facebook;
     public static Session session;
+    private static GameMode gameMode;
 
     /* Game Settings */
     private static int numOfPlayers = 1;
@@ -137,6 +142,14 @@ public class AllJumbledUp extends Application {
         }
     }
 
+    public GameMode getGameMode () {
+        return gameMode;
+    }
+
+    public void setGameMode (GameMode gm) {
+        gameMode = gm;
+    }
+
     public String updateTimer() {
         timer --;
         String m = Integer.toString(timer / 60);
@@ -153,7 +166,8 @@ public class AllJumbledUp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        showFBLoginScene();
+        showHomeScene();
+//        showFBLoginScene();
 //        Facebook facebook = new FacebookFactory().getInstance();
 //        System.out.println(facebook);
 //        System.out.println(facebook.getOAuthAppAccessToken());
@@ -237,6 +251,31 @@ public class AllJumbledUp extends Application {
 //            JumbleScene.getStylesheets().add(css);
 
             stage.setTitle("All Jumbled Up - Facebook Login");
+            stage.setScene(JumbleScene);
+            stage.setResizable(false);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showHomeScene() {
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/HomeScene.fxml"));
+
+            Parent root = loader.load();
+
+            HomeSceneController controller = loader.getController();
+            controller.setMainApp(this);
+
+//            String css = this.getClass().getResource("/MainMenu.css").toExternalForm();
+            Scene JumbleScene = new Scene(root);
+//            JumbleScene.getStylesheets().add(css);
+
+            stage.setTitle("All Jumbled Up - Welcome!");
             stage.setScene(JumbleScene);
             stage.setResizable(false);
             stage.show();

@@ -4,7 +4,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AllJumbledUp.HomeSceneController">
    <top>
        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
            <children>
@@ -31,8 +31,8 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Login with Facebook" textAlignment="CENTER" />
-                  <Button alignment="CENTER" mnemonicParsing="false" text="Free Play" textAlignment="CENTER" GridPane.columnIndex="1" />
+                  <Button fx:id="FBLogin" onAction="#handleFBLogin" alignment="CENTER" mnemonicParsing="false" text="Login with Facebook" textAlignment="CENTER" />
+                  <Button fx:id="FreePlay" onAction="#handleFreePlay" alignment="CENTER" mnemonicParsing="false" text="Free Play" textAlignment="CENTER" GridPane.columnIndex="1" />
                </children>
             </GridPane>
              <Pane HBox.hgrow="ALWAYS" />
