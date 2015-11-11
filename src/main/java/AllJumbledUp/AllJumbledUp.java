@@ -193,11 +193,6 @@ public class AllJumbledUp extends Application {
         }
     }
 
-    /* Ends the Game */
-    public void gameOver() {
-        stage.close();
-    }
-
     public void showMainGameScene() {
         try {
 
@@ -252,4 +247,10 @@ public class AllJumbledUp extends Application {
             e.printStackTrace();
         }
     }
+
+    /* Ends the Game */
+    public void gameOver() {
+        stage.close();
+    }
+
 }

@@ -45,6 +45,12 @@ public class FacebookLoginPageController {
         final WebView browser = new WebView();
         final WebEngine webEngine = browser.getEngine();
 
+        WebContent.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        WebContent.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        WebContent.setFitToWidth(true);
+        WebContent.setFitToHeight(true);
+
+
         WebContent.setContent(browser);
         webEngine.setJavaScriptEnabled(true);
 
@@ -92,9 +98,10 @@ public class FacebookLoginPageController {
                                     isTokenFound = true;
                                     AllJumbledUp.facebook.setOAuthAccessToken(new AccessToken(access_token[0]));
                                     AllJumbledUp.session = new Session(AllJumbledUp.facebook.getMe().getId(),
-                                            AllJumbledUp.facebook.getMe().getName());
-//                                    System.out.println("Facebook me:" + AllJumbledUp.facebook.getMe());
+                                            AllJumbledUp.facebook.getMe().getName(),
+                                            AllJumbledUp.facebook.getPictureURL(500, 500).toString());
                                     System.out.println(AllJumbledUp.session);
+                                    allJumbledUp.showMainMenuScene();
                                 }
 
                             } catch (Exception e){
