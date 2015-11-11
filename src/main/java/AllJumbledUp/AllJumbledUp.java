@@ -23,7 +23,7 @@ public class AllJumbledUp extends Application {
         TIME_UP, SOLVED_RIDDLE, EXIT_GAME
     }
 
-    Facebook facebook = new FacebookFactory().getInstance();
+    public static Facebook facebook;
 
     /* Game Settings */
     private static int numOfPlayers = 1;
@@ -44,6 +44,7 @@ public class AllJumbledUp extends Application {
     public AllJumbledUp() {
         db = new DbManager("AllJumbledUp");
 //        db.cleanDB();
+        facebook = new FacebookFactory().getInstance();
     }
 
     public void startGame() {
@@ -154,6 +155,10 @@ public class AllJumbledUp extends Application {
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         showFBLoginScene();
+//        Facebook facebook = new FacebookFactory().getInstance();
+//        System.out.println(facebook);
+//        System.out.println(facebook.getOAuthAppAccessToken());
+
 //        showMainMenuScene();
 //        showMainGameScene();
     }
