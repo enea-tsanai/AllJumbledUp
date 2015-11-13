@@ -10,6 +10,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import java.util.Optional;
 
 //TODO: Add comments
@@ -31,14 +33,19 @@ public class Controller {
     @FXML
     private Label Timer;
 
-    static TextField fguessField;
+    @FXML
+    private Label Score;
 
+    static TextField fguessField;
     private Timeline gameTimer;
 
     // Reference to the main application.
     private AllJumbledUp allJumbledUp;
     private static int FoundJwords = 0;
     private static boolean FWrevealed = false;
+    private static int lettersFound = 0;
+    private static int timeRemaining = 0;
+
 
     /**
      * The constructor.
@@ -156,6 +163,11 @@ public class Controller {
         gameTimer.play();
     }
 
+
+    public void updateScore(String score) {
+        Score.setText("Score: " + score);
+    }
+
     // Listeners
     /*Limits max input field length and acceptable characters*/
     public void addTextLimiter(final TextField tf, final String cf, final int maxLength) {
@@ -200,6 +212,9 @@ public class Controller {
                     fjwLabel.setText(fjwLabel.getText() + spchars);
 
                     FoundJwords++;
+                    lettersFound += keyW.length();
+
+                    updateScore(Integer.toString(allJumbledUp.getTempScore(lettersFound)));
 
                     if ((FoundJwords == 4) && (!FWrevealed)){
                         fguessField.setEditable(true);
@@ -234,7 +249,8 @@ public class Controller {
 
         switch (flag) {
             case SOLVED_RIDDLE:
-                alert.setHeaderText("You found the hidden word! Congratulations!");
+                alert.setHeaderText("You found the hidden word! Congratulations!\n" + "Your Score is " +
+                        allJumbledUp.getScore(allJumbledUp.getTimer()));
                 break;
             case TIME_UP:
                 alert.setHeaderText("Time is up!");

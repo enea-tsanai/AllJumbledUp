@@ -28,6 +28,7 @@ public class AllJumbledUp extends Application {
     public static Facebook facebook;
     public static Session session;
     private static GameMode gameMode;
+    private static int Score = 0;
 
     /* Game Settings */
     private static int numOfPlayers = 1;
@@ -163,12 +164,17 @@ public class AllJumbledUp extends Application {
         return timer;
     }
 
-    public int getScore() {
-        int baseScore;
+    /* Temp Score shown while playing */
+    public int getTempScore (int lettersFound) {
         int pointsPerLetter = 5;
-        int pointsPerTimeRemaining = 5;
+        Score = lettersFound * pointsPerLetter;
+        return Score;
+    }
 
-        int lettersFound = 0, timeRemaining = 0;
+    /* Final score when the riddle is found */
+    public int getScore(int timeRemaining) {
+        int baseScore;
+        int pointsPerTimeRemaining = 5;
 
         switch (difficultyLevel) {
             case EASY:
@@ -183,7 +189,8 @@ public class AllJumbledUp extends Application {
             default:
                 baseScore = 100;
         }
-        return baseScore + lettersFound * pointsPerLetter + timeRemaining * pointsPerTimeRemaining;
+        Score += baseScore + timeRemaining * pointsPerTimeRemaining;
+        return Score;
     }
 
     @Override

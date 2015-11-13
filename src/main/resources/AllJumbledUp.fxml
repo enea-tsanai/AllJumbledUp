@@ -21,6 +21,11 @@
                         <Font name="System Bold" size="15.0" />
                     </font>
                 </Label>
+                <Label fx:id="Score" alignment="TOP_LEFT" prefHeight="29.0" prefWidth="640" text="Timer" textAlignment="CENTER">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Label>
                 <Region prefHeight="10.0" prefWidth="610.0" />
                 <GridPane fx:id="JumbledWordsA1" alignment="center">
                   <!--<columnConstraints>-->
