@@ -129,13 +129,13 @@ public class AllJumbledUp extends Application {
     private void setTimer() {
         switch (difficultyLevel) {
             case EASY:
-                timer = 5;
+                timer = 240;
                 break;
             case MEDIUM:
                 timer = 240;
                 break;
             case HIGH:
-                timer = 120;
+                timer = 240;
                 break;
             default:
                 timer = 240;
@@ -161,6 +161,29 @@ public class AllJumbledUp extends Application {
 
     public int getTimer(){
         return timer;
+    }
+
+    public int getScore() {
+        int baseScore;
+        int pointsPerLetter = 5;
+        int pointsPerTimeRemaining = 5;
+
+        int lettersFound = 0, timeRemaining = 0;
+
+        switch (difficultyLevel) {
+            case EASY:
+                baseScore = 100;
+                break;
+            case MEDIUM:
+                baseScore = 300;
+                break;
+            case HIGH:
+                baseScore = 500;
+                break;
+            default:
+                baseScore = 100;
+        }
+        return baseScore + lettersFound * pointsPerLetter + timeRemaining * pointsPerTimeRemaining;
     }
 
     @Override

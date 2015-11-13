@@ -3,6 +3,8 @@ package AllJumbledUp;
 /**
  * Created by enea on 11/10/15.
  */
+
+//TODO: Add Score history
 public class Session {
     private static String SessionID;
     private static String FullName;

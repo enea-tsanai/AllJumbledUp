@@ -15,6 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by enea on 10/27/15.
  */
+//TODO: implement users and sessions
 public class DbManager {
 
     private static MongoDatabase db;
