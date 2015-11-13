@@ -16,16 +16,20 @@
                         <Font name="System Bold" size="23.0" />
                     </font>
                 </Label>
-                <Label fx:id="Timer" alignment="TOP_RIGHT" prefHeight="29.0" prefWidth="640" text="Timer" textAlignment="CENTER">
-                    <font>
-                        <Font name="System Bold" size="15.0" />
-                    </font>
-                </Label>
-                <Label fx:id="Score" alignment="TOP_LEFT" prefHeight="29.0" prefWidth="640" text="Timer" textAlignment="CENTER">
-                    <font>
-                        <Font name="System Bold" size="15.0" />
-                    </font>
-                </Label>
+            <HBox prefHeight="50.0" prefWidth="200.0">
+               <children>
+                      <Label fx:id="Score" alignment="TOP_LEFT" prefHeight="29.0" prefWidth="640" textAlignment="CENTER">
+                          <font>
+                              <Font name="System Bold" size="15.0" />
+                          </font>
+                      </Label>
+                      <Label fx:id="Timer" alignment="TOP_RIGHT" prefHeight="29.0" prefWidth="640" textAlignment="CENTER">
+                          <font>
+                              <Font name="System Bold" size="15.0" />
+                          </font>
+                      </Label>
+               </children>
+            </HBox>
                 <Region prefHeight="10.0" prefWidth="610.0" />
                 <GridPane fx:id="JumbledWordsA1" alignment="center">
                   <!--<columnConstraints>-->

@@ -10,7 +10,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.Optional;
 
@@ -69,6 +68,7 @@ public class Controller {
 
     @FXML
     private void bindData () {
+
         int l = 0;
 
         /* Populate Area A1 */
@@ -149,7 +149,8 @@ public class Controller {
         StoryPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         StoryPane.setFitToWidth(true);
 
-
+        Score.setText("Score: 0");
+        Timer.setText(Integer.toString(allJumbledUp.getTimer()));
         updateTimer();
 
     }
@@ -162,7 +163,6 @@ public class Controller {
         gameTimer.setOnFinished(event -> Platform.runLater(() -> gameOverDialog(AllJumbledUp.ExitFlag.TIME_UP)));
         gameTimer.play();
     }
-
 
     public void updateScore(String score) {
         Score.setText("Score: " + score);
@@ -203,6 +203,9 @@ public class Controller {
                 tf.setStyle("-fx-text-fill: green; -fx-background-color: transparent");
 
                 if (isFinalWord) {
+                    gameTimer.stop();
+                    allJumbledUp.updateScore(0 , allJumbledUp.getTimer(), true);
+                    Score.setText("Score: " + Integer.toString(allJumbledUp.getScore()));
                     gameOverDialog(AllJumbledUp.ExitFlag.SOLVED_RIDDLE);
                 }
                 else {
@@ -213,8 +216,8 @@ public class Controller {
 
                     FoundJwords++;
                     lettersFound += keyW.length();
-
-                    updateScore(Integer.toString(allJumbledUp.getTempScore(lettersFound)));
+                    allJumbledUp.updateScore(lettersFound, 0 , false);
+                    updateScore(Integer.toString(allJumbledUp.getScore()));
 
                     if ((FoundJwords == 4) && (!FWrevealed)){
                         fguessField.setEditable(true);
@@ -249,8 +252,9 @@ public class Controller {
 
         switch (flag) {
             case SOLVED_RIDDLE:
-                alert.setHeaderText("You found the hidden word! Congratulations!\n" + "Your Score is " +
-                        allJumbledUp.getScore(allJumbledUp.getTimer()));
+//                System.out.println("Final Score: " + allJumbledUp.getScore() + " remainingTime: " + allJumbledUp.getTimer());
+                alert.setHeaderText("You solved the riddle! Congratulations!\n" + "Your Score is " +
+                        allJumbledUp.getScore() + ".");
                 break;
             case TIME_UP:
                 alert.setHeaderText("Time is up!");

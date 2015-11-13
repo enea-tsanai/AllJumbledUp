@@ -154,42 +154,44 @@ public class AllJumbledUp extends Application {
     public String updateTimer() {
         timer --;
         String m = Integer.toString(timer / 60);
-        m = (m.length()<2)? "0"+m: m ;
+        m = (m.length() < 2) ? "0" + m : m ;
         String s = Integer.toString(timer % 60);
-        s = (s.length()<2)? "0"+s: s ;
-        return m+":"+s;
+        s = (s.length() < 2) ? "0" + s : s ;
+        return "Time: " + m + ":" + s;
     }
 
     public int getTimer(){
         return timer;
     }
 
-    /* Temp Score shown while playing */
-    public int getTempScore (int lettersFound) {
-        int pointsPerLetter = 5;
-        Score = lettersFound * pointsPerLetter;
-        return Score;
-    }
-
     /* Final score when the riddle is found */
-    public int getScore(int timeRemaining) {
+    public void updateScore(int lettersFound, int timeRemaining, boolean SolvedRiddle) {
+        int pointsPerLetter = 5;
         int baseScore;
         int pointsPerTimeRemaining = 5;
 
-        switch (difficultyLevel) {
-            case EASY:
-                baseScore = 100;
-                break;
-            case MEDIUM:
-                baseScore = 300;
-                break;
-            case HIGH:
-                baseScore = 500;
-                break;
-            default:
-                baseScore = 100;
+        if (!SolvedRiddle) {
+            Score = lettersFound * pointsPerLetter;
         }
-        Score += baseScore + timeRemaining * pointsPerTimeRemaining;
+        else {
+            switch (difficultyLevel) {
+                case EASY:
+                    baseScore = 100;
+                    break;
+                case MEDIUM:
+                    baseScore = 300;
+                    break;
+                case HIGH:
+                    baseScore = 500;
+                    break;
+                default:
+                    baseScore = 100;
+            }
+            Score += baseScore + timeRemaining * pointsPerTimeRemaining;
+        }
+    }
+
+    public int getScore() {
         return Score;
     }
 
