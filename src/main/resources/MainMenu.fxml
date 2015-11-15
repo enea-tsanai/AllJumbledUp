@@ -3,7 +3,6 @@
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AllJumbledUp.MenuController">
@@ -31,7 +30,6 @@
                         <ColumnConstraints />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints />
                         <RowConstraints />
                         <RowConstraints />
                      </rowConstraints>
