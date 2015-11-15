@@ -1,22 +1,24 @@
 package AllJumbledUp;
-import com.mongodb.*;
+import com.mongodb.BasicDBList;
+import com.mongodb.BasicDBObject;
+import com.mongodb.Block;
+import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Random;
-import com.mongodb.client.model.Filters.*;
 
 /**
  * Created by enea on 10/27/15.
  */
 //TODO: implement users and sessions
+//TODO: Check dictionary for existing words with 11, 12 letters etc.
 public class DbManager {
 
     private static MongoDatabase db;
@@ -44,14 +46,11 @@ public class DbManager {
     /* Import from file to collection */
     public static void dbImport(String inputFilename, MongoCollection<Document> collection) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(inputFilename));
-            try {
+            try (BufferedReader reader = new BufferedReader(new FileReader(inputFilename))) {
                 String json;
                 while ((json = reader.readLine()) != null) {
                     collection.insertOne(Document.parse(json));
                 }
-            } finally {
-                reader.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,7 +64,6 @@ public class DbManager {
         db.getCollection("key_riddles").deleteMany(new Document());
     }
 
-    //TODO: Remove clear
     /* Init the DB: Import all jumbled words and final words-story pairs */
     public static void initDB() {
         if (db.getCollection("jumbled_words").count() < 1) {
@@ -84,21 +82,11 @@ public class DbManager {
     /* Log collection documents */
     public static void printCollection(String collection) {
         FindIterable<Document> iterable = db.getCollection(collection).find();
-        iterable.forEach(new Block<Document>() {
-            @Override
-            public void apply(final Document document) {
-                System.out.println(document);
-            }
-        });
+        iterable.forEach((Block<Document>) System.out::println);
     }
 
     public static void printCollection(FindIterable<Document> iterable) {
-        iterable.forEach(new Block<Document>() {
-            @Override
-            public void apply(final Document document) {
-                System.out.println(document);
-            }
-        });
+        iterable.forEach((Block<Document>) System.out::println);
     }
 
     //TODO: Add some randomness
@@ -135,7 +123,7 @@ public class DbManager {
                 .find(new BasicDBObject("$where", "this.key.length==" + numOfLetters))
                 .sort(new Document("timesUsed", 1));
             numOfLetters --;
-        } while (iterableKR.first() == null);
+        } while (iterableKR.first() == null && numOfLetters > 0);
 
         String key = iterableKR.first().get("key").toString();
         String riddle = iterableKR.first().get("riddle").toString();
@@ -158,14 +146,14 @@ public class DbManager {
         return KeyRiddle;
     }
 
-    /* Generate the proper jumbled words */
+    /* Generate the proper jumbled words
+     * Todo: check what happens if no words are found for the desired length */
     public static ArrayList<ArrayList<String>> getJumbledWords () {
         // the proper words that contain characters of the final word
         ArrayList<ArrayList<String>> jumbled_words = new ArrayList<>();
 
         /* Final word */
         String FW = KeyRiddle.get(0);
-//        String FW = "Building";
 
         int BucketSize = FW.length() / 4;
         int offsetBuckets = FW.length() % 4;
@@ -174,12 +162,35 @@ public class DbManager {
         if (offsetBuckets > 0)
             OffsetBucketSize = (FW.length() - BucketSize*Buckets) / offsetBuckets;
 
+        /* Length of words according to difficulty level */
+        int min, max, numOfLetters;
+        switch (AllJumbledUp.getDifficultyLevel()) {
+            case EASY:
+                min = 4;
+                max = 6;
+                break;
+            case MEDIUM:
+                min = 7;
+                max = 9;
+                break;
+            case HIGH:
+                min = 9;
+                max = 12;
+                break;
+            default:
+                min = 4;
+                max = 6;
+        }
+
         /* Iterate character buckets that have BucketSize length */
         for (int word = 0; word < 4; word++) {
             String specialChars = "";
 
-            /* Initialize query for this bucket*/
+            /* Initialize query for this bucket */
             BasicDBList conditionsList = new BasicDBList();
+
+            Random rn = new Random();
+            numOfLetters = rn.nextInt(max - min + 1) + min;
 
             if (word < Buckets) {
                 /* Starting index of bucket */
@@ -212,23 +223,34 @@ public class DbManager {
                 }
             }
 
-            System.out.println("Bucket: " + conditionsList.toString());
+            FindIterable<Document> it;
+            BasicDBList conditions = new BasicDBList();
 
-            /* The query */
-            BasicDBObject query = new BasicDBObject("$and", conditionsList);
-            /* Get all proper jumbled word sorted by timesUsed */
-            FindIterable<Document> it = db.getCollection("jumbled_words").
-                    find(query).sort(new Document("timesUsed", 1));
+            do {
+                conditions.clear();
+                conditionsList.forEach(conditions::add);
+                conditions.add(new BasicDBObject("$where", "this.word.length==" + numOfLetters));
+
+                /* The query */
+                BasicDBObject query = new BasicDBObject("$and", conditions);
+
+                /* Get all proper jumbled word sorted by timesUsed */
+                it = db.getCollection("jumbled_words").
+                        find(query).sort(new Document("timesUsed", 1));
+
+                numOfLetters --;
+            } while (it.first() == null && numOfLetters > 0);
+
+            System.out.println("Bucket: " + conditions.toString());
 
             String jumbledWord = it.first().get("word").toString();
-
             String timesUsed = it.first().get("timesUsed").toString();
 
             /* Update timesUsed */
             db.getCollection("jumbled_words").updateOne(new Document("word", jumbledWord),
                     new Document("$set", new Document("timesUsed", Integer.parseInt(timesUsed) + 1)));
 
-            ArrayList<String> inner = new ArrayList<String>();
+            ArrayList<String> inner = new ArrayList<>();
             inner.add(jumbledWord.toLowerCase());
             inner.add(specialChars.toLowerCase());
             jumbled_words.add(inner);
@@ -236,5 +258,4 @@ public class DbManager {
         System.out.println(jumbled_words);
         return jumbled_words;
     }
-
 }

@@ -11,8 +11,11 @@ import javafx.scene.image.ImageView;
 
 
 /**
- * Created by enea on 10/9/15.
+ * Created by enea.
+ * Date: 10/9/15.
+ * Time: 2:18 AM.
  */
+
 public class MenuController {
 
     private AllJumbledUp allJumbledUp;
@@ -56,11 +59,10 @@ public class MenuController {
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        allJumbledUp.startGame();
         allJumbledUp.setNumOfPlayers(Integer.parseInt(numOfPlayers.getSelectionModel().getSelectedItem().toString()));
         allJumbledUp.setDifficultyLevelLevel((AllJumbledUp.DifficultyLevel) difficultyLevel.getSelectionModel().getSelectedItem());
         allJumbledUp.setSound(sound.isSelected());
-
+        allJumbledUp.startGame();
 //        System.out.println(allJumbledUp.getNumOfPlayers());
 //        System.out.println(allJumbledUp.getDifficultyLevel().toString());
 //        System.out.println(sound.isSelected());
