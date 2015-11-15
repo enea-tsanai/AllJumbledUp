@@ -8,35 +8,37 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by enea on 9/10/15.
+ * Created by enea.
+ * Date: 9/10/15.
+ * Time: 2:40 AM.
  */
 
 //TODO: Add comments
 public class JumbledWord {
 
-    private final String Word_;
-    private final String JumbledWord_;
-    private Set<Integer> SpecialPositions_;
+    private final String word;
+    private final String jumbledWord;
+    private Set<Integer> specialPositions;
 
     public JumbledWord() {
         this(null);
     }
 
     public JumbledWord(String word) {
-        this.Word_ = word;
-        this.JumbledWord_ = jumble(word);
+        this.word = word;
+        this.jumbledWord = jumble(word);
     }
 
     public JumbledWord(String word, List<Integer> lsp) {
-        this.Word_ = word;
-        this.JumbledWord_ = jumble(word);
-        this.SpecialPositions_ = listToSet(lsp);
+        this.word = word;
+        this.jumbledWord = jumble(word);
+        this.specialPositions = listToSet(lsp);
     }
 
     public JumbledWord(String word, String spchars) {
-        this.Word_ = word;
-        this.JumbledWord_ = jumble(word);
-        this.SpecialPositions_ = spcharsToSps(spchars);
+        this.word = word;
+        this.jumbledWord = jumble(word);
+        this.specialPositions = spcharsToSps(spchars);
     }
 
     /* Jumbles the given word */
@@ -54,19 +56,19 @@ public class JumbledWord {
     }
 
     public String getWord() {
-        return Word_;
+        return word;
     }
 
     public String getJumbledWord() {
-        return JumbledWord_;
+        return jumbledWord;
     }
 
     private void addSpecialPositions_(int sp) {
-        SpecialPositions_.add(sp);
+        specialPositions.add(sp);
     }
 
-    public Set<Integer> getSpecialPositions_() {
-        return SpecialPositions_;
+    public Set<Integer> getSpecialPositions() {
+        return specialPositions;
     }
 
     Set<Integer> listToSet(List<Integer> list) {
@@ -79,15 +81,15 @@ public class JumbledWord {
         Set<Integer> sps = new HashSet<>();
         StringCharacterIterator it = new StringCharacterIterator(spchars);
         for (char ch=it.first(); ch != CharacterIterator.DONE; ch=it.next()) {
-           sps.add(Word_.indexOf(ch));
+           sps.add(word.indexOf(ch));
         }
         return sps; //check this
     }
 
     /*Returns the mask of the hidden word*/
     String getMask() {
-        StringBuilder mask = new StringBuilder(String.format("%1$"+Word_.length() + "s", " "));
-        for(int pos:SpecialPositions_) {
+        StringBuilder mask = new StringBuilder(String.format("%1$"+ word.length() + "s", " "));
+        for(int pos: specialPositions) {
             mask.setCharAt(pos, '_');
         }
         return mask.toString();
@@ -96,7 +98,7 @@ public class JumbledWord {
     /*Returns the special characters as a string*/
     String getSPchars() {
         String spchars = "";
-        for(int pos:SpecialPositions_) {
+        for(int pos: specialPositions) {
             spchars += getWord().charAt(pos);
         }
         return spchars;

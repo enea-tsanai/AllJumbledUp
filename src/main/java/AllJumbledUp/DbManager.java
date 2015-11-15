@@ -15,8 +15,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Created by enea on 10/27/15.
+ * Created by enea.
+ * Date: 10/27/15.
+ * Time: 2:39 AM.
  */
+
 //TODO: implement users and sessions
 //TODO: Check dictionary for existing words with 11, 12 letters etc.
 public class DbManager {
@@ -103,7 +106,7 @@ public class DbManager {
                 min = 6;
                 max = 8;
                 break;
-            case HIGH:
+            case HARD:
                 min = 8;
                 max = 11;
                 break;
@@ -173,7 +176,7 @@ public class DbManager {
                 min = 7;
                 max = 9;
                 break;
-            case HIGH:
+            case HARD:
                 min = 9;
                 max = 12;
                 break;

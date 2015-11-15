@@ -23,8 +23,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * Created by enea on 11/5/15.
+ * Created by enea.
+ * Date: 11/5/15.
+ * Time: 2:51 AM.
  */
+
 public class FacebookLoginPageController {
 
     @FXML
@@ -174,7 +177,7 @@ public class FacebookLoginPageController {
 
 
     public void setMainApp(AllJumbledUp allJumbledUpApp) {
-        System.out.println("Controller started");
+        System.out.println("GameSceneController started");
         this.allJumbledUp = allJumbledUpApp;
         bind();
     }

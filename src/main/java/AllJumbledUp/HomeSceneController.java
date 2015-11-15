@@ -5,8 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 /**
- * Created by enea on 11/10/15.
+ * Created by enea.
+ * Date: 11/10/15.
+ * Time: 2:40 AM.
  */
+
 public class HomeSceneController {
 
     @FXML
@@ -42,7 +45,7 @@ public class HomeSceneController {
      * @param allJumbledUpApp
      */
     public void setMainApp(AllJumbledUp allJumbledUpApp) {
-        System.out.println("Controller started");
+        System.out.println("GameSceneController started");
         this.allJumbledUp = allJumbledUpApp;
     }
 

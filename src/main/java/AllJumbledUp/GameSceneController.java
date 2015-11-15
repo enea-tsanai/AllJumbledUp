@@ -2,7 +2,6 @@ package AllJumbledUp;
 
 import javafx.animation.KeyFrame;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -10,11 +9,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-
 import java.util.Optional;
+import javafx.fxml.FXML;
 
 //TODO: Add comments
-public class Controller {
+public class GameSceneController {
 
     @FXML
     private GridPane JumbledWordsA1;
@@ -50,7 +49,7 @@ public class Controller {
      * The constructor.
      * The constructor is called before the initialize() method.
      */
-    public Controller() {
+    public GameSceneController() {
     }
 
     /**
@@ -61,7 +60,7 @@ public class Controller {
     private void initialize() {
         FoundJwords = 0;
         FWrevealed = false;
-        System.out.println("Controller Initialized");
+        System.out.println("GameSceneController Initialized");
         JumbledWordsA1.getStyleClass().add("grid");
         JumbledWordsA2.getStyleClass().add("grid");
     }
@@ -281,7 +280,7 @@ public class Controller {
      * @param allJumbledUpApp
      */
     public void setMainApp(AllJumbledUp allJumbledUpApp) {
-        System.out.println("Controller started");
+        System.out.println("GameSceneController started");
         this.allJumbledUp = allJumbledUpApp;
         bindData();
     }
