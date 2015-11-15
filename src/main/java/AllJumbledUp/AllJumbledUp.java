@@ -107,7 +107,7 @@ public class AllJumbledUp extends Application {
         return numOfPlayers;
     }
 
-    public DifficultyLevel getDifficultyLevel() {
+    public static DifficultyLevel getDifficultyLevel() {
         return difficultyLevel;
     }
 

@@ -10,7 +10,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-
+import java.util.Random;
+import com.mongodb.client.model.Filters.*;
 
 /**
  * Created by enea on 10/27/15.
@@ -103,8 +104,39 @@ public class DbManager {
     //TODO: Add some randomness
     /* The Final word and story pair are produced here */
     public static ArrayList<String> generateFinalWordStoryPair() {
-        /* Sort by usage */
-        FindIterable<Document> iterableKR = db.getCollection("key_riddles").find().sort(new Document("timesUsed", 1));
+        int min, max, numOfLetters;
+
+        switch (AllJumbledUp.getDifficultyLevel()) {
+            case EASY:
+                min = 4;
+                max = 5;
+                break;
+            case MEDIUM:
+                min = 6;
+                max = 8;
+                break;
+            case HIGH:
+                min = 8;
+                max = 11;
+                break;
+            default:
+                min = 4;
+                max = 5;
+        }
+
+        Random rn = new Random();
+        numOfLetters = rn.nextInt(max - min + 1) + min;
+
+        FindIterable<Document> iterableKR;
+
+        do {
+            /* Sort by usage */
+            iterableKR = db.getCollection("key_riddles")
+                .find(new BasicDBObject("$where", "this.key.length==" + numOfLetters))
+                .sort(new Document("timesUsed", 1));
+            numOfLetters --;
+        } while (iterableKR.first() == null);
+
         String key = iterableKR.first().get("key").toString();
         String riddle = iterableKR.first().get("riddle").toString();
         String timesUsed = iterableKR.first().get("timesUsed").toString();
