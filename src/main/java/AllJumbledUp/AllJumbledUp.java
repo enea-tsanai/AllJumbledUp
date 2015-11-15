@@ -220,7 +220,7 @@ public class AllJumbledUp extends Application {
             loader.setLocation(getClass().getResource("/AllJumbledUp.fxml"));
 
             Parent root = loader.load();
-            AllJumbledUp.GameSceneController gameSceneController = loader.getController();
+            GameSceneController gameSceneController = loader.getController();
             gameSceneController.setMainApp(this);
 
             String css = this.getClass().getResource("/AllJumbledUp.css").toExternalForm();
