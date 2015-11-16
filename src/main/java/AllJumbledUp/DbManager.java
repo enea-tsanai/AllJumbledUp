@@ -7,15 +7,8 @@ import org.bson.Document;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.UnknownHostException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
-import static java.util.Arrays.asList;
-
+import java.util.*;
 
 /**
  * Created by enea.
@@ -121,38 +114,30 @@ public class DbManager {
 
     @SuppressWarnings("unchecked")
     public static ArrayList<Document> getMyScoreHistory () {
-        ArrayList<Document> scores = new ArrayList<>();
-
         FindIterable<Document> player = db.getCollection("FB_users").find(new Document("_id",
                 Session.getSessionID())).limit(1);
-//        FindIterable<Document> player = db.getCollection("FB_users").find().limit(2);
-
-        //Todo: change this to only 1 result
-        //Todo: Suppress Warnings
 
         if (player.first().containsKey("Scores")) {
-            return  (ArrayList<Document>) player.first().get("Scores");
-        }
+            ArrayList<Document> scores = (ArrayList<Document>) player.first().get("Scores");
 
-//        if (player.first().get("Scores").getClass() instanceof ArrayList<>)
-//            ;
-//
-//            .;
-//
-//
-//        player.forEach((Block<Document>) e -> {
-//            if (e.containsKey("Scores")) {
-//                ArrayList<Document> Scores = new ArrayList<Document>();
-//                Scores = (ArrayList<Document>) e.get("Scores");
-//                return Scores;
-////                for( Document scoreDoc: Scores ) {
-////                    System.out.println(scoreDoc.get("Score"));
-////                    System.out.println(scoreDoc.get("DateTime"));
-////                }
-//            }
-//        });
-        return scores;
+            Collections.sort(scores, new Comparator<Document>() {
+                public int compare(Document s1, Document s2) {
+                    return (int) s2.get("Score") - (int) s1.get("Score");
+                }
+            });
+            System.out.println(scores);
+            return scores;
+        }
+        return new ArrayList<>();
     }
+
+//    public static ArrayList<Document> getPlayersHighscores () {
+//        FindIterable<Document> player = db.getCollection("FB_users").find();
+//
+//
+//
+//
+//    }
 
     /* Log collection documents */
     public static void printCollection(String collection) {

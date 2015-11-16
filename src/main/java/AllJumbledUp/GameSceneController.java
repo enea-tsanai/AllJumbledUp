@@ -205,8 +205,13 @@ public class GameSceneController {
                     gameTimer.stop();
                     allJumbledUp.updateScore(0 , allJumbledUp.getTimer(), true);
                     Score.setText("Score: " + Integer.toString(allJumbledUp.getScore()));
-                    if (AllJumbledUp.getGameMode() == AllJumbledUp.GameMode.FacebookUser)
+
+                    if (AllJumbledUp.getGameMode() == AllJumbledUp.GameMode.FacebookUser) {
                         allJumbledUp.saveScore();
+                        //TODO: Post highscore
+                       // allJumbledUp.facebook.postScore("", 30);
+                    }
+
                     gameOverDialog(AllJumbledUp.ExitFlag.SOLVED_RIDDLE);
                 }
                 else {

@@ -3,6 +3,7 @@ package AllJumbledUp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -42,19 +43,26 @@ public class MenuController {
 
     @FXML
     private void bindData() {
+        /* Facebook Authorized User */
         if (AllJumbledUp.getGameMode() == AllJumbledUp.GameMode.FacebookUser) {
             UserPicture.setImage(new Image(Session.getUserPicture()));
             //UserPicture.setImage(new Image("https://scontent.xx.fbcdn.net/hprofile-xpf1/v/t1.0-1/c0.6.50.50/p50x50/12065971_1162641033750447_2679819914534391594_n.jpg?oh=fa19d170324c4da089d96f594a0036a8&oe=56F8AC75"));
 
             /* My Previous Scores */
             GridPane myPreviousScores = new GridPane();
+            myPreviousScores.setGridLinesVisible(true);
+            myPreviousScores.setAlignment(Pos.CENTER);
+            myPreviousScores.setPrefWidth(600);
+            myPreviousScores.add(new Label("DATE AND TIME"), 1, 0);
+            myPreviousScores.add(new Label("MY SCORES"), 0, 0);
+
             ArrayList <Document> scores = DbManager.getMyScoreHistory();
 
             for (int i=0; i<scores.size() && i < 5; i++) {
                 Label dateTime = new Label(scores.get(i).get("Score").toString());
                 Label score = new Label(scores.get(i).get("DateTime").toString());
-                myPreviousScores.add(dateTime, 0, i);
-                myPreviousScores.add(score, 1, i);
+                myPreviousScores.add(dateTime, 0, i+1);
+                myPreviousScores.add(score, 1, i+1);
             }
             settings.getChildren().add(myPreviousScores);
         }
@@ -93,5 +101,4 @@ public class MenuController {
         this.allJumbledUp = allJumbledUpApp;
         bindData();
     }
-
 }
