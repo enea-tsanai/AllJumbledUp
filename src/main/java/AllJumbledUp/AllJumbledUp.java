@@ -49,6 +49,7 @@ public class AllJumbledUp extends Application {
     }
 
     public void startGame() {
+        DbManager.manageUser();
         DbManager.generateFinalWordStoryPair();
         assignFW(DbManager.getFinalWordStoryPair());
         assignJumbledWords(DbManager.getJumbledWords());
@@ -119,7 +120,7 @@ public class AllJumbledUp extends Application {
         }
     }
 
-    public GameMode getGameMode () {
+    public static GameMode getGameMode () {
         return gameMode;
     }
 
@@ -169,6 +170,10 @@ public class AllJumbledUp extends Application {
 
     public int getScore() {
         return Score;
+    }
+
+    public void saveScore() {
+        DbManager.saveScore(getScore());
     }
 
     @Override

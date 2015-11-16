@@ -1,8 +1,5 @@
 package AllJumbledUp;
-import com.mongodb.BasicDBList;
-import com.mongodb.BasicDBObject;
-import com.mongodb.Block;
-import com.mongodb.MongoClient;
+import com.mongodb.*;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -10,9 +7,15 @@ import org.bson.Document;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.UnknownHostException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Random;
+import static java.util.Arrays.asList;
+
 
 /**
  * Created by enea.
@@ -30,7 +33,7 @@ public class DbManager {
     private static ArrayList<String> KeyRiddle = new ArrayList<String>(2);
 
 
-    public  DbManager(String dbName) {
+    public DbManager(String dbName) {
         MongoClient mongoClient = new MongoClient();
         db = mongoClient.getDatabase(dbName);
         initDB();
@@ -80,6 +83,75 @@ public class DbManager {
             dbImport("/Users/enea/Dev/Villanova/AllJumbledUp/src/main/resources/KeyRiddleList.txt",
                     db.getCollection("key_riddles"));
         }
+    }
+
+    public static void manageUser () {
+        switch (AllJumbledUp.getGameMode()) {
+            case FreePlay:
+                break;
+            case FacebookUser:
+                /* If user is not stored, insert him */
+                if (db.getCollection("FB_users").find(new Document("_id", Session.getSessionID())).limit(1).first() ==
+                        null)
+                    db.getCollection("FB_users").insertOne(new Document()
+                                    .append("_id", Session.getSessionID())
+                                    .append("FullName", Session.getFullName())
+//                                    .append("Scores", asList(
+//                                                    new Document()
+//                                                        .append("DateTime", "2015")
+//                                                        .append("Score", 0))
+//                                    )
+                    );
+                break;
+            default:
+        }
+    }
+
+    public static void saveScore (int score) {
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        //get current date time
+        Date date = new Date();
+
+        // Store Score and DateTime
+        db.getCollection("FB_users").updateOne(new Document("_id", Session.getSessionID()),
+                new Document("$push", new Document("Scores", new Document()
+                        .append("Score", score)
+                        .append("DateTime", date))));
+    }
+
+    @SuppressWarnings("unchecked")
+    public static ArrayList<Document> getMyScoreHistory () {
+        ArrayList<Document> scores = new ArrayList<>();
+
+        FindIterable<Document> player = db.getCollection("FB_users").find(new Document("_id",
+                Session.getSessionID())).limit(1);
+//        FindIterable<Document> player = db.getCollection("FB_users").find().limit(2);
+
+        //Todo: change this to only 1 result
+        //Todo: Suppress Warnings
+
+        if (player.first().containsKey("Scores")) {
+            return  (ArrayList<Document>) player.first().get("Scores");
+        }
+
+//        if (player.first().get("Scores").getClass() instanceof ArrayList<>)
+//            ;
+//
+//            .;
+//
+//
+//        player.forEach((Block<Document>) e -> {
+//            if (e.containsKey("Scores")) {
+//                ArrayList<Document> Scores = new ArrayList<Document>();
+//                Scores = (ArrayList<Document>) e.get("Scores");
+//                return Scores;
+////                for( Document scoreDoc: Scores ) {
+////                    System.out.println(scoreDoc.get("Score"));
+////                    System.out.println(scoreDoc.get("DateTime"));
+////                }
+//            }
+//        });
+        return scores;
     }
 
     /* Log collection documents */

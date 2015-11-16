@@ -5,9 +5,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.fxml.FXML;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import org.bson.Document;
+
+import java.util.ArrayList;
 
 /**
  * Created by enea.
@@ -29,14 +35,28 @@ public class MenuController {
     private ImageView UserPicture;
 
     @FXML
+    private HBox settings;
+
+    @FXML
     private void initialize() {}
 
     @FXML
     private void bindData() {
-
-        if (allJumbledUp.getGameMode() == AllJumbledUp.GameMode.FacebookUser) {
+        if (AllJumbledUp.getGameMode() == AllJumbledUp.GameMode.FacebookUser) {
             UserPicture.setImage(new Image(Session.getUserPicture()));
             //UserPicture.setImage(new Image("https://scontent.xx.fbcdn.net/hprofile-xpf1/v/t1.0-1/c0.6.50.50/p50x50/12065971_1162641033750447_2679819914534391594_n.jpg?oh=fa19d170324c4da089d96f594a0036a8&oe=56F8AC75"));
+
+            /* My Previous Scores */
+            GridPane myPreviousScores = new GridPane();
+            ArrayList <Document> scores = DbManager.getMyScoreHistory();
+
+            for (int i=0; i<scores.size() && i < 5; i++) {
+                Label dateTime = new Label(scores.get(i).get("Score").toString());
+                Label score = new Label(scores.get(i).get("DateTime").toString());
+                myPreviousScores.add(dateTime, 0, i);
+                myPreviousScores.add(score, 1, i);
+            }
+            settings.getChildren().add(myPreviousScores);
         }
 
         /* Set difficulty level options */
