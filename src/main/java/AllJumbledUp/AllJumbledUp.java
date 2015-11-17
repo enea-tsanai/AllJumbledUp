@@ -271,7 +271,9 @@ public class AllJumbledUp extends Application {
 
             stage.setTitle("All Jumbled Up - Facebook Login");
             stage.setScene(JumbleScene);
-            stage.setResizable(false);
+            stage.setResizable(true);
+            stage.setMinHeight(WINDOW_MIN_HEIGHT);
+            stage.setMinWidth(WINDOW_MIN_WIDTH);
             stage.show();
 
         } catch (IOException e) {
@@ -296,7 +298,9 @@ public class AllJumbledUp extends Application {
 
             stage.setTitle("All Jumbled Up - Welcome!");
             stage.setScene(JumbleScene);
-            stage.setResizable(false);
+            stage.setResizable(true);
+            stage.setMinHeight(WINDOW_MIN_HEIGHT);
+            stage.setMinWidth(WINDOW_MIN_WIDTH);
             stage.show();
 
         } catch (IOException e) {
