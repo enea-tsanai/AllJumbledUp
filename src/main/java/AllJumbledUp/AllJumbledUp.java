@@ -33,6 +33,8 @@ public class AllJumbledUp extends Application {
     private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
     private static boolean sound = false;
     private static int timer; //Timer in seconds
+    private static final double WINDOW_MIN_HEIGHT = 600;
+    private static final double WINDOW_MIN_WIDTH = 800;
 
     /* Words Dictionaries */
     private List <JumbledWord> JumbledWords = new ArrayList<>();
@@ -211,8 +213,8 @@ public class AllJumbledUp extends Application {
             stage.setTitle("All Jumbled Up - Main Menu");
             stage.setScene(JumbleScene);
             stage.setResizable(true);
-            stage.setMinHeight(480);
-            stage.setMinWidth(640);
+            stage.setMinHeight(WINDOW_MIN_HEIGHT);
+            stage.setMinWidth(WINDOW_MIN_WIDTH);
             stage.show();
 
         } catch (IOException e) {
@@ -236,7 +238,9 @@ public class AllJumbledUp extends Application {
 
             stage.setTitle("All Jumbled Up");
             stage.setScene(JumbleScene);
-            stage.setResizable(false);
+            stage.setResizable(true);
+            stage.setMinHeight(WINDOW_MIN_HEIGHT);
+            stage.setMinWidth(WINDOW_MIN_WIDTH);
             stage.show();
 
             JumbleScene.getWindow().setOnCloseRequest(ev -> {

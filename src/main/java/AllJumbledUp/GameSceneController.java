@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.animation.Timeline;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import java.util.Optional;
 import javafx.fxml.FXML;
@@ -62,6 +63,7 @@ public class GameSceneController {
         FWrevealed = false;
         System.out.println("GameSceneController Initialized");
         JumbledWordsA1.getStyleClass().add("grid");
+//        JumbledWordsA1.setGridLinesVisible(true);
         JumbledWordsA2.getStyleClass().add("grid");
     }
 
@@ -72,6 +74,12 @@ public class GameSceneController {
 
         /* Populate Area A1 */
         for (JumbledWord jw : allJumbledUp.getJumbledWords()) {
+
+            //todo: check input field width calculation
+            Text JW = new Text(jw.getJumbledWord());
+            JW.setFont(Font.font("Monospaced", 18));
+            JW.setStyle("-fx-border-color: blue;");
+            double inputWidth = JW.getLayoutBounds().getWidth() + 20;
 
             /* Jumbled Words labels */
             Label jwLabel = new Label(jw.getJumbledWord());
@@ -98,6 +106,8 @@ public class GameSceneController {
 
             addTextLimiter(guessField, jw.getWord(), jw.getJumbledWord().length());
             addTextMatchController(guessField, jw.getWord(), jw.getSPchars(), false);
+
+            guessField.setMaxWidth(inputWidth);
 
             /* Add to Grid Area */
             JumbledWordsA1.add(jwLabel, 0, l);
@@ -130,7 +140,16 @@ public class GameSceneController {
         fguessField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent");
         fguessField.setPadding(new Insets(5, 5, 5, 5));
 
-        System.out.println("TextDelimeter Test| fguessField---> " + fguessField.getText() + " AllJumbledUp.getJW() " + AllJumbledUp.getJW());
+        //todo: check input field width calculation
+//        JumbledWordsA2.setGridLinesVisible(true);
+        Text FWInput = new Text(AllJumbledUp.getJW());
+        FWInput.setFont(Font.font("Monospaced", 18));
+        FWInput.setStyle("-fx-border-color: blue;");
+        double FWinputWidth = FWInput.getLayoutBounds().getWidth() + 20;
+        fguessField.setMaxWidth(FWinputWidth);
+
+        System.out.println("TextDelimeter Test| fguessField---> " + fguessField.getText() + " AllJumbledUp.getJW() "
+                + AllJumbledUp.getJW());
         addTextLimiter(fguessField, AllJumbledUp.getJW(), AllJumbledUp.getJW().length());
         addTextMatchController(fguessField, AllJumbledUp.getJW(), null, true);
 
@@ -194,7 +213,8 @@ public class GameSceneController {
     }
 
     /*Checks if our input is identical to the jumbled world*/
-    public void addTextMatchController(final TextField tf, final String keyW, final String spchars, final boolean isFinalWord) {
+    public void addTextMatchController(final TextField tf, final String keyW, final String spchars,
+                                       final boolean isFinalWord) {
         tf.textProperty().addListener((ov, oldValue, newValue) -> {
             if (tf.getText().equalsIgnoreCase(keyW)) {
 
@@ -258,7 +278,8 @@ public class GameSceneController {
 
         switch (flag) {
             case SOLVED_RIDDLE:
-//                System.out.println("Final Score: " + allJumbledUp.getScore() + " remainingTime: " + allJumbledUp.getTimer());
+//                System.out.println("Final Score: " + allJumbledUp.getScore() + " remainingTime: "
+// + allJumbledUp.getTimer());
                 alert.setHeaderText("You solved the riddle! Congratulations!\n" + "Your Score is " +
                         allJumbledUp.getScore() + ".");
                 break;
