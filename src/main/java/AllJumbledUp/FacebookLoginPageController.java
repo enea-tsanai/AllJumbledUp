@@ -53,7 +53,6 @@ public class FacebookLoginPageController {
         WebContent.setFitToWidth(true);
         WebContent.setFitToHeight(true);
 
-
         WebContent.setContent(browser);
         webEngine.setJavaScriptEnabled(true);
 
@@ -71,6 +70,7 @@ public class FacebookLoginPageController {
 
         final StringBuffer code = new StringBuffer();
 
+        // TODO: fix params: hide codes
         // Capture response
         webEngine.setOnStatusChanged(event -> {
             if ((event.getSource() instanceof WebEngine) && (!isTokenFound)) {
@@ -103,6 +103,8 @@ public class FacebookLoginPageController {
                                     AllJumbledUp.session = new Session(AllJumbledUp.facebook.getMe().getId(),
                                             AllJumbledUp.facebook.getMe().getName(),
                                             AllJumbledUp.facebook.getPictureURL(500, 500).toString());
+                                    //todo: check manage user
+                                    DbManager.manageUser();
                                     System.out.println(AllJumbledUp.session);
                                     allJumbledUp.showMainMenuScene();
                                 }

@@ -49,7 +49,7 @@ public class AllJumbledUp extends Application {
     }
 
     public void startGame() {
-        DbManager.manageUser();
+
         DbManager.generateFinalWordStoryPair();
         assignFW(DbManager.getFinalWordStoryPair());
         assignJumbledWords(DbManager.getJumbledWords());
@@ -210,7 +210,9 @@ public class AllJumbledUp extends Application {
 
             stage.setTitle("All Jumbled Up - Main Menu");
             stage.setScene(JumbleScene);
-            stage.setResizable(false);
+            stage.setResizable(true);
+            stage.setMinHeight(480);
+            stage.setMinWidth(640);
             stage.show();
 
         } catch (IOException e) {

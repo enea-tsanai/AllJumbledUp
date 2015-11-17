@@ -117,6 +117,7 @@ public class DbManager {
         FindIterable<Document> player = db.getCollection("FB_users").find(new Document("_id",
                 Session.getSessionID())).limit(1);
 
+        System.out.println(player.first());
         if (player.first().containsKey("Scores")) {
             ArrayList<Document> scores = (ArrayList<Document>) player.first().get("Scores");
 
@@ -131,13 +132,31 @@ public class DbManager {
         return new ArrayList<>();
     }
 
-//    public static ArrayList<Document> getPlayersHighscores () {
-//        FindIterable<Document> player = db.getCollection("FB_users").find();
-//
-//
-//
-//
-//    }
+    @SuppressWarnings("unchecked")
+    public static ArrayList<Document> getPlayersHighscores () {
+        ArrayList<Document> playersHighscores = new ArrayList<>();
+        FindIterable<Document> players = db.getCollection("FB_users").find();
+
+        players.forEach((Block<Document>) player -> {
+            if (player.containsKey("Scores")) {
+                ArrayList<Document> scores = (ArrayList<Document>) player.get("Scores");
+
+                // Sort scores for this player - highest first
+                Collections.sort(scores, (s1, s2) -> (int) s2.get("Score") - (int) s1.get("Score"));
+
+                // Player FullName, Highscore, Datetime
+                System.out.println("FullName: " + player.get("FullName"));
+
+                Document playerHighScore = new Document()
+                        .append("FullName", player.get("FullName"))
+                        .append("Score", scores.get(0).get("Score"))
+                        .append("DateTime", scores.get(0).get("DateTime"));
+
+                playersHighscores.add(playerHighScore);
+            }
+        });
+        return playersHighscores;
+    }
 
     /* Log collection documents */
     public static void printCollection(String collection) {
