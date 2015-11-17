@@ -5,57 +5,81 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AllJumbledUp.GameSceneController">
-   <center>
-        <VBox prefHeight="414.0" prefWidth="Infinity" scaleShape="false" alignment="CENTER" BorderPane.alignment="CENTER">
-            <children>
-                <Region prefHeight="10.0" prefWidth="610.0" />
-                <Label alignment="TOP_CENTER" prefHeight="29.0" prefWidth="Infinity" text="The Jumble Game" textAlignment="CENTER">
-                    <font>
-                        <Font name="System Bold" size="23.0" />
-                    </font>
-                </Label>
-                <HBox prefHeight="20.0" prefWidth="Infinity">
-                   <children>
-                          <Label fx:id="Score" alignment="TOP_LEFT" prefHeight="29.0" prefWidth="640" textAlignment="CENTER">
-                              <font>
-                                  <Font name="System Bold" size="15.0" />
-                              </font>
-                          </Label>
-                          <Label fx:id="Timer" alignment="TOP_RIGHT" prefHeight="29.0" prefWidth="640" textAlignment="CENTER">
-                              <font>
-                                  <Font name="System Bold" size="15.0" />
-                              </font>
-                          </Label>
-                   </children>
-                </HBox>
-                <Region prefHeight="30.0" prefWidth="Infinity" />
-                <HBox alignment="CENTER" prefWidth="Infinity">
-                    <GridPane fx:id="JumbledWordsA1">
-                    </GridPane>
-                </HBox>
-                <Region prefHeight="30.0" prefWidth="Infinity" />
-                <HBox prefWidth="Infinity" alignment="CENTER">
-                    <children>
-                        <GridPane fx:id="JumbledWordsA2" vgap="0">
-                        </GridPane>
-                        <Region prefWidth="30.0" />
-                        <ScrollPane fx:id="StoryPane" maxWidth="300.0">
-                         <content>
-                            <Pane prefWidth="200.0" />
-                         </content>
-                        </ScrollPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AllJumbledUp.GameSceneController">
+    <children>
+        <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <top>
+                <VBox spacing="40" prefWidth="Infinity" scaleShape="false" alignment="CENTER" BorderPane.alignment="CENTER">
+                <children>
+                    <HBox BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS">
+                                <children>
+                                    <ToolBar fx:id="topToolBar" prefHeight="100.0" HBox.hgrow="ALWAYS">
+                                        <items>
+                                            <Pane HBox.hgrow="ALWAYS" />
+                                            <Label text="ALL JUMBLED UP">
+                                                <font>
+                                                    <Font name="System Bold" size="23.0" />
+                                                </font>
+                                            </Label>
+                                            <Label/>
+                                            <Pane HBox.hgrow="ALWAYS" />
+                                        </items>
+                                    </ToolBar>
+                                </children>
+                            </HBox>
+
+                            <HBox prefHeight="20.0" prefWidth="Infinity" alignment="CENTER">
+                                <children>
+                                    <Region prefWidth="50.0" />
+                                    <Label fx:id="Score" prefHeight="29.0" textAlignment="CENTER">
+                                        <font>
+                                            <Font name="System Bold" size="15.0" />
+                                        </font>
+                                    </Label>
+                                    <Region prefHeight="30.0" HBox.hgrow="ALWAYS" />
+                                    <Label fx:id="Timer" prefHeight="29.0" textAlignment="CENTER">
+                                        <font>
+                                            <Font name="System Bold" size="15.0" />
+                                        </font>
+                                    </Label>
+                                    <Region prefWidth="50.0" />
+                                </children>
+                            </HBox>
                     </children>
-                        <VBox.margin>
-                            <Insets />
-                        </VBox.margin>
-                </HBox>
-            </children>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-            <BorderPane.margin>
-                <Insets bottom="15.0" left="15.0" right="15.0" top="5.0" />
-            </BorderPane.margin></VBox>
-   </center>
-</BorderPane>
+                </VBox>
+            </top>
+            <center>
+                <VBox prefHeight="414.0" prefWidth="Infinity" scaleShape="false" alignment="CENTER" BorderPane.alignment="CENTER">
+                    <children>
+                        <Region prefHeight="30.0" prefWidth="Infinity" />
+                        <HBox alignment="CENTER" prefWidth="Infinity">
+                            <GridPane fx:id="JumbledWordsA1">
+                            </GridPane>
+                        </HBox>
+                        <Region prefHeight="30.0" prefWidth="Infinity" />
+                        <HBox prefWidth="Infinity" alignment="CENTER">
+                            <children>
+                                <GridPane fx:id="JumbledWordsA2" vgap="0">
+                                </GridPane>
+                                <Region prefWidth="30.0" />
+                                <ScrollPane fx:id="StoryPane" maxWidth="300.0">
+                                 <content>
+                                    <Pane prefWidth="200.0" />
+                                 </content>
+                                </ScrollPane>
+                            </children>
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                        </HBox>
+                    </children>
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <BorderPane.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="5.0" />
+                    </BorderPane.margin></VBox>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>
