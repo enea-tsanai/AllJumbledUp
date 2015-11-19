@@ -278,8 +278,6 @@ public class GameSceneController {
 
         switch (flag) {
             case SOLVED_RIDDLE:
-//                System.out.println("Final Score: " + allJumbledUp.getScore() + " remainingTime: "
-// + allJumbledUp.getTimer());
                 alert.setHeaderText("You solved the riddle! Congratulations!\n" + "Your Score is " +
                         allJumbledUp.getScore() + ".");
                 break;
@@ -291,15 +289,37 @@ public class GameSceneController {
 
         ButtonType exit = new ButtonType("Exit Game");
         ButtonType rePlay = new ButtonType("New Game");
+        ButtonType postOnFB = new ButtonType("Post Score on Facebook");
 
-        alert.getButtonTypes().setAll(exit, rePlay);
+        switch (AllJumbledUp.getGameMode()) {
+            case FreePlay:
+                alert.getButtonTypes().setAll(exit, rePlay);
+                break;
+            case FacebookUser:
+                if (flag == AllJumbledUp.ExitFlag.SOLVED_RIDDLE) {
+                    alert.setWidth(550);
+                    alert.getButtonTypes().setAll(exit, rePlay, postOnFB);
+                }
+                else
+                    alert.getButtonTypes().setAll(exit, rePlay);
+                break;
+        }
 
         Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == rePlay) {
+        if (result.get() == rePlay)
             allJumbledUp.showMainMenuScene();
-        } else {
-            allJumbledUp.gameOver();
+        else if (result.get() == postOnFB) {
+            allJumbledUp.postScoreOnFacebook();
+            alert.getButtonTypes().setAll(exit, rePlay);
+            alert.setHeaderText("Score has been posted! What next?");
+            Optional<ButtonType> result2 = alert.showAndWait();
+            if (result2.get() == rePlay)
+                allJumbledUp.showMainMenuScene();
+            else
+                allJumbledUp.gameOver();
         }
+        else
+            allJumbledUp.gameOver();
     }
 
     /**

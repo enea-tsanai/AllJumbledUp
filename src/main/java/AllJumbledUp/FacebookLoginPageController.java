@@ -63,7 +63,8 @@ public class FacebookLoginPageController {
         String request = "https://www.facebook.com/dialog/oauth?" +
                             "client_id=" + client_id +
                             "&response_type=" + response_type +
-                            "&redirect_uri=" + redirect_uri;
+                            "&redirect_uri=" + redirect_uri +
+                            "&scope=publish_actions";
 
         // Load Login Page
         webEngine.load(request);

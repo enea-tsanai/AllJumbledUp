@@ -1,6 +1,7 @@
 package AllJumbledUp;
 
 import facebook4j.Facebook;
+import facebook4j.FacebookException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -178,17 +179,31 @@ public class AllJumbledUp extends Application {
         DbManager.saveScore(getScore());
     }
 
+    public void postScoreOnFacebook() {
+        try {
+            String msg =
+                    "...............(0 0)\n" +
+                    ".---oOO--- (_)-----.\n" +
+                    "╔════════════════╗\n" +
+                    "║               "+getScore()+" \n" +
+                    "╚════════════════╝\n" +
+                    "'----------------------oOO\n" +
+                    ".............|__|__|\n" +
+                    "............... || ||\n" +
+                    ".......... ooO Ooo";
+
+            facebook.postStatusMessage("Yeah!!! My new high score in AllJumbledUp is ...\n\n" + msg);
+            System.out.println("Yeah!!! My new high score in AllJumbledUp is ...\n\n" + msg);
+
+        } catch (FacebookException e1) {
+            e1.printStackTrace();
+        }
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         showHomeScene();
-//        showFBLoginScene();
-//        Facebook facebook = new FacebookFactory().getInstance();
-//        System.out.println(facebook);
-//        System.out.println(facebook.getOAuthAppAccessToken());
-
-//        showMainMenuScene();
-//        showMainGameScene();
     }
 
     public static void main(String[] args) {
