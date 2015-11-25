@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.animation.Timeline;
@@ -186,17 +187,17 @@ public class GameSceneController {
         Score.setText("Score: " + score);
     }
 
-    // Listeners
+    // Text Filters
     /*Limits max input field length and acceptable characters*/
     public void addTextLimiter(final TextField tf, final String cf, final int maxLength) {
-        tf.textProperty().addListener((ov, oldValue, newValue) -> {
-            if (newValue.length() > 0) {
-                char charPressed = newValue.charAt(newValue.length() - 1);
+        tf.addEventFilter(KeyEvent.KEY_TYPED, event -> {
+            if (!event.getCharacter().isEmpty()) {
+                char charPressed = event.getCharacter().charAt(0);
                 int occInNewVal = countOccurrencesOf(tf.getText(), charPressed);
                 int occInJumbledW = countOccurrencesOf(cf, charPressed);
 
-                if ((tf.getText().length() > maxLength) || (occInNewVal > occInJumbledW)) {
-                    tf.setText(oldValue);
+                if ((tf.getText().length() > maxLength) || (occInNewVal + 1 > occInJumbledW)) {
+                    event.consume();
                 }
             }
         });
@@ -228,8 +229,6 @@ public class GameSceneController {
 
                     if (AllJumbledUp.getGameMode() == AllJumbledUp.GameMode.FacebookUser) {
                         allJumbledUp.saveScore();
-                        //TODO: Post highscore
-                       // allJumbledUp.facebook.postScore("", 30);
                     }
 
                     gameOverDialog(AllJumbledUp.ExitFlag.SOLVED_RIDDLE);
