@@ -5,6 +5,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
@@ -24,7 +25,6 @@ public class DbManager {
 
     /* Key riddle pair */
     private static ArrayList<String> KeyRiddle = new ArrayList<String>(2);
-
 
     public DbManager(String dbName) {
         MongoClient mongoClient = new MongoClient();
@@ -67,14 +67,15 @@ public class DbManager {
     public static void initDB() {
         if (db.getCollection("jumbled_words").count() < 1) {
         /* Import jumbled words */
-            dbImport("/Users/enea/Dev/Villanova/AllJumbledUp/src/main/resources/wordlist.txt",
+            File file = new File("src/main/resources/wordlist.txt");
+            dbImport(file.getAbsolutePath(),
                     db.getCollection("jumbled_words"));
         }
 
         if (db.getCollection("key_riddles").count() < 1) {
         /* Import keys-riddles */
-            dbImport("/Users/enea/Dev/Villanova/AllJumbledUp/src/main/resources/KeyRiddleList.txt",
-                    db.getCollection("key_riddles"));
+            File file = new File("src/main/resources/KeyRiddleList.txt");
+            dbImport(file.getAbsolutePath(), db.getCollection("key_riddles"));
         }
     }
 
