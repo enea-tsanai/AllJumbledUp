@@ -18,9 +18,12 @@ import javafx.concurrent.Worker.State;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Properties;
 
 /**
  * Created by enea.
@@ -56,18 +59,8 @@ public class FacebookLoginPageController {
         WebContent.setContent(browser);
         webEngine.setJavaScriptEnabled(true);
 
-        // Request Params
-        String client_id = "1639583132962407";
-        String response_type = "code";
-        String redirect_uri = "https://www.facebook.com/connect/login_success.html";
-        String request = "https://www.facebook.com/dialog/oauth?" +
-                            "client_id=" + client_id +
-                            "&response_type=" + response_type +
-                            "&redirect_uri=" + redirect_uri +
-                            "&scope=publish_actions";
-
         // Load Login Page
-        webEngine.load(request);
+        webEngine.load(generateRequest());
 
         final StringBuffer code = new StringBuffer();
 
@@ -92,11 +85,7 @@ public class FacebookLoginPageController {
 
                             // Get access token
                             try {
-                                String[] access_token = sendGet("https://graph.facebook.com/v2.3/oauth/access_token?" +
-                                        "redirect_uri=" + redirect_uri +
-                                        "&client_id=" + client_id +
-                                        "&client_secret=da0045843cca73f13f7832c088f39bb0" +
-                                        "&code=" + code.toString());
+                                String[] access_token = generateAccessToken(code.toString());
 
                                 if (access_token[0].length() > 0) {
                                     isTokenFound = true;
@@ -120,6 +109,60 @@ public class FacebookLoginPageController {
         });
     }
 
+    private String generateRequest () {
+        InputStream inputStream;
+        String request = "";
+
+        try {
+            Properties prop = new Properties();
+            String propFileName = "facebook4j.properties";
+            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+            if (inputStream != null)
+                prop.load(inputStream);
+            else
+                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+
+            // Request Params
+            request = "https://www.facebook.com/dialog/oauth?" +
+                    "client_id=" + prop.getProperty("oauth.appId") +
+                    "&response_type=code" +
+                    "&redirect_uri=https://www.facebook.com/connect/login_success.html" +
+                    "&scope=publish_actions";
+
+            inputStream.close();
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
+        return request;
+    }
+
+    private String[] generateAccessToken (String code) {
+        InputStream inputStream;
+        String[] access_token = new String[2];
+
+        try {
+            Properties prop = new Properties();
+            String propFileName = "facebook4j.properties";
+            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+
+            if (inputStream != null)
+                prop.load(inputStream);
+            else
+                throw new FileNotFoundException("property file '" + propFileName + "' not found in the classpath");
+
+            access_token = sendGet("https://graph.facebook.com/v2.3/oauth/access_token?" +
+                    "redirect_uri=https://www.facebook.com/connect/login_success.html" +
+                    "&client_id=" + prop.getProperty("oauth.appId") +
+                    "&client_secret=" + prop.getProperty("oauth.appSecret") +
+                    "&code=" + code);
+
+            inputStream.close();
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
+        return access_token;
+    }
 
     // HTTP GET request
     private String[] sendGet(String url) throws Exception {
