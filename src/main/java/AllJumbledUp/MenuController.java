@@ -30,7 +30,10 @@ public class MenuController {
     private ComboBox<AllJumbledUp.DifficultyLevel> difficultyLevel;
 
     @FXML
-    private CheckBox sound;
+    private CheckBox backgroundMusic;
+
+    @FXML
+    private CheckBox fxSounds;
 
     @FXML
     private ToolBar topToolBar;
@@ -143,13 +146,13 @@ public class MenuController {
         difficultyLevel.setItems(difficultyOpts);
         difficultyLevel.getSelectionModel().selectFirst();
 
-        sound.setSelected(allJumbledUp.getSound());
+        backgroundMusic.setSelected(allJumbledUp.getBackgroundMusic());
+        fxSounds.setSelected(allJumbledUp.getFxSounds());
     }
 
     @FXML
     private void handleButtonAction(ActionEvent event) {
         allJumbledUp.setDifficultyLevelLevel(difficultyLevel.getSelectionModel().getSelectedItem());
-        allJumbledUp.setSound(sound.isSelected());
         allJumbledUp.startGame();
         allJumbledUp.showMainGameScene();
     }
@@ -170,5 +173,13 @@ public class MenuController {
         System.out.println("GameSceneController started");
         this.allJumbledUp = allJumbledUpApp;
         bindData();
+    }
+
+    public void handleBackgroundMusic(ActionEvent event) {
+        allJumbledUp.setBackgroundMusic(backgroundMusic.isSelected());
+    }
+
+    public void handleFxSounds(ActionEvent event) {
+        allJumbledUp.setFxSounds(fxSounds.isSelected());
     }
 }

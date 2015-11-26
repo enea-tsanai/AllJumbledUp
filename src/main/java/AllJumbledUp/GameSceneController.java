@@ -192,13 +192,16 @@ public class GameSceneController {
     public void addTextLimiter(final TextField tf, final String cf, final int maxLength) {
         tf.addEventFilter(KeyEvent.KEY_TYPED, event -> {
             if (!event.getCharacter().isEmpty()) {
+
                 char charPressed = event.getCharacter().charAt(0);
                 int occInNewVal = countOccurrencesOf(tf.getText(), charPressed);
                 int occInJumbledW = countOccurrencesOf(cf, charPressed);
 
                 if ((tf.getText().length() + 1 > maxLength) || (occInNewVal + 1 > occInJumbledW)) {
                     event.consume();
-                }
+                    AllJumbledUp.sounds.get("invalidChar").play();
+                } else
+                    AllJumbledUp.sounds.get("keyPressed").play();
             }
         });
     }
@@ -245,8 +248,11 @@ public class GameSceneController {
                     allJumbledUp.updateScore(lettersFound, 0 , false);
                     updateScore(Integer.toString(allJumbledUp.getScore()));
 
+                    AllJumbledUp.sounds.get("foundWord").play();
+
                     if ((FoundJwords == 4) && (!FWrevealed)){
                         fguessField.setEditable(true);
+                        AllJumbledUp.sounds.get("unlockedFW").play();
                     }
                 }
             } else if (tf.getText().length() == keyW.length() && !tf.getText().equalsIgnoreCase(keyW)) {

@@ -6,7 +6,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -30,9 +34,15 @@ public class AllJumbledUp extends Application {
     private static GameMode gameMode;
     private static int Score = 0;
 
+    // Game Sounds
+    private static MediaPlayer mediaPlayer;
+    public static HashMap <String, AudioClip> sounds = new HashMap<>();
+    public static HashMap <String, Media> musicClips = new HashMap<>();
+
     /* Game Settings */
     private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
-    private static boolean sound = false;
+    private static boolean backgroundMusic = true;
+    private static boolean fxSounds = true;
     private static int timer; //Timer in seconds
     private static final double WINDOW_MIN_HEIGHT = 600;
     private static final double WINDOW_MIN_WIDTH = 800;
@@ -47,12 +57,13 @@ public class AllJumbledUp extends Application {
     /*Constructor */
     public AllJumbledUp() {
         new DbManager("AllJumbledUp");
-//        db.cleanDB();
+        // db.cleanDB();
         session = new Session();
+        loadMusicClips();
+        loadFxSounds();
     }
 
     public void startGame() {
-
         DbManager.generateFinalWordStoryPair();
         assignFW(DbManager.getFinalWordStoryPair());
         assignJumbledWords(DbManager.getJumbledWords());
@@ -95,16 +106,32 @@ public class AllJumbledUp extends Application {
         return difficultyLevel;
     }
 
-    public boolean getSound() {
-        return sound;
+    public boolean getBackgroundMusic() {
+        return backgroundMusic;
+    }
+
+    public void setBackgroundMusic(boolean isSoundOn) {
+        backgroundMusic = isSoundOn;
+        if (!backgroundMusic) {
+            mediaPlayer.setMute(true);
+        } else
+            mediaPlayer.setMute(false);
+    }
+
+    public boolean getFxSounds() {
+        return fxSounds;
+    }
+
+    public void setFxSounds(boolean isSoundOn) {
+        fxSounds = isSoundOn;
+        if (!fxSounds) {
+            sounds.clear();
+        } else
+            loadFxSounds();
     }
 
     public void setDifficultyLevelLevel(DifficultyLevel lvl) {
         difficultyLevel = lvl;
-    }
-
-    public void setSound(boolean isSoundOn) {
-        sound = isSoundOn;
     }
 
     private void setTimer() {
@@ -200,6 +227,18 @@ public class AllJumbledUp extends Application {
         }
     }
 
+    public void loadFxSounds() {
+        sounds.put("keyPressed", new AudioClip(getClass().getResource("/Sounds/2.wav").toString()));
+        sounds.put("foundWord", new AudioClip(getClass().getResource("/Sounds/3.wav").toString()));
+        sounds.put("unlockedFW", new AudioClip(getClass().getResource("/Sounds/4.mp3").toString()));
+        sounds.put("invalidChar", new AudioClip(getClass().getResource("/Sounds/1.wav").toString()));
+    }
+
+    public void loadMusicClips () {
+        musicClips.put("background", new Media(getClass().getResource("/Sounds/HotlineBling.mp3").toString()));
+        mediaPlayer = new MediaPlayer(musicClips.get("background"));
+    }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
@@ -230,6 +269,7 @@ public class AllJumbledUp extends Application {
             stage.setResizable(true);
             stage.setMinHeight(WINDOW_MIN_HEIGHT);
             stage.setMinWidth(WINDOW_MIN_WIDTH);
+
             stage.show();
 
         } catch (IOException e) {
@@ -298,7 +338,6 @@ public class AllJumbledUp extends Application {
 
     public void showHomeScene() {
         try {
-
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/HomeScene.fxml"));
 
@@ -317,6 +356,9 @@ public class AllJumbledUp extends Application {
             stage.setMinHeight(WINDOW_MIN_HEIGHT);
             stage.setMinWidth(WINDOW_MIN_WIDTH);
             stage.show();
+
+            if (backgroundMusic)
+                mediaPlayer.play();
 
         } catch (IOException e) {
             e.printStackTrace();
