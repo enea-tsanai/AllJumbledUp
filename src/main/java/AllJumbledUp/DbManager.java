@@ -80,7 +80,7 @@ public class DbManager {
     }
 
     public static void manageUser () {
-        switch (AllJumbledUp.getGameMode()) {
+        switch (GameManager.getGameMode()) {
             case FreePlay:
                 break;
             case FacebookUser:
@@ -174,7 +174,7 @@ public class DbManager {
     public static ArrayList<String> generateFinalWordStoryPair() {
         int min, max, numOfLetters;
 
-        switch (AllJumbledUp.getDifficultyLevel()) {
+        switch (GameManager.getDifficultyLevel()) {
             case EASY:
                 min = 4;
                 max = 5;
@@ -244,7 +244,7 @@ public class DbManager {
 
         /* Length of words according to difficulty level */
         int min, max, numOfLetters;
-        switch (AllJumbledUp.getDifficultyLevel()) {
+        switch (GameManager.getDifficultyLevel()) {
             case EASY:
                 min = 4;
                 max = 6;

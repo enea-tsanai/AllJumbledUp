@@ -115,7 +115,7 @@ public class JumbledWord {
     }
 
     /*Returns the mask of the hidden word*/
-    String getMask() {
+    public String getMask() {
         StringBuilder mask = new StringBuilder(String.format("%1$"+ word.length() + "s", " "));
         for(int pos: specialPositions) {
             mask.setCharAt(pos, '_');
@@ -124,7 +124,7 @@ public class JumbledWord {
     }
 
     /*Returns the special characters as a string*/
-    String getSPchars() {
+    public String getSPchars() {
         String spchars = "";
         for(int pos: specialPositions) {
             spchars += getWord().charAt(pos);
