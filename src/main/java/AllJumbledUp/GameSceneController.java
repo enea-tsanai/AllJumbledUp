@@ -196,7 +196,7 @@ public class GameSceneController {
                 int occInNewVal = countOccurrencesOf(tf.getText(), charPressed);
                 int occInJumbledW = countOccurrencesOf(cf, charPressed);
 
-                if ((tf.getText().length() > maxLength) || (occInNewVal + 1 > occInJumbledW)) {
+                if ((tf.getText().length() + 1 > maxLength) || (occInNewVal + 1 > occInJumbledW)) {
                     event.consume();
                 }
             }
@@ -248,6 +248,10 @@ public class GameSceneController {
                         fguessField.setEditable(true);
                     }
                 }
+            } else if (tf.getText().length() == keyW.length() && !tf.getText().equalsIgnoreCase(keyW)) {
+                tf.setStyle("-fx-text-fill: red; -fx-background-color: transparent");
+            } else {
+                tf.setStyle("-fx-text-fill: black; -fx-background-color: transparent");
             }
         });
     }
