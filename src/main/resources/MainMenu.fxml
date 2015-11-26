@@ -16,9 +16,9 @@
                     <tabs>
                       <Tab text="Settings">
                         <content>
-                             <HBox>
+                             <HBox id="centerContent">
                                  <Pane HBox.hgrow="ALWAYS" />
-                                 <GridPane alignment="center" hgap="20.0"  vgap="20.0" HBox.hgrow="ALWAYS">
+                                 <GridPane id="settings" alignment="center" hgap="20.0"  vgap="20.0" HBox.hgrow="ALWAYS">
                                    <children>
                                        <Label text="Level" GridPane.rowIndex="1" />
                                        <Label text="FX Sounds" GridPane.rowIndex="2" />
