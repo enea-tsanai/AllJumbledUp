@@ -28,7 +28,7 @@
                                 </children>
                             </HBox>
 
-                            <HBox prefHeight="20.0" prefWidth="Infinity" alignment="CENTER">
+                            <HBox id="scoreAndTimer" prefHeight="20.0" prefWidth="Infinity" alignment="CENTER">
                                 <children>
                                     <Region prefWidth="50.0" />
                                     <Label fx:id="Score" prefHeight="29.0" textAlignment="CENTER">
@@ -53,16 +53,16 @@
                     <children>
                         <Region prefHeight="30.0" prefWidth="Infinity" />
                         <HBox alignment="CENTER" prefWidth="Infinity">
-                            <GridPane fx:id="JumbledWordsA1">
+                            <GridPane id="JumbledWordsA1" fx:id="JumbledWordsA1">
                             </GridPane>
                         </HBox>
                         <Region prefHeight="30.0" prefWidth="Infinity" />
                         <HBox prefWidth="Infinity" alignment="CENTER">
                             <children>
-                                <GridPane fx:id="JumbledWordsA2" vgap="0">
+                                <GridPane id="JumbledWordsA2" fx:id="JumbledWordsA2" vgap="0">
                                 </GridPane>
                                 <Region prefWidth="30.0" />
-                                <ScrollPane fx:id="StoryPane" maxWidth="300.0">
+                                <ScrollPane id="StoryPane" fx:id="StoryPane" maxWidth="300.0">
                                  <content>
                                     <Pane prefWidth="200.0" />
                                  </content>

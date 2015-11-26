@@ -72,36 +72,33 @@ public class GameSceneController {
     private void bindData () {
 
         int l = 0;
+        int fontSize = 26;
 
         /* Populate Area A1 */
         for (JumbledWord jw : allJumbledUp.getJumbledWords()) {
 
             //todo: check input field width calculation
+
             Text JW = new Text(jw.getJumbledWord());
-            JW.setFont(Font.font("Monospaced", 18));
+            JW.setFont(Font.font("Monospaced", fontSize));
             JW.setStyle("-fx-border-color: blue;");
             double inputWidth = JW.getLayoutBounds().getWidth() + 20;
 
             /* Jumbled Words labels */
             Label jwLabel = new Label(jw.getJumbledWord());
-            jwLabel.setFont(Font.font("Monospaced", 18));
-            jwLabel.setStyle("-fx-border-color: blue;");
-            jwLabel.setPadding(new Insets(5, 5, 5, 5));
+            jwLabel.setFont(Font.font("Monospaced", fontSize));
 
             /* Input field for user to guess the jumbled word*/
             TextField guessField = new TextField();
+            guessField.setFont(Font.font("Monospaced", fontSize));
             guessField.setId("gjw_" + l);
-            guessField.setFont(Font.font("Monospaced", 18));
             guessField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent");
-            guessField.setPadding(new Insets(5, 5, 5, 5));
 
             /* Background non editable field to highlight special letters*/
             Label guessFieldSL = new Label();
             guessFieldSL.setText(jw.getMask());
-//            guessFieldSL.setStyle("-fx-text-color: red;");
-            guessFieldSL.setFont(Font.font("Monospaced", 18));
-            guessFieldSL.setStyle("-fx-border-color: blue;");
-            guessFieldSL.setPadding(new Insets(5, 5, 5, 5));
+            guessFieldSL.setStyle("-fx-text-color: #E77471;");
+            guessFieldSL.setFont(Font.font("Monospaced", fontSize));
             guessFieldSL.setMaxWidth(jwLabel.getMaxWidth());
             guessFieldSL.setPrefWidth(jwLabel.getPrefWidth());
 
@@ -122,30 +119,26 @@ public class GameSceneController {
         /* Populate Area A2 */
         fjwLabel = new Label();
         fjwLabel.setText(AllJumbledUp.getJW().replaceAll(".", "*"));
-        fjwLabel.setFont(Font.font("Monospaced", 18));
-        fjwLabel.setPadding(new Insets(5, 5, 0, 5));
-//        fjwLabel.setMaxWidth(200);
+        fjwLabel.setFont(Font.font("Monospaced", fontSize));
+        fjwLabel.setStyle("-fx-border-color: transparent;");
 
         /* Background non editable field to highlight special letters*/
         Label fguessFieldSL = new Label(AllJumbledUp.getJW().replaceAll(".", "_"));
-        fguessFieldSL.setFont(Font.font("Monospaced", 18));
-        fguessFieldSL.setStyle("-fx-border-color: blue;");
-        fguessFieldSL.setPadding(new Insets(5, 5, 5, 5));
+        fguessFieldSL.setFont(Font.font("Monospaced", fontSize));
 
         /* Input field for user to guess the jumbled word*/
         fguessField = new TextField();
         fguessField.clear();
         fguessField.setEditable(false);
         fguessField.setId("gjw_" + l);
-        fguessField.setFont(Font.font("Monospaced", 18));
+        fguessField.setFont(Font.font("Monospaced", fontSize));
         fguessField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent");
-        fguessField.setPadding(new Insets(5, 5, 5, 5));
 
         //todo: check input field width calculation
 //        JumbledWordsA2.setGridLinesVisible(true);
         Text FWInput = new Text(AllJumbledUp.getJW());
-        FWInput.setFont(Font.font("Monospaced", 18));
-        FWInput.setStyle("-fx-border-color: blue;");
+        FWInput.setFont(Font.font("Monospaced", fontSize));
+
         double FWinputWidth = FWInput.getLayoutBounds().getWidth() + 20;
         fguessField.setMaxWidth(FWinputWidth);
 
@@ -161,7 +154,6 @@ public class GameSceneController {
         /* Story Area */
         Label storyLabel = new Label(AllJumbledUp.getStory());
         storyLabel.setWrapText(true);
-        storyLabel.setStyle("-fx-font-family: \"Comic Sans MS\"; -fx-font-size: 14; -fx-text-fill: darkred;");
 
         /* Add to Scroll Pane */
         StoryPane.setContent(storyLabel);
@@ -187,7 +179,7 @@ public class GameSceneController {
         Score.setText("Score: " + score);
     }
 
-    // Text Filters
+    // Text Fil1ters
     /*Limits max input field length and acceptable characters*/
     public void addTextLimiter(final TextField tf, final String cf, final int maxLength) {
         tf.addEventFilter(KeyEvent.KEY_TYPED, event -> {

@@ -1,0 +1,65 @@
+.tool-bar {
+    -fx-background-color: #504A4B;
+}
+
+.tool-bar .label {
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+        -fx-font-size: 25pt;
+        -fx-text-fill: #d8d8d8;
+}
+.tab {
+    -fx-font-size: 12pt;
+}
+
+.tab:hover {
+    -fx-background-color: #D1D0CE;
+}
+
+#centerContent {
+ -fx-background-color: #D1D0CE;
+}
+
+#settings .label{
+    -fx-font-size: 16pt;
+}
+
+#settings .combo-box{
+    -fx-font-size: 12pt;
+}
+
+.button {
+    -fx-padding: 5 22 5 22;
+    -fx-border-radius: 15;
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+    -fx-background-radius: 15;
+    -fx-background-color: #C24641;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 14pt;
+    -fx-text-fill: #d8d8d8;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+    -fx-background-color: #666362;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: #ffffff;
+}
+
+.button:default:hover {
+    -fx-background-color: derive(-fx-focus-color,30%);
+}
