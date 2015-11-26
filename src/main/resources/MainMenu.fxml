@@ -20,11 +20,12 @@
                                  <Pane HBox.hgrow="ALWAYS" />
                                  <GridPane alignment="center" hgap="20.0"  vgap="20.0" HBox.hgrow="ALWAYS">
                                    <children>
-                                      <Label text="Level" GridPane.rowIndex="1" />
-                                      <Label text="Sound" GridPane.rowIndex="2" />
-                                      <ComboBox fx:id="difficultyLevel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                      <CheckBox fx:id="backgroundMusic" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#handleBackgroundMusic" />
-                                      <CheckBox fx:id="fxSounds" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" onAction="#handleFxSounds" />
+                                       <Label text="Level" GridPane.rowIndex="1" />
+                                       <Label text="FX Sounds" GridPane.rowIndex="2" />
+                                       <Label text="Background Music" GridPane.rowIndex="3" />
+                                       <ComboBox fx:id="difficultyLevel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                       <CheckBox fx:id="fxSounds" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#handleFxSounds" />
+                                       <CheckBox fx:id="backgroundMusic" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" onAction="#handleBackgroundMusic" />
                                    </children>
                                    <columnConstraints>
                                       <ColumnConstraints />
