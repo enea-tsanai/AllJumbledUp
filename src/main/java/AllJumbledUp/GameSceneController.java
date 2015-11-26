@@ -237,7 +237,8 @@ public class GameSceneController {
                     // Add the special characters of this word above the final jumbled word
                     if (FoundJwords == 0)
                         fjwLabel.setText("");
-                    fjwLabel.setText(fjwLabel.getText() + spchars);
+                    String fTmp = fjwLabel.getText() + spchars;
+                    fjwLabel.setText(JumbledWord.jumble(AllJumbledUp.getJW().substring(0, fTmp.length()), fTmp));
 
                     FoundJwords++;
                     lettersFound += keyW.length();

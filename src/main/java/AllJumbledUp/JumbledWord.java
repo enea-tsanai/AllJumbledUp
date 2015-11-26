@@ -44,6 +44,7 @@ public class JumbledWord {
     /* Jumbles the given word */
     public String jumble(String word) {
         StringBuilder jumbledWord = new StringBuilder(word.length());
+        int numOfTries = 0;
         do {
             jumbledWord.setLength(0);
             List<Character> characters = new ArrayList<>();
@@ -55,9 +56,31 @@ public class JumbledWord {
                 int randPicker = (int) (Math.random() * characters.size());
                 jumbledWord.append(characters.remove(randPicker));
             }
-            System.out.println("Jumbled:  " + jumbledWord + "  Word: " + word);
-        } while (word.equals(jumbledWord.toString()));
+            numOfTries ++;
+        } while (word.equals(jumbledWord.toString()) && numOfTries < 9);
         return jumbledWord.toString();
+    }
+
+    public static String jumble(String staticWord, String jWord) {
+        if (jWord.length() > 1) {
+            StringBuilder jumbledWord = new StringBuilder(jWord.length());
+            int numOfTries = 0;
+            do {
+                jumbledWord.setLength(0);
+                List<Character> characters = new ArrayList<>();
+                for (char c : jWord.toCharArray()) {
+                    characters.add(c);
+                }
+
+                while (characters.size() > 0) {
+                    int randPicker = (int) (Math.random() * characters.size());
+                    jumbledWord.append(characters.remove(randPicker));
+                }
+                numOfTries ++;
+            } while (jWord.equals(jumbledWord.toString()) && numOfTries < 9);
+            return jumbledWord.toString();
+        }
+        return jWord;
     }
 
     public String getWord() {
