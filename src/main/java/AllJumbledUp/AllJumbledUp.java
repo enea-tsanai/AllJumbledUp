@@ -351,9 +351,9 @@ public class AllJumbledUp extends Application {
             HomeSceneController controller = loader.getController();
             controller.setMainApp(this);
 
-//            String css = this.getClass().getResource("/MainMenu.css").toExternalForm();
+            String css = this.getClass().getResource("/css/HomeScene.css").toExternalForm();
             Scene JumbleScene = new Scene(root);
-//            JumbleScene.getStylesheets().add(css);
+            JumbleScene.getStylesheets().add(css);
 
             stage.setTitle("All Jumbled Up - Welcome!");
             stage.setScene(JumbleScene);
