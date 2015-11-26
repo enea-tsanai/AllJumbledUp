@@ -43,15 +43,20 @@ public class JumbledWord {
 
     /* Jumbles the given word */
     public String jumble(String word) {
-        List<Character> characters = new ArrayList<>();
-        for(char c:word.toCharArray()){
-            characters.add(c);
-        }
         StringBuilder jumbledWord = new StringBuilder(word.length());
-        while(characters.size()!=0){
-            int randPicker = (int)(Math.random()*characters.size());
-            jumbledWord.append(characters.remove(randPicker));
-        }
+        do {
+            jumbledWord.setLength(0);
+            List<Character> characters = new ArrayList<>();
+            for (char c : word.toCharArray()) {
+                characters.add(c);
+            }
+
+            while (characters.size() > 0) {
+                int randPicker = (int) (Math.random() * characters.size());
+                jumbledWord.append(characters.remove(randPicker));
+            }
+            System.out.println("Jumbled:  " + jumbledWord + "  Word: " + word);
+        } while (word.equals(jumbledWord.toString()));
         return jumbledWord.toString();
     }
 
