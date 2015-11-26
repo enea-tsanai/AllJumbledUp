@@ -199,9 +199,9 @@ public class GameSceneController {
 
                 if ((tf.getText().length() + 1 > maxLength) || (occInNewVal + 1 > occInJumbledW)) {
                     event.consume();
-                    AllJumbledUp.sounds.get("invalidChar").play();
+                    AllJumbledUp.playFxSound("invalidChar");
                 } else
-                    AllJumbledUp.sounds.get("keyPressed").play();
+                    AllJumbledUp.playFxSound("keyPressed");
             }
         });
     }
@@ -248,11 +248,11 @@ public class GameSceneController {
                     allJumbledUp.updateScore(lettersFound, 0 , false);
                     updateScore(Integer.toString(allJumbledUp.getScore()));
 
-                    AllJumbledUp.sounds.get("foundWord").play();
+                    AllJumbledUp.playFxSound("foundWord");
 
                     if ((FoundJwords == 4) && (!FWrevealed)){
                         fguessField.setEditable(true);
-                        AllJumbledUp.sounds.get("unlockedFW").play();
+                        AllJumbledUp.playFxSound("unlockedFW");
                     }
                 }
             } else if (tf.getText().length() == keyW.length() && !tf.getText().equalsIgnoreCase(keyW)) {

@@ -36,8 +36,8 @@ public class AllJumbledUp extends Application {
 
     // Game Sounds
     private static MediaPlayer mediaPlayer;
-    public static HashMap <String, AudioClip> sounds = new HashMap<>();
-    public static HashMap <String, Media> musicClips = new HashMap<>();
+    private static HashMap <String, AudioClip> sounds = new HashMap<>();
+    private static HashMap <String, Media> musicClips = new HashMap<>();
 
     /* Game Settings */
     private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
@@ -237,6 +237,11 @@ public class AllJumbledUp extends Application {
     public void loadMusicClips () {
         musicClips.put("background", new Media(getClass().getResource("/Sounds/HotlineBling.mp3").toString()));
         mediaPlayer = new MediaPlayer(musicClips.get("background"));
+    }
+
+    public static void playFxSound (String fxSound) {
+        if (null != sounds.get(fxSound))
+            sounds.get(fxSound).play();
     }
 
     @Override
