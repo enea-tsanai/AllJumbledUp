@@ -7,6 +7,7 @@ import controllers.MenuController;
 import facebook4j.Facebook;
 import facebook4j.FacebookException;
 import facebook4j.auth.AccessToken;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +18,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.util.*;
 
 public class GameManager extends Application {
@@ -239,13 +241,25 @@ public class GameManager extends Application {
     }
 
     public void loadMusicClips () {
-        musicClips.put("background", new Media(getClass().getResource("/Sounds/HotlineBling.mp3").toString()));
-        mediaPlayer = new MediaPlayer(musicClips.get("background"));
+        musicClips.put("background1", new Media(getClass().getResource("/Sounds/HotlineBling.mp3").toString()));
+        musicClips.put("start", new Media(getClass().getResource("/Sounds/ambient-loop_1.mp3").toString()));
+        musicClips.put("GameOn1", new Media(getClass().getResource("/Sounds/countdown.wav").toString()));
+        musicClips.put("GameOn2", new Media(getClass().getResource("/Sounds/groove.wav").toString()));
     }
 
     public static void playFxSound (String fxSound) {
         if (null != sounds.get(fxSound))
             sounds.get(fxSound).play();
+    }
+
+    public static void playMusicClip (String musicClip) {
+        if (null != musicClips.get(musicClip)) {
+            if (null != mediaPlayer)
+                mediaPlayer.stop();
+            mediaPlayer = new MediaPlayer(musicClips.get(musicClip));
+            mediaPlayer.play();
+            mediaPlayer.setCycleCount(Timeline.INDEFINITE);
+        }
     }
 
     public static void setFBOAuthAccessToken (AccessToken at) {
@@ -323,6 +337,9 @@ public class GameManager extends Application {
             stage.setMinWidth(WINDOW_MIN_WIDTH);
             stage.show();
 
+            if (backgroundMusic)
+                playMusicClip("GameOn2");
+
             JumbleScene.getWindow().setOnCloseRequest(ev -> {
                 if (!gameSceneController.shutdown()) {
                     ev.consume();
@@ -383,7 +400,7 @@ public class GameManager extends Application {
             stage.show();
 
             if (backgroundMusic)
-                mediaPlayer.play();
+                playMusicClip("start");
 
         } catch (IOException e) {
             e.printStackTrace();
