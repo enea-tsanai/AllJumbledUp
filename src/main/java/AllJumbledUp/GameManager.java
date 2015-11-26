@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.*;
 
-//TODO: Add comments
 public class GameManager extends Application {
 
     public enum DifficultyLevel {
