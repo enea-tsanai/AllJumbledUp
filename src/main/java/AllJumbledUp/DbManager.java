@@ -61,6 +61,7 @@ public class DbManager {
         db.getCollection("jumbled_words").deleteMany(new Document());
         /* Clear key riddles */
         db.getCollection("key_riddles").deleteMany(new Document());
+        db.getCollection("key_image_riddles").deleteMany(new Document());
     }
 
     /* Init the DB: Import all jumbled words and final words-story pairs */
@@ -76,6 +77,12 @@ public class DbManager {
         /* Import keys-riddles */
             File file = new File("src/main/resources/KeyRiddleList.txt");
             dbImport(file.getAbsolutePath(), db.getCollection("key_riddles"));
+        }
+
+        if (db.getCollection("key_image_riddles").count() < 1) {
+        /* Import keys-riddles */
+            File file = new File("src/main/resources/keyImageRiddles.txt");
+            dbImport(file.getAbsolutePath(), db.getCollection("key_image_riddles"));
         }
     }
 
@@ -197,20 +204,36 @@ public class DbManager {
 
         FindIterable<Document> iterableKR;
 
+        String collection = "";
+        switch (GameManager.getRiddleType()) {
+            case TEXT:
+                collection = "key_riddles";
+                break;
+            case IMAGE:
+                collection = "key_image_riddles";
+                break;
+            default:
+                collection = "key_image_riddles";
+        }
+
         do {
             /* Sort by usage */
-            iterableKR = db.getCollection("key_riddles")
+            iterableKR = db.getCollection(collection)
                 .find(new BasicDBObject("$where", "this.key.length==" + numOfLetters))
                 .sort(new Document("timesUsed", 1));
             numOfLetters --;
         } while (iterableKR.first() == null && numOfLetters > 0);
 
         String key = iterableKR.first().get("key").toString();
-        String riddle = iterableKR.first().get("riddle").toString();
+        String riddle ="";
+        if (GameManager.getRiddleType() == GameManager.RiddleType.IMAGE)
+            riddle = "/images/" + iterableKR.first().get("riddle").toString() + ".png";
+        else
+            riddle = iterableKR.first().get("riddle").toString();
         String timesUsed = iterableKR.first().get("timesUsed").toString();
 
         /* Update timesUsed */
-        db.getCollection("key_riddles").updateOne(new Document("key", key),
+        db.getCollection(collection).updateOne(new Document("key", key),
                 new Document("$set", new Document("timesUsed", Integer.parseInt(timesUsed) + 1)));
 
         if (!KeyRiddle.isEmpty())

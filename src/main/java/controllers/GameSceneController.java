@@ -138,12 +138,11 @@ public class GameSceneController {
         fguessField.setFont(Font.font("Monospaced", fontSize));
         fguessField.setStyle("-fx-background-color: transparent; -fx-border-color: transparent");
 
-        //todo: check input field width calculation
 //        JumbledWordsA2.setGridLinesVisible(true);
         Text FWInput = new Text(gameManager.getJW());
         FWInput.setFont(Font.font("Monospaced", fontSize));
 
-        double FWinputWidth = FWInput.getLayoutBounds().getWidth() + 20;
+        double FWinputWidth = FWInput.getLayoutBounds().getWidth() + 20; //This is to be checked in the future
         fguessField.setMaxWidth(FWinputWidth);
 
         System.out.println("TextDelimeter Test| fguessField---> " + fguessField.getText() + " GameManager.getJW() "
@@ -155,8 +154,6 @@ public class GameSceneController {
         JumbledWordsA2.add(fguessFieldSL, 0, 1);
         JumbledWordsA2.add(fguessField, 0, 1);
 
-//        gameManager.setRiddleType(GameManager.RiddleType.TEXT);
-        gameManager.setRiddleType(GameManager.RiddleType.IMAGE);
         switch (GameManager.getRiddleType()) {
             case TEXT:
                 /* Story Area */
@@ -174,7 +171,7 @@ public class GameSceneController {
                 break;
             case IMAGE:
                 ImageView imageView = new ImageView();
-                Image img = new Image(this.getClass().getResource("/images/riddle3.jpg").toExternalForm());
+                Image img = new Image(this.getClass().getResource(gameManager.getStory()).toExternalForm());
                 imageView.setImage(img);
                 imageView.setFitWidth(250);
                 imageView.setPreserveRatio(true);

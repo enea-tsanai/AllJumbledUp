@@ -16,10 +16,9 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.time.Duration;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GameManager extends Application {
 
@@ -75,6 +74,8 @@ public class GameManager extends Application {
     }
 
     public void startGame() {
+        setRiddleType((ThreadLocalRandom.current().nextInt(0, 1 + 1) == 0) ? RiddleType.TEXT : RiddleType.IMAGE);
+//        setRiddleType(RiddleType.IMAGE);
         DbManager.generateFinalWordStoryPair();
         assignFW(DbManager.getFinalWordStoryPair());
         assignJumbledWords(DbManager.getJumbledWords());
@@ -174,6 +175,7 @@ public class GameManager extends Application {
     }
 
     public void setRiddleType (RiddleType rt) {
+        System.out.println("Riddle type: " + rt);
         riddleType = rt;
     }
 
