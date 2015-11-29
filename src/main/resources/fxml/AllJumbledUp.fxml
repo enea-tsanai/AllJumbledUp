@@ -52,26 +52,15 @@
                 <VBox prefHeight="414.0" prefWidth="Infinity" scaleShape="false" alignment="CENTER" BorderPane.alignment="CENTER">
                     <children>
                         <Region prefHeight="30.0" prefWidth="Infinity" />
-                        <HBox alignment="CENTER" prefWidth="Infinity">
+                        <HBox spacing="30" fx:id="A1" alignment="CENTER" prefWidth="Infinity">
+                            <VBox spacing="20" alignment="CENTER">
                             <GridPane id="JumbledWordsA1" fx:id="JumbledWordsA1">
                             </GridPane>
+                            <GridPane alignment="CENTER" id="JumbledWordsA2" fx:id="JumbledWordsA2" vgap="0">
+                            </GridPane>
+                            </VBox>
                         </HBox>
                         <Region prefHeight="30.0" prefWidth="Infinity" />
-                        <HBox prefWidth="Infinity" alignment="CENTER">
-                            <children>
-                                <GridPane id="JumbledWordsA2" fx:id="JumbledWordsA2" vgap="0">
-                                </GridPane>
-                                <Region prefWidth="30.0" />
-                                <ScrollPane id="StoryPane" fx:id="StoryPane" maxWidth="300.0">
-                                 <content>
-                                    <Pane prefWidth="200.0" />
-                                 </content>
-                                </ScrollPane>
-                            </children>
-                                <VBox.margin>
-                                    <Insets />
-                                </VBox.margin>
-                        </HBox>
                     </children>
                     <opaqueInsets>
                         <Insets />

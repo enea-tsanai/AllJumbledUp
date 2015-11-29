@@ -35,9 +35,14 @@ public class GameManager extends Application {
         FacebookUser, FreePlay
     }
 
+    public static enum RiddleType {
+        TEXT, IMAGE
+    }
+
     public static Facebook facebook;
     public static Session session;
     private static GameMode gameMode;
+    private static RiddleType riddleType;
     private static int Score = 0;
 
     // Game Sounds
@@ -162,6 +167,14 @@ public class GameManager extends Application {
 
     public void setGameMode (GameMode gm) {
         gameMode = gm;
+    }
+
+    public static RiddleType getRiddleType () {
+        return riddleType;
+    }
+
+    public void setRiddleType (RiddleType rt) {
+        riddleType = rt;
     }
 
     public String updateTimer() {

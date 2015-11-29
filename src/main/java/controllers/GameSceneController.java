@@ -6,8 +6,11 @@ import javafx.animation.KeyFrame;
 import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.animation.Timeline;
 import javafx.scene.text.Text;
@@ -19,13 +22,13 @@ import javafx.fxml.FXML;
 public class GameSceneController {
 
     @FXML
+    private HBox A1;
+
+    @FXML
     private GridPane JumbledWordsA1;
 
     @FXML
     private GridPane JumbledWordsA2;
-
-    @FXML
-    private ScrollPane StoryPane;
 
     /* Final Jumbled Word label */
     @FXML
@@ -152,14 +155,33 @@ public class GameSceneController {
         JumbledWordsA2.add(fguessFieldSL, 0, 1);
         JumbledWordsA2.add(fguessField, 0, 1);
 
-        /* Story Area */
-        Label storyLabel = new Label(gameManager.getStory());
-        storyLabel.setWrapText(true);
+//        gameManager.setRiddleType(GameManager.RiddleType.TEXT);
+        gameManager.setRiddleType(GameManager.RiddleType.IMAGE);
+        switch (GameManager.getRiddleType()) {
+            case TEXT:
+                /* Story Area */
+                Label storyLabel = new Label(gameManager.getStory());
+                storyLabel.setWrapText(true);
 
-        /* Add to Scroll Pane */
-        StoryPane.setContent(storyLabel);
-        StoryPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        StoryPane.setFitToWidth(true);
+                /* Add to Scroll Pane */
+                ScrollPane StoryPane = new ScrollPane();
+                StoryPane.setId("StoryPane");
+                StoryPane.setContent(storyLabel);
+                StoryPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+                StoryPane.setFitToWidth(true);
+                StoryPane.setMaxWidth(250);
+                A1.getChildren().add(StoryPane);
+                break;
+            case IMAGE:
+                ImageView imageView = new ImageView();
+                Image img = new Image(this.getClass().getResource("/images/riddle3.jpg").toExternalForm());
+                imageView.setImage(img);
+                imageView.setFitWidth(250);
+                imageView.setPreserveRatio(true);
+                imageView.setSmooth(true);
+                imageView.setCache(true);
+                A1.getChildren().add(imageView);
+        }
 
         Score.setText("Score: 0");
         Timer.setText(Integer.toString(gameManager.getTimer()));
