@@ -18,7 +18,6 @@ import javafx.util.Duration;
 import java.util.Optional;
 import javafx.fxml.FXML;
 
-//TODO: Add comments
 public class GameSceneController {
 
     @FXML
