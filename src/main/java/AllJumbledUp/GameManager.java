@@ -44,7 +44,7 @@ public class GameManager extends Application {
     private static RiddleType riddleType;
     private static int Score = 0;
 
-    // Game Sounds
+    // Game sounds
     private static MediaPlayer mediaPlayer;
     private static HashMap <String, AudioClip> sounds = new HashMap<>();
     private static HashMap <String, Media> musicClips = new HashMap<>();
@@ -249,17 +249,17 @@ public class GameManager extends Application {
     }
 
     public void loadFxSounds() {
-        sounds.put("keyPressed", new AudioClip(getClass().getResource("/Sounds/2.wav").toString()));
-        sounds.put("foundWord", new AudioClip(getClass().getResource("/Sounds/3.wav").toString()));
-        sounds.put("unlockedFW", new AudioClip(getClass().getResource("/Sounds/4.mp3").toString()));
-        sounds.put("invalidChar", new AudioClip(getClass().getResource("/Sounds/1.wav").toString()));
+        sounds.put("keyPressed", new AudioClip(getClass().getResource("/sounds/2.wav").toString()));
+        sounds.put("foundWord", new AudioClip(getClass().getResource("/sounds/3.wav").toString()));
+        sounds.put("unlockedFW", new AudioClip(getClass().getResource("/sounds/4.mp3").toString()));
+        sounds.put("invalidChar", new AudioClip(getClass().getResource("/sounds/1.wav").toString()));
     }
 
     public void loadMusicClips () {
-        musicClips.put("background1", new Media(getClass().getResource("/Sounds/HotlineBling.mp3").toString()));
-        musicClips.put("start", new Media(getClass().getResource("/Sounds/ambient-loop_1.mp3").toString()));
-        musicClips.put("GameOn1", new Media(getClass().getResource("/Sounds/countdown.wav").toString()));
-        musicClips.put("GameOn2", new Media(getClass().getResource("/Sounds/groove.wav").toString()));
+        musicClips.put("background1", new Media(getClass().getResource("/sounds/HotlineBling.mp3").toString()));
+        musicClips.put("start", new Media(getClass().getResource("/sounds/ambient-loop_1.mp3").toString()));
+        musicClips.put("GameOn1", new Media(getClass().getResource("/sounds/countdown.wav").toString()));
+        musicClips.put("GameOn2", new Media(getClass().getResource("/sounds/groove.wav").toString()));
     }
 
     public static void playFxSound (String fxSound) {
