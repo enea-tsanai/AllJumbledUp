@@ -134,20 +134,17 @@ public class DbManager {
     }
 
     /**
-     * Returns the users scores.
-     * @return the users scores.
+     * Returns the user's scores.
+     * @return the user's scores.
      */
     @SuppressWarnings("unchecked")
     public static ArrayList<Document> getMyScoreHistory () {
         FindIterable<Document> player = db.getCollection("FB_users").find(new Document("_id",
                 Session.getSessionID())).limit(1);
 
-        System.out.println(player.first());
         if (player.first().containsKey("Scores")) {
             ArrayList<Document> scores = (ArrayList<Document>) player.first().get("Scores");
-
             Collections.sort(scores, (s1, s2) -> (int) s2.get("Score") - (int) s1.get("Score"));
-            System.out.println(scores);
             return scores;
         }
         return new ArrayList<>();
