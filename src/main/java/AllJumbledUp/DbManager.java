@@ -19,10 +19,13 @@ import java.util.*;
 
 public class DbManager {
 
+    /**
+     * The Mongod reference.
+     */
     private static MongoDatabase db;
 
     /**
-     *  Key riddle pair.
+     * Key riddle pair.
      */
     private static ArrayList<String> KeyRiddle = new ArrayList<String>(2);
 
@@ -33,7 +36,7 @@ public class DbManager {
     }
 
     /**
-     *  Get Database.
+     * Get Database.
      */
     public static MongoDatabase getDb(String dbName) throws UnknownHostException {
         MongoClient mongoClient = new MongoClient();
@@ -45,7 +48,7 @@ public class DbManager {
     }
 
     /**
-     *  Import from file to collection.
+     * Import from file to collection.
      */
     public static void dbImport(String inputFilename, MongoCollection<Document> collection) {
         try {
@@ -72,7 +75,7 @@ public class DbManager {
     }
 
     /**
-     *  Init the DB: Import all jumbled words and final words-story pairs.
+     * Init the DB: Import all jumbled words and final words-story pairs.
      */
     public static void initDB() {
         if (db.getCollection("jumbled_words").count() < 1) {
@@ -180,7 +183,7 @@ public class DbManager {
     }
 
     /**
-     *  Log collection documents.
+     * Log collection documents.
      */
     public static void printCollection(String collection) {
         FindIterable<Document> iterable = db.getCollection(collection).find();
@@ -196,7 +199,7 @@ public class DbManager {
     }
 
     /**
-     *  Generates the final word and riddle pair.
+     * Generates the final word and riddle pair.
      */
     public static ArrayList<String> generateFinalWordStoryPair() {
         int min, max, numOfLetters;

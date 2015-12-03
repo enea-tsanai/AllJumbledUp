@@ -20,20 +20,26 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Created by enea.
+ * Date: 9/5/15.
+ * Time: 4:32 PM.
+ */
+
 public class GameManager extends Application {
 
+    /**
+     * Game global attributes
+     */
     public static enum GameMode {
         FacebookUser, FreePlay
     }
-
     public static enum RiddleType {
         TEXT, IMAGE
     }
-
     public static enum ExitFlag {
         TIME_UP, SOLVED_RIDDLE, EXIT_GAME
     }
-
     public enum DifficultyLevel {
         EASY, MEDIUM, HARD
     }
@@ -44,12 +50,16 @@ public class GameManager extends Application {
     private static RiddleType riddleType;
     private static int Score = 0;
 
-    // Game sounds
+    /**
+     * Game sounds
+     */
     private static MediaPlayer mediaPlayer;
     private static HashMap <String, AudioClip> sounds = new HashMap<>();
     private static HashMap <String, Media> musicClips = new HashMap<>();
 
-    /* Game Settings */
+    /**
+     *  Game Settings
+     */
     private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
     private static boolean backgroundMusic = true;
     private static boolean fxSounds = true;
@@ -57,14 +67,20 @@ public class GameManager extends Application {
     private static final double WINDOW_MIN_HEIGHT = 600;
     private static final double WINDOW_MIN_WIDTH = 850;
 
-    /* Words Dictionaries */
+    /**
+     * Words Dictionaries
+     */
     private List <JumbledWord> JumbledWords = new ArrayList<>();
     private static String JW, Story;
 
-    /* Game Stage */
+    /**
+     * Game Stage
+     */
     public Stage stage;
 
-    /*Constructor */
+    /**
+     * Constructor
+     */
     public GameManager() {
         new DbManager("AllJumbledUp");
         // db.cleanDB();
@@ -73,49 +89,92 @@ public class GameManager extends Application {
         loadFxSounds();
     }
 
-    /* Shuffle the list of jumbled words and return it */
+    /**
+     *  Shuffles the list of jumbled words and returns it.
+     *  @return the list of jumbled words.
+     */
     public List<JumbledWord> getJumbledWords() {
         long seed = System.nanoTime();
         Collections.shuffle(JumbledWords, new Random(seed));
         return JumbledWords;
     }
 
+    /**
+     * Returns the final word.
+     * @return the final word.
+     */
     public static String getJW() {
         return JW;
     }
 
+    /**
+     * Returns the riddle.
+     * @return the riddle.
+     */
     public static String getStory() {
         return Story;
     }
 
+    /**
+     * Returns the difficulty level.
+     * @return the difficulty level.
+     */
     public static DifficultyLevel getDifficultyLevel() {
         return difficultyLevel;
     }
 
+    /**
+     * Returns true if background music is enabled.
+     * @return true if background music is enabled.
+     */
     public boolean getBackgroundMusic() {
         return backgroundMusic;
     }
 
+    /**
+     * Returns true if fxSounds are enabled.
+     * @return true if fxSounds are enabled.
+     */
     public boolean getFxSounds() {
         return fxSounds;
     }
 
-    public static GameMode getGameMode () {
+    /**
+     * Returns the Game Mode.
+     * @return the Game Mode.
+     */
+    public static GameMode getGameMode() {
         return gameMode;
     }
 
-    public static RiddleType getRiddleType () {
+    /**
+     * Returns the riddle type: image vs text.
+     * @return the riddle type.
+     */
+    public static RiddleType getRiddleType() {
         return riddleType;
     }
 
+    /**
+     * Returns the timer value.
+     * @return the timer value.
+     */
     public int getTimer(){
         return timer;
     }
 
+    /**
+     * Returns the current score.
+     * @return the current score.
+     */
     public int getScore() {
         return Score;
     }
 
+    /**
+     * Mutes the background music if selected so.
+     * @param isSoundOn is the user's preference about background music at the menu background music checkbox.
+     */
     public void setBackgroundMusic(boolean isSoundOn) {
         backgroundMusic = isSoundOn;
         if (!backgroundMusic) {
@@ -124,6 +183,10 @@ public class GameManager extends Application {
             mediaPlayer.setMute(false);
     }
 
+    /**
+     * Enables or disables fx sounds.
+     * @param isSoundOn is the user's preference about fx sounds at the menu fx sounds checkbox.
+     */
     public void setFxSounds(boolean isSoundOn) {
         fxSounds = isSoundOn;
         if (!fxSounds) {
@@ -132,10 +195,17 @@ public class GameManager extends Application {
             loadFxSounds();
     }
 
+    /**
+     * Set the game's difficulty level.
+     * @param lvl is the difficulty level.
+     */
     public void setDifficultyLevelLevel(DifficultyLevel lvl) {
         difficultyLevel = lvl;
     }
 
+    /**
+     * Sets the initial timer's value acording to the game's difficulty level.
+     */
     private void setTimer() {
         switch (difficultyLevel) {
             case EASY:
@@ -152,27 +222,43 @@ public class GameManager extends Application {
         }
     }
 
-    public void setGameMode (GameMode gm) {
+    /**
+     * Sets the game's play mode.
+     * @param gm is the play mode.
+     */
+    public void setGameMode(GameMode gm) {
         gameMode = gm;
     }
 
-    public void setRiddleType (RiddleType rt) {
+    /**
+     * Sets the riddle type: image vs text.
+     * @param rt is the riddle type.
+     */
+    public void setRiddleType(RiddleType rt) {
         System.out.println("Riddle type: " + rt);
         riddleType = rt;
     }
 
-    public static void setFBOAuthAccessToken (AccessToken at) {
+    /**
+     * Sets the Facebook OAuth Access Token for this session.
+     * @param at is the access token.
+     */
+    public static void setFBOAuthAccessToken(AccessToken at) {
         facebook.setOAuthAccessToken(at);
     }
 
-    /* Assign Final Word */
+    /**
+     * Assigns the final word
+     */
     public void assignFW(ArrayList<String> key_pair) {
         JW = key_pair.get(0);
         Story = key_pair.get(1);
         System.out.println("FW: " + JW + " Riddle: " + Story);
     }
 
-    /* Generate the game's jumbled words */
+    /**
+     * Assigns the game's generated jumbled words.
+     */
     public void assignJumbledWords(ArrayList<ArrayList<String>> jumbleWordPairs) {
         if(!JumbledWords.isEmpty()) {
             JumbledWords.clear();
@@ -182,6 +268,10 @@ public class GameManager extends Application {
         }
     }
 
+    /**
+     * Updates the timer by counting down 1 sec.
+     * @return the updated timer's value.
+     */
     public String updateTimer() {
         timer --;
         String m = Integer.toString(timer / 60);
@@ -191,7 +281,9 @@ public class GameManager extends Application {
         return "Time: " + m + ":" + s;
     }
 
-    /* Final score when the riddle is found */
+    /**
+     * Updates the final score when the riddle is solved.
+     */
     public void updateScore(int lettersFound, int timeRemaining, boolean SolvedRiddle) {
         int pointsPerLetter = 5;
         int baseScore;
@@ -218,10 +310,16 @@ public class GameManager extends Application {
         }
     }
 
+    /**
+     * Saves the player's score to the database.
+     */
     public void saveScore() {
         DbManager.saveScore(getScore());
     }
 
+    /**
+     * Posts score on Facebook.
+     */
     public void postScoreOnFacebook() {
         try {
             String msg =
@@ -243,6 +341,9 @@ public class GameManager extends Application {
         }
     }
 
+    /**
+     * Loads the Fx Sounds by populating the sounds hashmap.
+     */
     public void loadFxSounds() {
         sounds.put("keyPressed", new AudioClip(getClass().getResource("/sounds/2.wav").toString()));
         sounds.put("foundWord", new AudioClip(getClass().getResource("/sounds/3.wav").toString()));
@@ -250,19 +351,30 @@ public class GameManager extends Application {
         sounds.put("invalidChar", new AudioClip(getClass().getResource("/sounds/1.wav").toString()));
     }
 
-    public void loadMusicClips () {
+    /**
+     * Loads the Music clips by populating the music clips hashmap.
+     */
+    public void loadMusicClips() {
         musicClips.put("background1", new Media(getClass().getResource("/sounds/HotlineBling.mp3").toString()));
         musicClips.put("start", new Media(getClass().getResource("/sounds/ambient-loop_1.mp3").toString()));
         musicClips.put("GameOn1", new Media(getClass().getResource("/sounds/countdown.wav").toString()));
         musicClips.put("GameOn2", new Media(getClass().getResource("/sounds/groove.wav").toString()));
     }
 
-    public static void playFxSound (String fxSound) {
+    /**
+     * Plays the selected sound.
+     * @param fxSound is the selected sound's name.
+     */
+    public static void playFxSound(String fxSound) {
         if (null != sounds.get(fxSound))
             sounds.get(fxSound).play();
     }
 
-    public static void playMusicClip (String musicClip) {
+    /**
+     * Plays the selected music clip.
+     * @param musicClip is the selected music clips's name.
+     */
+    public static void playMusicClip(String musicClip) {
         if (null != musicClips.get(musicClip)) {
             if (null != mediaPlayer)
                 mediaPlayer.stop();
@@ -272,6 +384,9 @@ public class GameManager extends Application {
         }
     }
 
+    /**
+     * Shows the Main Menu scene.
+     */
     public void showMainMenuScene() {
         try {
 
@@ -300,6 +415,9 @@ public class GameManager extends Application {
         }
     }
 
+    /**
+     * Shows the Main Game scene.
+     */
     public void showMainGameScene() {
         try {
 
@@ -335,6 +453,9 @@ public class GameManager extends Application {
         }
     }
 
+    /**
+     * Shows the Facebook Login page.
+     */
     public void showFBLoginScene() {
         try {
 
@@ -362,6 +483,9 @@ public class GameManager extends Application {
         }
     }
 
+    /**
+     * Shows the Home scene.
+     */
     public void showHomeScene() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -391,12 +515,17 @@ public class GameManager extends Application {
         }
     }
 
-    /* Ends the Game */
+    /**
+     * Ends game and closes the game scene.
+     */
     public void gameOver() {
         stage.close();
     }
 
-    public static void startSession () {
+    /**
+     * Starts the user session.
+     */
+    public static void startSession() {
         try {
             session = new Session(facebook.getMe().getId(), facebook.getMe().getName(),
                     facebook.getPictureURL(500, 500).toString());
@@ -408,7 +537,9 @@ public class GameManager extends Application {
         }
     }
 
-    /* Game Starts/Resets here */
+    /**
+     *  Starts/Restarts the game: all values are initialized to defaults.
+     */
     public void startGame() {
         Score = 0;
         setRiddleType((ThreadLocalRandom.current().nextInt(0, 1 + 1) == 0) ? RiddleType.TEXT : RiddleType.IMAGE);
