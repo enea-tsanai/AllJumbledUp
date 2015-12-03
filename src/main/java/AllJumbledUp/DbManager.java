@@ -17,12 +17,13 @@ import java.util.*;
  * Time: 2:39 AM.
  */
 
-
 public class DbManager {
 
     private static MongoDatabase db;
 
-    /* Key riddle pair */
+    /**
+     *  Key riddle pair.
+     */
     private static ArrayList<String> KeyRiddle = new ArrayList<String>(2);
 
     public DbManager(String dbName) {
@@ -31,7 +32,9 @@ public class DbManager {
         initDB();
     }
 
-    /* Get Database */
+    /**
+     *  Get Database.
+     */
     public static MongoDatabase getDb(String dbName) throws UnknownHostException {
         MongoClient mongoClient = new MongoClient();
 
@@ -41,7 +44,9 @@ public class DbManager {
         return db;
     }
 
-    /* Import from file to collection */
+    /**
+     *  Import from file to collection.
+     */
     public static void dbImport(String inputFilename, MongoCollection<Document> collection) {
         try {
             try (BufferedReader reader = new BufferedReader(new FileReader(inputFilename))) {
@@ -55,6 +60,9 @@ public class DbManager {
         }
     }
 
+    /**
+     * Clean all the collections data in mongod.
+     */
     public static void cleanDB() {
         /* Clear jumbled words*/
         db.getCollection("jumbled_words").deleteMany(new Document());
@@ -63,7 +71,9 @@ public class DbManager {
         db.getCollection("key_image_riddles").deleteMany(new Document());
     }
 
-    /* Init the DB: Import all jumbled words and final words-story pairs */
+    /**
+     *  Init the DB: Import all jumbled words and final words-story pairs.
+     */
     public static void initDB() {
         if (db.getCollection("jumbled_words").count() < 1) {
         /* Import jumbled words */
@@ -85,6 +95,9 @@ public class DbManager {
         }
     }
 
+    /**
+     * Insert user if not exists.
+     */
     public static void manageUser () {
         switch (GameManager.getGameMode()) {
             case FreePlay:
@@ -108,10 +121,7 @@ public class DbManager {
     }
 
     public static void saveScore (int score) {
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        //get current date time
         Date date = new Date();
-
         // Store Score and DateTime
         db.getCollection("FB_users").updateOne(new Document("_id", Session.getSessionID()),
                 new Document("$push", new Document("Scores", new Document()
@@ -119,6 +129,10 @@ public class DbManager {
                         .append("DateTime", date))));
     }
 
+    /**
+     * Returns the users scores.
+     * @return the users scores.
+     */
     @SuppressWarnings("unchecked")
     public static ArrayList<Document> getMyScoreHistory () {
         FindIterable<Document> player = db.getCollection("FB_users").find(new Document("_id",
@@ -128,17 +142,17 @@ public class DbManager {
         if (player.first().containsKey("Scores")) {
             ArrayList<Document> scores = (ArrayList<Document>) player.first().get("Scores");
 
-            Collections.sort(scores, new Comparator<Document>() {
-                public int compare(Document s1, Document s2) {
-                    return (int) s2.get("Score") - (int) s1.get("Score");
-                }
-            });
+            Collections.sort(scores, (s1, s2) -> (int) s2.get("Score") - (int) s1.get("Score"));
             System.out.println(scores);
             return scores;
         }
         return new ArrayList<>();
     }
 
+    /**
+     * Returns best score of top players.
+     * @return best score of top players.
+     */
     @SuppressWarnings("unchecked")
     public static ArrayList<Document> getPlayersHighscores () {
         ArrayList<Document> playersHighscores = new ArrayList<>();
@@ -165,18 +179,25 @@ public class DbManager {
         return playersHighscores;
     }
 
-    /* Log collection documents */
+    /**
+     *  Log collection documents.
+     */
     public static void printCollection(String collection) {
         FindIterable<Document> iterable = db.getCollection(collection).find();
         iterable.forEach((Block<Document>) System.out::println);
     }
 
+    /**
+     * Prints collection.
+     * @param iterable of collection.
+     */
     public static void printCollection(FindIterable<Document> iterable) {
         iterable.forEach((Block<Document>) System.out::println);
     }
 
-    //TODO: Add some randomness
-    /* The Final word and story pair are produced here */
+    /**
+     *  Generates the final word and riddle pair.
+     */
     public static ArrayList<String> generateFinalWordStoryPair() {
         int min, max, numOfLetters;
 
@@ -257,13 +278,18 @@ public class DbManager {
         return KeyRiddle;
     }
 
-    /* The Final word and story pair are produced here */
+    /**
+     * Generates the final word and riddle pair.
+     */
     public static ArrayList<String> getFinalWordStoryPair() {
         return KeyRiddle;
     }
 
-    /* Generate the proper jumbled words
-     * Todo: check what happens if no words are found for the desired length */
+    /**
+     * Generates the proper jumbled words - Implementation of jumbled words
+     * selection algorithm.
+     * Todo: check what happens if no words are found for the desired length
+     */
     public static ArrayList<ArrayList<String>> getJumbledWords () {
         // the proper words that contain characters of the final word
         ArrayList<ArrayList<String>> jumbled_words = new ArrayList<>();
