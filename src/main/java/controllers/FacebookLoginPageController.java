@@ -55,8 +55,7 @@ public class FacebookLoginPageController {
 
         final StringBuffer code = new StringBuffer();
 
-        // TODO: fix params: hide codes
-        // Capture response
+        // Captures response
         webEngine.setOnStatusChanged(event -> {
             if ((event.getSource() instanceof WebEngine) && (!isTokenFound)) {
 

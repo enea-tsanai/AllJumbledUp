@@ -6,7 +6,7 @@ package AllJumbledUp;
  * Time: 2:52 AM.
  */
 
-//TODO: Add Score history
+//TODO: Add fetching score history method
 public class Session {
     private static String SessionID;
     private static String FullName;
