@@ -23,3 +23,72 @@
 {"key":"Clock","riddle":"If you look at the numbers on my face, you won't find thirteen anyplace","timesUsed": 0}
 {"key":"Mushroom","riddle":"What room can no one enter?","timesUsed": 0}
 {"key":"Quicksand","riddle":"What can drown a man while he stays dry?","timesUsed": 0}
+{"key":"Telephone","riddle":"You answer me although I never ask you a question. What am I?","timesUsed": 0}
+{"key":"Onion","riddle":"Take off my skin; I won't cry, but you will. What am I?","timesUsed": 0}
+{"key":"Towel","riddle":"The more it dries, the wetter it gets.","timesUsed": 0}
+{"key":"Stairs","riddle":"What goes up and down without moving?","timesUsed": 0}
+{"key":"Goose","riddle":"What grows up while growing down?","timesUsed": 0}
+{"key":"Yardstick","riddle":"What has a foot on each side and one in the middle?","timesUsed": 0}
+{"key":"Ocean","riddle":"What has no beginning, end, or middle and touches every continent?","timesUsed": 0}
+{"key":"Doughnut","riddle":"What has no beginning, end, or middle?","timesUsed": 0}
+{"key":"Mountain","riddle":"What has roots as nobody sees, is taller than trees. Up, up, up it goes and yet it never grows?","timesUsed": 0}
+{"key":"Wind","riddle":"Voiceless it cries, wingless flutters, toothless bites, mouthless mutters?","timesUsed": 0}
+{"key":"Time","riddle":"This thing all things devours: birds, beasts, trees, flowers; gnaws iron, bites steel; grinds hard stones to meal; slays king, ruins town, and beats high mountain down.","timesUsed": 0}
+{"key":"Russians","riddle":"What people are always in a hurry?","timesUsed": 0}
+{"key":"Applesauce","riddle":"How do you divide 17 apples among 16 people?","timesUsed": 0}
+{"key":"Lawsuit","riddle":"What is it that no man wants to have but no man wants to lose?","timesUsed": 0}
+{"key":"Glove","riddle":"What has neither flesh, bone, nor nail yet has 4 fingers and a thumb?","timesUsed": 0}
+{"key":"River","riddle":"What won't run long without winding?","timesUsed": 0}
+{"key":"Library","riddle":"What has branches and leaves but no bark?","timesUsed": 0}
+{"key":"Boomerang","riddle":"What do you throw away that keeps coming back?","timesUsed": 0}
+{"key":"Joke","riddle":"I can be cracked, made, told, and played. What am I?","timesUsed": 0}
+{"key":"Soap","riddle":"I shrink smaller every time I take a bath. What am I?","timesUsed": 0}
+{"key":"Hole","riddle":"The more you take away from me, the bigger I shall get. What am I?","timesUsed": 0}
+{"key":"Cold","riddle":"You can catch me but cannot throw me. What am I?","timesUsed": 0}
+{"key":"Ohio","riddle":"As a state in America. I am round on both sides and high in the middle. What am I?","timesUsed": 0}
+{"key":"Coin","riddle":"I have a head, tail, but no arms and legs. What am I?","timesUsed": 0}
+{"key":"Nose","riddle":"I am constantly overlooked by everyone but everyone has me. What am I?","timesUsed": 0}
+{"key":"Tree","riddle":"My rings are not worth much, but they do tell my age. What am I?","timesUsed": 0}
+{"key":"Book","riddle":"I have no voice but I can teach you all there is to know. I have spines and hinges but I am not a door. Once I've told you all, I cannot tell you more. What am I?","timesUsed": 0}
+{"key":"Breath","riddle":"Lighter than feather and softer than silk, yet the strongest man in the world cannot hold me for more than a few minutes. What am I?","timesUsed": 0}
+{"key":"Carpet","riddle":"Soft, hairy, from door to door. I am the pet that always stays on the floor. What am I?","timesUsed": 0}
+{"key":"Candle","riddle":"I am quick when I'm thin. I am slow when I'm fat. Wind is my worst nightmare. What am I?","timesUsed": 0}
+{"key":"Secret","riddle":"If you have me, you want to share me. Once you share me, you won't have me. What am I?","timesUsed": 0}
+{"key":"Sponge","riddle":"I am full of holes but still holds water. What am I?","timesUsed": 0}
+{"key":"Castle","riddle":"With a halo of water and a tongue of wood, stone as skin long I stood. What am I?","timesUsed": 0}
+{"key":"Temper","riddle":"If you lose me you may cause people around me to lose me too. What am I?","timesUsed": 0}
+{"key":"Silence","riddle":"I will disappear every time you say my name. What am I?","timesUsed": 0}
+{"key":"Stapler","riddle":"I have fangs and enjoy piecing holes with a single bit. What am I?","timesUsed": 0}
+{"key":"Compass","riddle":"I dance on one feet and knows only one shape. Someone with same name as me is very good with directions. What am I?","timesUsed": 0}
+{"key":"Lounger","riddle":"I am a word. I become longer when the third letter is removed. What am I?","timesUsed": 0}
+{"key":"Tea Bag","riddle":"I go in dry and come out wet. The longer I stay in, the stronger my surroundings get. What am I?","timesUsed": 0}
+{"key":"Popcorn","riddle":"I make a loud noise when changing jacket, becomes bigger and delicious. What am I?","timesUsed": 0}
+{"key":"Nothing","riddle":"I am owned by the poor, the rich does not need me. If you eat me, you will die! What am I?","timesUsed": 0}
+{"key":"Lawsuit","riddle":"You do not want me when you don’t have me, but when you have me you don’t want to lose me.","timesUsed": 0}
+{"key":"Mercury","riddle":"I climb higher as I get hotter. I can never escape from my crystal cage. What am I?","timesUsed": 0}
+{"key":"Mushroom","riddle":"I am the type of room you can not enter or leave. Raise from the ground below. I could be poisonous or a delicious treat. What am I?","timesUsed": 0}
+{"key":"Footstep","riddle":"The more you take of me, the more you leave behind. What am I?","timesUsed": 0}
+{"key":"Kangaroo","riddle":"I jump when I walk and sit when I stand. What am I?","timesUsed": 0}
+{"key":"Darkness","riddle":"The more you have me the less you see. Shine a light on me and I flea. What am I?","timesUsed": 0}
+{"key":"Hourglass","riddle":"I have two bodies joined together as one. When standing still. I ran and ran. What am I?","timesUsed": 0}
+{"key":"Knowledge","riddle":"I can never be stolen from you. I am owned by everyone. Some have more, some have less. What am I?","timesUsed": 0}
+{"key":"Wholesome","riddle":"When you take away the whole from me, there is always some left. What am I?","timesUsed": 0}
+{"key":"Telephone","riddle":"I have a ring but no fingers. I used to stay still all the time, but nowadays I follow you around. What am I?","timesUsed": 0}
+{"key":"Cigarette","riddle":"I am not a toy, though many use me for pleasure. I have a butt, but I cannot poop. What am I?","timesUsed": 0}
+{"key":"Newspaper","riddle":"I am black, white, and read all over. What am I?","timesUsed": 0}
+{"key":"Friendship","riddle":"I am a ship that can be made to ride the greatest waves. I am not built by objects, but built by minds. What am I?","timesUsed": 0}
+{"key":"Strawberry","riddle":"I am a fruit with seed on the outside. What am I?","timesUsed": 0}
+{"key":"Chalkboard","riddle":"I am clean when I'm black, dirty when I'm white. What am I?","timesUsed": 0}
+{"key":"Television","riddle":"I am a portal to another world which you cannot enter. Only you can see me but I can't see you. What am I ??","timesUsed": 0}
+{"key":"Bookkeeper","riddle":"I am an English word with 3 consecutive double letters. What am I ??","timesUsed": 0}
+{"key":"Sunglasses","riddle":"Against the sun, I protect your eyes and am often worn on the face of spies. What am I ??","timesUsed": 0}
+{"key":"Reflection","riddle":"I can be found in water but never wet. What am I ??","timesUsed": 0}
+{"key":"Calculator","riddle":"I am a mini solar powered computer. What am I ??","timesUsed": 0}
+{"key":"Accountant","riddle":"I am the kind of ant that's good at math. What am I ??","timesUsed": 0}
+{"key":"Calculator","riddle":"I am a mini solar powered computer. What am I ??","timesUsed": 0}
+{"key":"Microphone","riddle":"I say everything I hear to others around. I'm not an animal, nor part of the human race. I will, immediately, repeat after you; But only if my tail is in place. What am I ??","timesUsed": 0}
+{"key":"Fingernails","riddle":"I can be long or short. I can be grown or bought. I can be painted or left bare. My tip can be round or square. (one word) What am I?","timesUsed": 0}
+{"key":"Forgiveness","riddle":"I may only be given but never bought. Sinners seek me but saints do not. What am I?","timesUsed": 0}
+{"key":"Electricity","riddle":"I drift forever with the current and flows to your everyday life. I make living easy but I am good at killing people too. What am I?","timesUsed": 0}
+{"key":"Marshmallow","riddle":"I am not alive and yet I grow. Just put me next to where it grows. A favorite of the summertime, best with friends when combined. What am I ??","timesUsed": 0}
+{"key":"Imagination","riddle":"I soar without wings, I see without eyes. I've traveled the universe to and fro. I've conquered the world, yet I've never been anywhere but home. What am I ??","timesUsed": 0}

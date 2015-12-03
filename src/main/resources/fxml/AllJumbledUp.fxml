@@ -49,7 +49,7 @@
                 </VBox>
             </top>
             <center>
-                <VBox prefHeight="414.0" prefWidth="Infinity" scaleShape="false" alignment="CENTER" BorderPane.alignment="CENTER">
+                <VBox prefWidth="Infinity" scaleShape="false" alignment="CENTER" BorderPane.alignment="CENTER">
                     <children>
                         <Region prefHeight="30.0" prefWidth="Infinity" />
                         <HBox spacing="30" fx:id="A1" alignment="CENTER" prefWidth="Infinity">

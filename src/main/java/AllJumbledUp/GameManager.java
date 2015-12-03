@@ -22,20 +22,20 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GameManager extends Application {
 
-    public enum DifficultyLevel {
-        EASY, MEDIUM, HARD
-    }
-
-    public static enum ExitFlag {
-        TIME_UP, SOLVED_RIDDLE, EXIT_GAME
-    }
-
     public static enum GameMode {
         FacebookUser, FreePlay
     }
 
     public static enum RiddleType {
         TEXT, IMAGE
+    }
+
+    public static enum ExitFlag {
+        TIME_UP, SOLVED_RIDDLE, EXIT_GAME
+    }
+
+    public enum DifficultyLevel {
+        EASY, MEDIUM, HARD
     }
 
     public static Facebook facebook;
@@ -55,7 +55,7 @@ public class GameManager extends Application {
     private static boolean fxSounds = true;
     private static int timer; //Timer in seconds
     private static final double WINDOW_MIN_HEIGHT = 600;
-    private static final double WINDOW_MIN_WIDTH = 800;
+    private static final double WINDOW_MIN_WIDTH = 850;
 
     /* Words Dictionaries */
     private List <JumbledWord> JumbledWords = new ArrayList<>();
@@ -73,35 +73,9 @@ public class GameManager extends Application {
         loadFxSounds();
     }
 
-    public void startGame() {
-        setRiddleType((ThreadLocalRandom.current().nextInt(0, 1 + 1) == 0) ? RiddleType.TEXT : RiddleType.IMAGE);
-//        setRiddleType(RiddleType.IMAGE);
-        DbManager.generateFinalWordStoryPair();
-        assignFW(DbManager.getFinalWordStoryPair());
-        assignJumbledWords(DbManager.getJumbledWords());
-        setTimer();
-    }
-
-    /* Assign Final Word */
-    public void assignFW(ArrayList<String> key_pair) {
-        JW = key_pair.get(0);
-        Story = key_pair.get(1);
-        System.out.println("FW: " + JW + " Riddle: " + Story);
-    }
-
-    /* Generate the game's jumbled words */
-    public void assignJumbledWords(ArrayList<ArrayList<String>> jumbleWordPairs) {
-        if(!JumbledWords.isEmpty()) {
-            JumbledWords.clear();
-        }
-        for (ArrayList<String> jumbleWordPair : jumbleWordPairs) {
-            JumbledWords.add(new JumbledWord(jumbleWordPair.get(0), jumbleWordPair.get(1)));
-        }
-    }
-
+    /* Shuffle the list of jumbled words and return it */
     public List<JumbledWord> getJumbledWords() {
         long seed = System.nanoTime();
-        /* Shuffle list */
         Collections.shuffle(JumbledWords, new Random(seed));
         return JumbledWords;
     }
@@ -122,16 +96,32 @@ public class GameManager extends Application {
         return backgroundMusic;
     }
 
+    public boolean getFxSounds() {
+        return fxSounds;
+    }
+
+    public static GameMode getGameMode () {
+        return gameMode;
+    }
+
+    public static RiddleType getRiddleType () {
+        return riddleType;
+    }
+
+    public int getTimer(){
+        return timer;
+    }
+
+    public int getScore() {
+        return Score;
+    }
+
     public void setBackgroundMusic(boolean isSoundOn) {
         backgroundMusic = isSoundOn;
         if (!backgroundMusic) {
             mediaPlayer.setMute(true);
         } else
             mediaPlayer.setMute(false);
-    }
-
-    public boolean getFxSounds() {
-        return fxSounds;
     }
 
     public void setFxSounds(boolean isSoundOn) {
@@ -152,31 +142,44 @@ public class GameManager extends Application {
                 timer = 240;
                 break;
             case MEDIUM:
-                timer = 240;
+                timer = 210;
                 break;
             case HARD:
-                timer = 240;
+                timer = 180;
                 break;
             default:
                 timer = 240;
         }
     }
 
-    public static GameMode getGameMode () {
-        return gameMode;
-    }
-
     public void setGameMode (GameMode gm) {
         gameMode = gm;
-    }
-
-    public static RiddleType getRiddleType () {
-        return riddleType;
     }
 
     public void setRiddleType (RiddleType rt) {
         System.out.println("Riddle type: " + rt);
         riddleType = rt;
+    }
+
+    public static void setFBOAuthAccessToken (AccessToken at) {
+        facebook.setOAuthAccessToken(at);
+    }
+
+    /* Assign Final Word */
+    public void assignFW(ArrayList<String> key_pair) {
+        JW = key_pair.get(0);
+        Story = key_pair.get(1);
+        System.out.println("FW: " + JW + " Riddle: " + Story);
+    }
+
+    /* Generate the game's jumbled words */
+    public void assignJumbledWords(ArrayList<ArrayList<String>> jumbleWordPairs) {
+        if(!JumbledWords.isEmpty()) {
+            JumbledWords.clear();
+        }
+        for (ArrayList<String> jumbleWordPair : jumbleWordPairs) {
+            JumbledWords.add(new JumbledWord(jumbleWordPair.get(0), jumbleWordPair.get(1)));
+        }
     }
 
     public String updateTimer() {
@@ -186,10 +189,6 @@ public class GameManager extends Application {
         String s = Integer.toString(timer % 60);
         s = (s.length() < 2) ? "0" + s : s ;
         return "Time: " + m + ":" + s;
-    }
-
-    public int getTimer(){
-        return timer;
     }
 
     /* Final score when the riddle is found */
@@ -217,10 +216,6 @@ public class GameManager extends Application {
             }
             Score += baseScore + timeRemaining * pointsPerTimeRemaining;
         }
-    }
-
-    public int getScore() {
-        return Score;
     }
 
     public void saveScore() {
@@ -275,32 +270,6 @@ public class GameManager extends Application {
             mediaPlayer.play();
             mediaPlayer.setCycleCount(Timeline.INDEFINITE);
         }
-    }
-
-    public static void setFBOAuthAccessToken (AccessToken at) {
-        facebook.setOAuthAccessToken(at);
-    }
-
-    public static void startSession () {
-        try {
-            session = new Session(facebook.getMe().getId(), facebook.getMe().getName(),
-                    facebook.getPictureURL(500, 500).toString());
-            //todo: check manage user
-            DbManager.manageUser();
-            System.out.println(GameManager.session);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        stage = primaryStage;
-        showHomeScene();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 
     public void showMainMenuScene() {
@@ -427,4 +396,35 @@ public class GameManager extends Application {
         stage.close();
     }
 
+    public static void startSession () {
+        try {
+            session = new Session(facebook.getMe().getId(), facebook.getMe().getName(),
+                    facebook.getPictureURL(500, 500).toString());
+            //todo: check manage user
+            DbManager.manageUser();
+            System.out.println(GameManager.session);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* Game Starts/Resets here */
+    public void startGame() {
+        Score = 0;
+        setRiddleType((ThreadLocalRandom.current().nextInt(0, 1 + 1) == 0) ? RiddleType.TEXT : RiddleType.IMAGE);
+        DbManager.generateFinalWordStoryPair();
+        assignFW(DbManager.getFinalWordStoryPair());
+        assignJumbledWords(DbManager.getJumbledWords());
+        setTimer();
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
+        showHomeScene();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 }

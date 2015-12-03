@@ -17,8 +17,7 @@ import java.util.*;
  * Time: 2:39 AM.
  */
 
-//TODO: implement users and sessions
-//TODO: Check dictionary for existing words with 11, 12 letters etc.
+
 public class DbManager {
 
     private static MongoDatabase db;
@@ -216,13 +215,27 @@ public class DbManager {
                 collection = "key_image_riddles";
         }
 
+        int wordLength = numOfLetters;
+        // Checking from max to zero
         do {
             /* Sort by usage */
             iterableKR = db.getCollection(collection)
-                .find(new BasicDBObject("$where", "this.key.length==" + numOfLetters))
+                .find(new BasicDBObject("$where", "this.key.length==" + wordLength))
                 .sort(new Document("timesUsed", 1));
-            numOfLetters --;
-        } while (iterableKR.first() == null && numOfLetters > 0);
+            wordLength --;
+        } while (iterableKR.first() == null && wordLength > 0);
+
+        wordLength = numOfLetters;
+        if (null == iterableKR.first()) {
+            // Checking from max to zero
+            do {
+            /* Sort by usage */
+                iterableKR = db.getCollection(collection)
+                        .find(new BasicDBObject("$where", "this.key.length==" + wordLength))
+                        .sort(new Document("timesUsed", 1));
+                wordLength++;
+            } while (iterableKR.first() == null && numOfLetters < 15);
+        }
 
         String key = iterableKR.first().get("key").toString();
         String riddle ="";
