@@ -1,12 +1,13 @@
-{"key":"piaster","riddle":"riddle3","timesUsed": 0}
+{"key":"clueless","riddle":"riddle2","timesUsed": 0}
 {"key":"records","riddle":"riddle6","timesUsed": 0}
 {"key":"fuming","riddle":"riddle7","timesUsed": 0}
 {"key":"knockouts","riddle":"riddle8","timesUsed": 0}
 {"key":"gorges","riddle":"riddle9","timesUsed": 0}
 {"key":"pierced","riddle":"riddle10","timesUsed": 0}
-{"key":"laser","riddle":"riddle11","timesUsed": 0}
+{"key":"safer","riddle":"riddle11","timesUsed": 0}
+{"key":"slipped","riddle":"riddle13","timesUsed": 0}
 {"key":"excelled","riddle":"riddle16","timesUsed": 0}
-{"key":"chiels","riddle":"riddle17","timesUsed": 0}
+{"key":"busted","riddle":"riddle17","timesUsed": 0}
 {"key":"cannabis","riddle":"riddle19","timesUsed": 0}
 {"key":"domesticated","riddle":"riddle20","timesUsed": 0}
 {"key":"thomas","riddle":"riddle21","timesUsed": 0}
@@ -14,3 +15,4 @@
 {"key":"nothing","riddle":"riddle23","timesUsed": 0}
 {"key":"shaky","riddle":"riddle24","timesUsed": 0}
 {"key":"beaming","riddle":"riddle26","timesUsed": 0}
+{"key":"noteworthy","riddle":"riddle27","timesUsed": 0}
