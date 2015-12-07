@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by enea.
@@ -19,6 +21,8 @@ import java.util.*;
  */
 
 public class DbManager {
+
+    private static Logger logger = Logger.getLogger("AllJumbledUp");
 
     /**
      * The Mongod reference.
@@ -31,9 +35,19 @@ public class DbManager {
     private static ArrayList<String> KeyRiddle = new ArrayList<String>(2);
 
     public DbManager(String dbName) {
-        MongoClient mongoClient = new MongoClient();
-        db = mongoClient.getDatabase(dbName);
-        initDB();
+        try {
+            MongoClient mongoClient = new MongoClient();
+            db = mongoClient.getDatabase(dbName);
+            initDB();
+        } catch (MongoTimeoutException e) {
+            logger.log(Level.WARNING, "\nMongod process is probably not running. Trying to start mongod process.. \n");
+            try {
+                new ProcessBuilder("mongod").start();
+            } catch (Exception p) {
+                logger.log(Level.SEVERE, "Could not start mongod process", p);
+            }
+        }
+        logger.log(Level.INFO, "\nMongo connection successful..\n");
     }
 
     /**
@@ -165,9 +179,6 @@ public class DbManager {
 
                 // Sort scores for this player - highest first
                 Collections.sort(scores, (s1, s2) -> (int) s2.get("Score") - (int) s1.get("Score"));
-
-                // Player FullName, Highscore, Datetime
-                System.out.println("FullName: " + player.get("FullName"));
 
                 Document playerHighScore = new Document()
                         .append("FullName", player.get("FullName"))
@@ -384,7 +395,7 @@ public class DbManager {
                 numOfLetters --;
             } while (it.first() == null && numOfLetters > 0);
 
-            System.out.println("Bucket: " + conditions.toString());
+            logger.log(Level.INFO, "Bucket: " + conditions.toString());
 
             String jumbledWord = it.first().get("word").toString();
             String timesUsed = it.first().get("timesUsed").toString();
@@ -398,7 +409,7 @@ public class DbManager {
             inner.add(specialChars.toLowerCase());
             jumbled_words.add(inner);
         }
-        System.out.println(jumbled_words);
+        logger.log(Level.INFO, jumbled_words.toString());
         return jumbled_words;
     }
 }
