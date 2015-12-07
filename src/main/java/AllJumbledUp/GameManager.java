@@ -355,7 +355,6 @@ public class GameManager extends Application {
      * Loads the Music clips by populating the music clips hashmap.
      */
     public void loadMusicClips() {
-        musicClips.put("background1", new Media(getClass().getResource("/sounds/HotlineBling.mp3").toString()));
         musicClips.put("start", new Media(getClass().getResource("/sounds/ambient-loop_1.mp3").toString()));
         musicClips.put("GameOn1", new Media(getClass().getResource("/sounds/countdown.wav").toString()));
         musicClips.put("GameOn2", new Media(getClass().getResource("/sounds/groove.wav").toString()));
@@ -542,7 +541,8 @@ public class GameManager extends Application {
      */
     public void startGame() {
         Score = 0;
-        setRiddleType((ThreadLocalRandom.current().nextInt(0, 1 + 1) == 0) ? RiddleType.TEXT : RiddleType.IMAGE);
+//        setRiddleType((ThreadLocalRandom.current().nextInt(0, 1 + 1) == 0) ? RiddleType.TEXT : RiddleType.IMAGE);
+        setRiddleType(RiddleType.IMAGE);
         DbManager.generateFinalWordStoryPair();
         assignFW(DbManager.getFinalWordStoryPair());
         assignJumbledWords(DbManager.getJumbledWords());
