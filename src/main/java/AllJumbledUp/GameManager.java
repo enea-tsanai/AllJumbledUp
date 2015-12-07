@@ -541,8 +541,7 @@ public class GameManager extends Application {
      */
     public void startGame() {
         Score = 0;
-//        setRiddleType((ThreadLocalRandom.current().nextInt(0, 1 + 1) == 0) ? RiddleType.TEXT : RiddleType.IMAGE);
-        setRiddleType(RiddleType.IMAGE);
+        setRiddleType((ThreadLocalRandom.current().nextInt(0, 1 + 1) == 0) ? RiddleType.TEXT : RiddleType.IMAGE);
         DbManager.generateFinalWordStoryPair();
         assignFW(DbManager.getFinalWordStoryPair());
         assignJumbledWords(DbManager.getJumbledWords());
