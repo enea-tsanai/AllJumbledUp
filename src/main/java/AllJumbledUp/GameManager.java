@@ -9,9 +9,15 @@ import facebook4j.FacebookException;
 import facebook4j.auth.AccessToken;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -82,12 +88,19 @@ public class GameManager extends Application {
      * Constructor
      */
     public GameManager() {
-        new DbManager("AllJumbledUp");
-        // db.cleanDB();
-        session = new Session();
-        loadMusicClips();
-        loadFxSounds();
+        System.out.println("Constructor running!");
     }
+
+//    /**
+//     * Loads Game data like wordlist from database, images, sounds etc.
+//     */
+//    private void loadGameData() {
+//        new DbManager("AllJumbledUp");
+//        // db.cleanDB();
+//        session = new Session();
+//        loadMusicClips();
+//        loadFxSounds();
+//    }
 
     /**
      *  Shuffles the list of jumbled words and returns it.
@@ -514,6 +527,30 @@ public class GameManager extends Application {
         }
     }
 
+    public void showLoadingScene(Label loadLabel) {
+        try {
+            VBox loading = new VBox(20);
+            loading.setMaxWidth(Region.USE_PREF_SIZE);
+            loading.setMaxHeight(Region.USE_PREF_SIZE);
+            loading.getChildren().add(new ProgressBar());
+            loadLabel.setText("Initializing...");
+            loading.getChildren().add(loadLabel);
+
+            BorderPane root = new BorderPane(loading);
+            Scene JumbleScene = new Scene(root);
+
+            stage.setTitle("All Jumbled Up - Loading Data...");
+            stage.setScene(JumbleScene);
+            stage.setResizable(true);
+            stage.setMinHeight(200);
+            stage.setMinWidth(600);
+
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Ends game and closes the game scene.
      */
@@ -551,7 +588,60 @@ public class GameManager extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        showHomeScene();
+        Label loadLabel = new Label();
+        showLoadingScene(loadLabel);
+
+        // Load Data task
+        Task<Void> task = new Task<Void>() {
+            @Override
+            public Void call() throws InterruptedException {
+                String message = "Initializing..\n";
+                updateMessage(message);
+                Thread.sleep(1500);
+                message += "Connecting to database..\n";
+                updateMessage(message);
+                new DbManager("AllJumbledUp");
+
+                if (!DbManager.connect()) {
+                    Thread.sleep(1500);
+                    message += "Mongod process is probably not running.." +
+                            "Trying to start mongod process.\n";
+                    updateMessage(message);
+                    if (!DbManager.startMongodProcess()) {
+                        Thread.sleep(1500);
+                        message += "Could not start mongod process. Try to start mongod manually..\n";
+                        updateMessage(message);
+                    }
+                    else {
+                        Thread.sleep(1500);
+                        message += "Force start successful.\n";
+                        updateMessage(message);
+                    }
+                } else {
+                    Thread.sleep(1500);
+                    message += "Connection Established.\n";
+                    updateMessage(message);
+                }
+                session = new Session();
+                Thread.sleep(1500);
+                message += "Loading Sounds..";
+                updateMessage(message);
+                loadMusicClips();
+                loadFxSounds();
+                Thread.sleep(3000);
+                return null ;
+            }
+        };
+        loadLabel.textProperty().bind(task.messageProperty());
+        task.setOnSucceeded(event -> {
+                    showHomeScene();
+                    loadLabel.textProperty().unbind();
+                    loadLabel.setText("All data loaded.");
+                }
+        );
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
     }
 
     public static void main(String[] args) {

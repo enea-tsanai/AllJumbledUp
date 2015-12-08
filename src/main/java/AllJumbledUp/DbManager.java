@@ -35,19 +35,37 @@ public class DbManager {
     private static ArrayList<String> KeyRiddle = new ArrayList<String>(2);
 
     public DbManager(String dbName) {
+        MongoClient mongoClient = new MongoClient();
+        db = mongoClient.getDatabase(dbName);
+    }
+
+    /**
+     * Connect to db and initialize collections.
+     * @return: true if the connection is succesfull.
+     */
+    public static boolean connect() {
         try {
-            MongoClient mongoClient = new MongoClient();
-            db = mongoClient.getDatabase(dbName);
             initDB();
         } catch (MongoTimeoutException e) {
             logger.log(Level.WARNING, "\nMongod process is probably not running. Trying to start mongod process.. \n");
-            try {
-                new ProcessBuilder("mongod").start();
-            } catch (Exception p) {
-                logger.log(Level.SEVERE, "Could not start mongod process", p);
-            }
+            return false;
         }
-        logger.log(Level.INFO, "\nMongo connection successful..\n");
+        return true;
+    }
+
+    /**
+     * Attempts to open mongod process when not found.
+     * @return: true if process started sucessfully.
+     */
+    public static boolean startMongodProcess() {
+        try {
+            new ProcessBuilder("mongod").start();
+        } catch (Exception p) {
+            //alert.setHeaderText("Could not start Mondod process.. Please start Mongod process manually.");
+            logger.log(Level.SEVERE, "Could not start mongod process", p);
+            return false;
+        }
+        return true;
     }
 
     /**
